@@ -29,11 +29,19 @@ nav {
 }
 
 nav .brand {
+    display: flex;
+    align-items: center;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--gold-bright);
     letter-spacing: 1px;
     text-decoration: none;
+}
+
+nav .brand-logo {
+    height: 34px;
+    width: 34px;
+    margin-right: 10px;
 }
 
 nav .links a {
