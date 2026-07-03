@@ -1,0 +1,101 @@
+[
+  {
+    "username": "Morpheusxp",
+    "totalLevel": 2277,
+    "totalXp": 299893836,
+    "skills": {
+      "Attack": {
+        "level": 99,
+        "xp": 13036107
+      },
+      "Defence": {
+        "level": 99,
+        "xp": 13036107
+      },
+      "Strength": {
+        "level": 99,
+        "xp": 13067125
+      },
+      "Hitpoints": {
+        "level": 99,
+        "xp": 13064323
+      },
+      "Ranged": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Prayer": {
+        "level": 99,
+        "xp": 13034657
+      },
+      "Magic": {
+        "level": 99,
+        "xp": 13061588
+      },
+      "Cooking": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Woodcutting": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Fletching": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Fishing": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Firemaking": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Crafting": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Smithing": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Mining": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Herblore": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Agility": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Thieving": {
+        "level": 99,
+        "xp": 13042588
+      },
+      "Slayer": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Farming": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Runecrafting": {
+        "level": 99,
+        "xp": 13034431
+      },
+      "Hunter": {
+        "level": 99,
+        "xp": 13034876
+      },
+      "Construction": {
+        "level": 99,
+        "xp": 13034431
+      }
+    }
+  }
+]

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Updates - Morphscape</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/store">Store</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates" class="active">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 60px 20px 40px;">
+    <h1 style="font-size: 2.2rem;">Updates</h1>
+    <p>What's changed recently.</p>
+</div>
+
+<section>
+    <div class="card" style="margin-bottom: 24px;">
+        <h3>Best-in-slot gear pass</h3>
+        <p>Added Scythe of Vitur, Tumeken's Shadow, Zaryte Crossbow, Avernic Defender, full Torva,
+        full Masori, Amulet of Torture, Necklace of Anguish, Tormented Bracelet, and the (i) ring
+        variants. Corrected Sanguinesti Staff's magic attack bonus and level requirement, which
+        were swapped.</p>
+    </div>
+    <div class="card" style="margin-bottom: 24px;">
+        <h3>Crash fix on new gear</h3>
+        <p>Equipping any of the new best-in-slot items was crashing the client outright - a newer
+        model format used by those items wasn't being decoded. Fixed.</p>
+    </div>
+    <div class="card" style="margin-bottom: 24px;">
+        <h3>Visual fixes</h3>
+        <p>Fixed Torva full helm and Masori mask clipping through hair. Fixed Torva platebody and
+        Masori body clipping through arms. Fixed Scythe of Vitur's walk/turn/run animations, which
+        were playing the wrong frames.</p>
+        <p style="margin-top: 10px; color: var(--text-dim); font-size: 0.9rem;">Known issue:
+        Torva platelegs and Masori chaps still clip at the waist - not fixed yet.</p>
+    </div>
+    <div class="card">
+        <h3>Store &amp; website</h3>
+        <p>Added an in-game donation store - purchases are claimed with <code>::redeem</code>.
+        Launched this website with a working Store page. Checkout itself isn't live yet; see the
+        <a href="/store" style="color: var(--gold-bright);">Store</a> page for details.</p>
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 Morphscape. Not affiliated with Jagex Ltd.
+</footer>
+
+</body>
+</html>

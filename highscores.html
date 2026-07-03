@@ -12,18 +12,72 @@
     <a class="brand" href="/">MORPHSCAPE</a>
     <div class="links">
         <a href="/">Home</a>
+        <a href="/play">Play</a>
         <a href="/store">Store</a>
+        <a href="/highscores" class="active">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
     </div>
 </nav>
 
 <div class="hero" style="padding: 60px 20px 40px;">
     <h1 style="font-size: 2.2rem;">Highscores</h1>
-    <p>Leaderboards aren't published to the website yet - check back soon.</p>
+    <p>Ranked by total level, then total experience.</p>
 </div>
+
+<section>
+    <table class="hs-table" id="hs-table" style="display: none;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Total Level</th>
+                <th>Total XP</th>
+            </tr>
+        </thead>
+        <tbody id="hs-body"></tbody>
+    </table>
+    <div class="hs-empty" id="hs-empty">Loading...</div>
+</section>
 
 <footer>
     &copy; 2026 Morphscape. Not affiliated with Jagex Ltd.
 </footer>
+
+<script>
+fetch('/highscores.json')
+    .then(function(res) {
+        if (!res.ok) throw new Error('no data');
+        return res.json();
+    })
+    .then(function(data) {
+        var body = document.getElementById('hs-body');
+        var table = document.getElementById('hs-table');
+        var empty = document.getElementById('hs-empty');
+
+        if (!data || data.length === 0) {
+            empty.textContent = 'No players yet.';
+            return;
+        }
+
+        data.forEach(function(entry, i) {
+            var row = document.createElement('tr');
+            row.innerHTML =
+                '<td class="rank">' + (i + 1) + '</td>' +
+                '<td>' + entry.username + '</td>' +
+                '<td>' + entry.totalLevel + '</td>' +
+                '<td>' + entry.totalXp.toLocaleString() + '</td>';
+            body.appendChild(row);
+        });
+
+        table.style.display = '';
+        empty.style.display = 'none';
+    })
+    .catch(function() {
+        document.getElementById('hs-empty').textContent =
+            "Highscores haven't been published yet - check back soon.";
+    });
+</script>
 
 </body>
 </html>
