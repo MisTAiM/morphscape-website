@@ -231,6 +231,22 @@ section .subtitle {
     color: var(--gold-bright);
 }
 
+.hs-select {
+    background: var(--bg-panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    min-width: 220px;
+    cursor: pointer;
+}
+
+.hs-select:focus {
+    outline: 1px solid var(--gold);
+}
+
 .hs-table {
     width: 100%;
     border-collapse: collapse;

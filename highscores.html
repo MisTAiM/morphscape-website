@@ -28,9 +28,38 @@
 </div>
 
 <section>
+    <div style="text-align: center; margin-bottom: 24px;">
+        <select id="hs-skill-select" class="hs-select">
+            <option value="__overall">Overall</option>
+            <option value="Attack">Attack</option>
+            <option value="Defence">Defence</option>
+            <option value="Strength">Strength</option>
+            <option value="Hitpoints">Hitpoints</option>
+            <option value="Ranged">Ranged</option>
+            <option value="Prayer">Prayer</option>
+            <option value="Magic">Magic</option>
+            <option value="Cooking">Cooking</option>
+            <option value="Woodcutting">Woodcutting</option>
+            <option value="Fletching">Fletching</option>
+            <option value="Fishing">Fishing</option>
+            <option value="Firemaking">Firemaking</option>
+            <option value="Crafting">Crafting</option>
+            <option value="Smithing">Smithing</option>
+            <option value="Mining">Mining</option>
+            <option value="Herblore">Herblore</option>
+            <option value="Agility">Agility</option>
+            <option value="Thieving">Thieving</option>
+            <option value="Slayer">Slayer</option>
+            <option value="Farming">Farming</option>
+            <option value="Runecrafting">Runecrafting</option>
+            <option value="Hunter">Hunter</option>
+            <option value="Construction">Construction</option>
+        </select>
+    </div>
+
     <table class="hs-table" id="hs-table" style="display: none;">
         <thead>
-            <tr>
+            <tr id="hs-head-row">
                 <th>#</th>
                 <th>Player</th>
                 <th>Total Level</th>
@@ -47,33 +76,69 @@
 </footer>
 
 <script>
+var players = null;
+
+var select = document.getElementById('hs-skill-select');
+var headRow = document.getElementById('hs-head-row');
+var body = document.getElementById('hs-body');
+var table = document.getElementById('hs-table');
+var empty = document.getElementById('hs-empty');
+
+function render() {
+    if (!players || players.length === 0) {
+        empty.textContent = 'No players yet.';
+        table.style.display = 'none';
+        empty.style.display = '';
+        return;
+    }
+
+    var skill = select.value;
+    var rows;
+
+    if (skill === '__overall') {
+        headRow.innerHTML = '<th>#</th><th>Player</th><th>Total Level</th><th>Total XP</th>';
+        rows = players.slice().sort(function(a, b) {
+            return b.totalLevel - a.totalLevel || b.totalXp - a.totalXp;
+        }).map(function(p) {
+            return { username: p.username, level: p.totalLevel, xp: p.totalXp };
+        });
+    } else {
+        headRow.innerHTML = '<th>#</th><th>Player</th><th>Level</th><th>XP</th>';
+        rows = players
+            .filter(function(p) { return p.skills && p.skills[skill]; })
+            .map(function(p) {
+                return { username: p.username, level: p.skills[skill].level, xp: p.skills[skill].xp };
+            })
+            .sort(function(a, b) {
+                return b.level - a.level || b.xp - a.xp;
+            });
+    }
+
+    body.innerHTML = '';
+    rows.forEach(function(row, i) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+            '<td class="rank">' + (i + 1) + '</td>' +
+            '<td>' + row.username + '</td>' +
+            '<td>' + row.level + '</td>' +
+            '<td>' + row.xp.toLocaleString() + '</td>';
+        body.appendChild(tr);
+    });
+
+    table.style.display = '';
+    empty.style.display = 'none';
+}
+
+select.addEventListener('change', render);
+
 fetch('/highscores.json')
     .then(function(res) {
         if (!res.ok) throw new Error('no data');
         return res.json();
     })
     .then(function(data) {
-        var body = document.getElementById('hs-body');
-        var table = document.getElementById('hs-table');
-        var empty = document.getElementById('hs-empty');
-
-        if (!data || data.length === 0) {
-            empty.textContent = 'No players yet.';
-            return;
-        }
-
-        data.forEach(function(entry, i) {
-            var row = document.createElement('tr');
-            row.innerHTML =
-                '<td class="rank">' + (i + 1) + '</td>' +
-                '<td>' + entry.username + '</td>' +
-                '<td>' + entry.totalLevel + '</td>' +
-                '<td>' + entry.totalXp.toLocaleString() + '</td>';
-            body.appendChild(row);
-        });
-
-        table.style.display = '';
-        empty.style.display = 'none';
+        players = data;
+        render();
     })
     .catch(function() {
         document.getElementById('hs-empty').textContent =
