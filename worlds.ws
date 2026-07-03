@@ -1,0 +1,10 @@
+<worlds>
+  <world>
+    <id>1</id>
+    <members>true</members>
+    <activity>Morphscape</activity>
+    <address>morphscape.playit.plus</address>
+    <location>0</location>
+    <types>0</types>
+  </world>
+</worlds>
