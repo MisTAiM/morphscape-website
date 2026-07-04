@@ -7,6 +7,7 @@
     --text: #e8dfce;
     --text-dim: #a89c85;
     --red: #8c2f2f;
+    --green: #4caf50;
 }
 
 * { box-sizing: border-box; }
@@ -229,6 +230,47 @@ section .subtitle {
     padding: 2px 6px;
     border-radius: 3px;
     color: var(--gold-bright);
+}
+
+.server-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 auto 20px;
+}
+
+.server-status .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    flex-shrink: 0;
+}
+
+.server-status.online .dot {
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+}
+
+.server-status.online {
+    color: var(--green);
+    border-color: var(--green);
+}
+
+.server-status.offline .dot {
+    background: var(--red);
+    box-shadow: 0 0 6px var(--red);
+}
+
+.server-status.offline {
+    color: #e8a5a5;
+    border-color: var(--red);
 }
 
 .hs-select {

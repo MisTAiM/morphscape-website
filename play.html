@@ -24,6 +24,7 @@
 
 <div class="hero" style="padding: 60px 20px 40px;">
     <h1 style="font-size: 2.2rem;">Play</h1>
+    <div id="server-status" class="server-status"><span class="dot"></span>Checking server status...</div>
     <p>Morphscape is in early testing, but the server is reachable - give it a try.</p>
 </div>
 
@@ -53,8 +54,8 @@
         </div>
         <div class="card">
             <h3>Server offline?</h3>
-            <p>The server only runs when the developer's machine is on and connected - if login
-            fails, it's likely just offline for the moment. Try again later.</p>
+            <p>Check the status badge above - the server only runs when the developer's machine
+            is on and connected, so it can go offline without notice. Try again later.</p>
         </div>
     </div>
 </section>
@@ -63,5 +64,6 @@
     &copy; 2026 Morphscape. Not affiliated with Jagex Ltd.
 </footer>
 
+<script src="/status-widget.js"></script>
 </body>
 </html>
