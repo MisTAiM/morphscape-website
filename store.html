@@ -6,6 +6,9 @@
 <title>Store - Morphscape</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,20 +25,21 @@
     </div>
 </nav>
 
-<div class="hero" style="padding: 60px 20px 40px;">
-    <h1 style="font-size: 2.2rem;">Store</h1>
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Store</h1>
     <p>Support Morphscape's development and get rewarded in game.</p>
 </div>
 
 <section>
-    <div class="notice">
+    <div class="notice reveal">
         Checkout isn't live yet - packages and pricing below are provisional while payment
         processing is being configured. Reach out in game or to staff directly if you'd like
         to support the server before checkout goes live.
     </div>
 
     <div class="packages">
-        <div class="package">
+        <div class="package reveal">
             <h3>Bronze Supporter</h3>
             <div class="price">TBD</div>
             <ul>
@@ -44,7 +48,7 @@
             </ul>
             <a class="btn secondary" href="#" onclick="return false;">Coming Soon</a>
         </div>
-        <div class="package featured">
+        <div class="package featured reveal">
             <span class="tag">Most Popular</span>
             <h3>Silver Supporter</h3>
             <div class="price">TBD</div>
@@ -54,7 +58,7 @@
             </ul>
             <a class="btn secondary" href="#" onclick="return false;">Coming Soon</a>
         </div>
-        <div class="package">
+        <div class="package reveal">
             <h3>Gold Supporter</h3>
             <div class="price">TBD</div>
             <ul>
@@ -67,14 +71,15 @@
 </section>
 
 <section>
+    <div class="divider"><span>&#10022;</span></div>
     <h2>How Claiming Works</h2>
     <p class="subtitle">Once checkout is live, purchases show up in game automatically.</p>
     <div class="features">
-        <div class="card">
+        <div class="card reveal">
             <h3>1. Purchase</h3>
             <p>Complete checkout on this page (coming soon) using the same username as your in-game character.</p>
         </div>
-        <div class="card">
+        <div class="card reveal">
             <h3>2. Claim</h3>
             <p>Type <code>::redeem</code> in game to receive everything tied to your account.</p>
         </div>
@@ -85,5 +90,6 @@
     &copy; 2026 Morphscape. Not affiliated with Jagex Ltd.
 </footer>
 
+<script src="/site.js"></script>
 </body>
 </html>

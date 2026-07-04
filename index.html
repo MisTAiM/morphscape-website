@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Morphscape</title>
+<meta name="description" content="Morphscape - a custom OSRS-based server with bank-standard PvM, custom best-in-slot gear, and a growing world to explore.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,27 +26,31 @@
     </div>
 </nav>
 
-<div class="hero">
+<div class="hero hero-splash">
+    <div class="embers"></div>
     <h1>MORPHSCAPE</h1>
     <div id="server-status" class="server-status"><span class="dot"></span>Checking server status...</div>
     <p>A custom OSRS-based server. Bank-standard PvM, custom BIS gear, and a growing world to explore.</p>
-    <a class="btn" href="/store">Visit Store</a>
-    <a class="btn secondary" href="#play">How to Play</a>
+    <div class="hero-actions">
+        <a class="btn" href="/store">Visit Store</a>
+        <a class="btn secondary" href="#play">How to Play</a>
+    </div>
 </div>
 
 <section id="play">
+    <div class="divider"><span>&#10022;</span></div>
     <h2>Getting Started</h2>
     <p class="subtitle">Everything you need to jump in.</p>
     <div class="features">
-        <div class="card">
+        <div class="card reveal">
             <h3>1. Download the Client</h3>
             <p>Grab the Morphscape client and run it - no account setup needed to get to the login screen.</p>
         </div>
-        <div class="card">
+        <div class="card reveal">
             <h3>2. Create a Character</h3>
             <p>Log in with any username and password to create your account on first login.</p>
         </div>
-        <div class="card">
+        <div class="card reveal">
             <h3>3. Play</h3>
             <p>Type <code>::help</code> in game for a full list of commands, and <code>::redeem</code> to claim any store purchases.</p>
         </div>
@@ -54,5 +62,6 @@
 </footer>
 
 <script src="/status-widget.js"></script>
+<script src="/site.js"></script>
 </body>
 </html>

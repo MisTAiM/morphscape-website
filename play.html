@@ -6,6 +6,9 @@
 <title>Play - Morphscape</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,24 +25,25 @@
     </div>
 </nav>
 
-<div class="hero" style="padding: 60px 20px 40px;">
-    <h1 style="font-size: 2.2rem;">Play</h1>
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Play</h1>
     <div id="server-status" class="server-status"><span class="dot"></span>Checking server status...</div>
     <p>Morphscape is in early testing, but the server is reachable - give it a try.</p>
 </div>
 
 <section>
-    <div class="notice">
+    <div class="notice reveal">
         This is still an early test build - the server runs on the developer's own machine
         (routed through a tunnel, not a dedicated host), so it may go offline without notice,
         and core systems like store checkout are still being finished. The client below
         auto-updates itself on every launch, so you'll always get the latest fixes.
     </div>
 
-    <div style="text-align: center; margin-bottom: 40px;">
+    <div style="text-align: center; margin-bottom: 50px;" class="reveal">
         <a class="btn" href="https://github.com/MisTAiM/morphscape-releases/releases/latest/download/Morphscape-Launcher.zip">
             Download Launcher</a>
-        <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 12px;">
+        <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 16px;">
             Requires Java 11+ (<a href="https://adoptium.net" style="color: var(--gold-bright);">get it free here</a>
             if you don't have it). Extract the zip and run <code>Morphscape-Launcher.bat</code> -
             it downloads and updates the actual client automatically, so run that same file again
@@ -47,12 +51,12 @@
     </div>
 
     <div class="features">
-        <div class="card">
+        <div class="card reveal">
             <h3>Following along?</h3>
             <p>Check the <a href="/updates" style="color: var(--gold-bright);">Updates</a> page
             for what's been fixed and added recently.</p>
         </div>
-        <div class="card">
+        <div class="card reveal">
             <h3>Server offline?</h3>
             <p>Check the status badge above - the server only runs when the developer's machine
             is on and connected, so it can go offline without notice. Try again later.</p>
@@ -65,5 +69,6 @@
 </footer>
 
 <script src="/status-widget.js"></script>
+<script src="/site.js"></script>
 </body>
 </html>

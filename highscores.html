@@ -6,6 +6,9 @@
 <title>Highscores - Morphscape</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,13 +25,14 @@
     </div>
 </nav>
 
-<div class="hero" style="padding: 60px 20px 40px;">
-    <h1 style="font-size: 2.2rem;">Highscores</h1>
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Highscores</h1>
     <p>Ranked by total level, then total experience.</p>
 </div>
 
 <section>
-    <div style="text-align: center; margin-bottom: 24px;">
+    <div style="text-align: center; margin-bottom: 28px;">
         <select id="hs-skill-select" class="hs-select">
             <option value="__overall">Overall</option>
             <option value="Attack">Attack</option>
@@ -57,18 +61,20 @@
         </select>
     </div>
 
-    <table class="hs-table" id="hs-table" style="display: none;">
-        <thead>
-            <tr id="hs-head-row">
-                <th>#</th>
-                <th>Player</th>
-                <th>Total Level</th>
-                <th>Total XP</th>
-            </tr>
-        </thead>
-        <tbody id="hs-body"></tbody>
-    </table>
-    <div class="hs-empty" id="hs-empty">Loading...</div>
+    <div class="hs-table-wrap">
+        <table class="hs-table" id="hs-table" style="display: none;">
+            <thead>
+                <tr id="hs-head-row">
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Total Level</th>
+                    <th>Total XP</th>
+                </tr>
+            </thead>
+            <tbody id="hs-body"></tbody>
+        </table>
+        <div class="hs-empty" id="hs-empty">Loading...</div>
+    </div>
 </section>
 
 <footer>
@@ -145,6 +151,6 @@ fetch('/highscores.json')
             "Highscores haven't been published yet - check back soon.";
     });
 </script>
-
+<script src="/site.js"></script>
 </body>
 </html>
