@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Morphscape</title>
+<meta name="description" content="Support Morphscape's original development. Donations fund the world, story, art, and ongoing work - and never grant in-game advantages. Morphscape is free to play.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/support" class="active">Support</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Support Morphscape</h1>
+    <p>Morphscape is free to play, always. If the world we're building means something to you,
+    you can help fund the work behind it.</p>
+</div>
+
+<section>
+    <!-- The legal backbone of the whole page: donations fund original creative work and grant
+         nothing in-game. This framing is what keeps it a donation, not a sale of game content. -->
+    <div class="notice reveal" style="border-left: 3px solid var(--gold-bright);">
+        <strong>Donations never affect gameplay.</strong> They don't grant items, coins, ranks,
+        or any in-game advantage - and they never will. Morphscape stays 100% free to play for
+        everyone. What your support funds is the <em>original</em> work: the Morphscape Saga story,
+        the world and its art, the music, and the countless hours of development. The rewards below
+        are original digital content and community perks, delivered outside the game.
+    </div>
+
+    <div style="max-width: 760px; margin: 8px auto 36px; color: var(--text-dim); line-height: 1.7;">
+        <p>Think of this like backing an indie creator, not buying power. Every tier is a thank-you
+        made of things we actually made and own - lore, art, music, and a place in the community -
+        never a shortcut through the game.</p>
+    </div>
+
+    <div class="packages">
+        <div class="package reveal">
+            <h3>Supporter</h3>
+            <div class="price">$5<span style="font-size:.5em;color:var(--text-dim);"> / one-time or monthly</span></div>
+            <ul>
+                <li>Supporter role &amp; channel in the Discord</li>
+                <li>Your name on the website's Supporters wall</li>
+                <li>Our genuine thanks - it truly helps</li>
+            </ul>
+            <a class="btn" id="donate-supporter" href="#" target="_blank" rel="noopener">Donate</a>
+        </div>
+        <div class="package featured reveal">
+            <span class="tag">Most Popular</span>
+            <h3>Patron</h3>
+            <div class="price">$15<span style="font-size:.5em;color:var(--text-dim);"> / one-time or monthly</span></div>
+            <ul>
+                <li>Everything in Supporter</li>
+                <li>Exclusive Morphscape wallpaper pack (original art)</li>
+                <li>Early access to new Saga lore chapters</li>
+                <li>Behind-the-scenes dev posts</li>
+            </ul>
+            <a class="btn" id="donate-patron" href="#" target="_blank" rel="noopener">Donate</a>
+        </div>
+        <div class="package reveal">
+            <h3>Loremaster</h3>
+            <div class="price">$40<span style="font-size:.5em;color:var(--text-dim);"> / one-time or monthly</span></div>
+            <ul>
+                <li>Everything in Patron</li>
+                <li>The Morphscape Saga lore compendium (digital)</li>
+                <li>The original soundtrack, when it's ready</li>
+                <li>A vote on where the story goes next</li>
+            </ul>
+            <a class="btn" id="donate-loremaster" href="#" target="_blank" rel="noopener">Donate</a>
+        </div>
+        <div class="package reveal">
+            <h3>Founder</h3>
+            <div class="price">$100+<span style="font-size:.5em;color:var(--text-dim);"> / one-time</span></div>
+            <ul>
+                <li>Everything above</li>
+                <li>Permanent Founder listing on the Supporters wall</li>
+                <li>Direct line to the team for feedback &amp; ideas</li>
+            </ul>
+            <a class="btn" id="donate-founder" href="#" target="_blank" rel="noopener">Donate</a>
+        </div>
+    </div>
+
+    <div style="max-width: 760px; margin: 44px auto 0; text-align:center;">
+        <h2 style="font-family:'Cinzel',serif; font-size:1.5rem; margin-bottom:10px;">Just want to chip in?</h2>
+        <p style="color:var(--text-dim); line-height:1.7; margin-bottom:22px;">
+            No tier, no reward, no strings - a one-time gift of any amount goes straight into
+            keeping the lights on and the work going.</p>
+        <a class="btn secondary" id="donate-any" href="#" target="_blank" rel="noopener">Give any amount</a>
+    </div>
+
+    <div class="notice reveal" style="margin-top:44px; font-size:.9rem; color:var(--text-dim);">
+        Rewards are delivered through Discord and digital downloads, typically within a few days.
+        Donations are voluntary gifts supporting original creative work and are generally
+        non-refundable. Morphscape is an original fan-made project and is not affiliated with,
+        endorsed by, or sponsored by Jagex Ltd.
+    </div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/support">Support</a>
+            <a href="/highscores">Highscores</a>
+            <a href="/updates">Updates</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/voting">Vote (free)</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+<script>
+// Central place to drop your real donation links once your Ko-fi / Patreon is live.
+// Until then the buttons point at the platform's generic sites as a safe placeholder.
+// See SETUP-DONATIONS.md for the exact steps to create these links.
+var DONATION_LINKS = {
+    supporter:  'https://ko-fi.com/',   // e.g. https://ko-fi.com/morphscape
+    patron:     'https://ko-fi.com/',   // or a Patreon tier URL
+    loremaster: 'https://ko-fi.com/',
+    founder:    'https://ko-fi.com/',
+    any:        'https://ko-fi.com/'
+};
+(function () {
+    var map = { 'donate-supporter':'supporter','donate-patron':'patron','donate-loremaster':'loremaster','donate-founder':'founder','donate-any':'any' };
+    Object.keys(map).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = DONATION_LINKS[map[id]] || '#';
+    });
+})();
+</script>
+</body>
+</html>

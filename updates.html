@@ -23,7 +23,7 @@
     <div class="links">
         <a href="/">Home</a>
         <a href="/play">Play</a>
-        <a href="/store">Store</a>
+        <a href="/support">Support</a>
         <a href="/highscores">Highscores</a>
         <a href="/updates" class="active">Updates</a>
         <a href="/rules">Rules</a>
@@ -37,6 +37,9 @@
 </div>
 
 <section>
+    <!-- Live updates published from the admin panel (morphscape-website/updates.json). These
+         render above the static history below and appear the moment they're published. -->
+    <div id="live-updates"></div>
     <div class="card reveal" style="margin-bottom: 24px;">
         <h3>101 custom items</h3>
         <p>Added a full roster of custom Morphscape-exclusive gear across melee, range, and mage -
@@ -94,10 +97,11 @@
         Torva platelegs and Masori chaps still clip at the waist - not fixed yet.</p>
     </div>
     <div class="card reveal">
-        <h3>Store &amp; website</h3>
-        <p>Added an in-game donation store - purchases are claimed with <code>::redeem</code>.
-        Launched this website with a working Store page. Checkout itself isn't live yet; see the
-        <a href="/store" style="color: var(--gold-bright);">Store</a> page for details.</p>
+        <h3>Free to play, always</h3>
+        <p>Morphscape is and stays 100% free to play - nothing in the game is ever sold for real
+        money. If you want to support the original world, story, and art behind it, there's an
+        optional <a href="/support" style="color: var(--gold-bright);">Support</a> page - purely
+        voluntary, with rewards that live outside the game and never touch your account's power.</p>
     </div>
 </section>
 
@@ -113,14 +117,14 @@
         <div class="footer-col">
             <h4>Navigate</h4>
             <a href="/play">Play</a>
-            <a href="/store">Store</a>
+            <a href="/support">Support</a>
             <a href="/highscores">Highscores</a>
             <a href="/updates">Updates</a>
         </div>
         <div class="footer-col">
             <h4>Info</h4>
             <a href="/rules">Rules</a>
-            <a href="/donator">Donator Benefits</a>
+            <a href="/support">Support</a>
             <a href="/voting">Vote</a>
         </div>
     </div>
@@ -130,5 +134,33 @@
 </footer>
 
 <script src="/site.js"></script>
+<script>
+// Render admin-published updates from updates.json above the static history.
+(function () {
+    var host = document.getElementById('live-updates');
+    if (!host) return;
+    fetch('/updates.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (list) {
+            if (!Array.isArray(list) || !list.length) return;
+            list.forEach(function (u) {
+                var card = document.createElement('div');
+                card.className = 'card reveal';
+                card.style.marginBottom = '24px';
+                var meta = document.createElement('p');
+                meta.style.cssText = 'margin:0 0 6px;font-size:.8rem;color:var(--gold-bright);text-transform:uppercase;letter-spacing:.05em;';
+                meta.textContent = (u.tag || 'Update') + ' · ' + (u.date || '');
+                var h = document.createElement('h3');
+                h.textContent = u.title || '';
+                var p = document.createElement('p');
+                p.style.whiteSpace = 'pre-wrap';
+                p.textContent = u.body || '';
+                card.appendChild(meta); card.appendChild(h); card.appendChild(p);
+                host.appendChild(card);
+            });
+        })
+        .catch(function () { /* no live updates yet - static history still shows */ });
+})();
+</script>
 </body>
 </html>
