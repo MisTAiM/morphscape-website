@@ -2,7 +2,25 @@
   {
     "date": "2026-07-15",
     "tag": "New Content",
-    "title": "DT2 bosses & ancient rings live",
-    "body": "Vardorvis, Duke, Leviathan and the Whisperer are here, dropping the four ancient rings and Burning claws."
+    "title": "Desert Treasure II bosses are live",
+    "body": "Four new bosses have arrived: Vardorvis, Duke Sucellus, the Leviathan, and the Whisperer. Each has its own attack patterns and drops one of the four Ancient Rings.\n\nCollect a boss's vestige plus three chromium ingots, then forge your ring: Ultor (melee), Bellator (melee accuracy), Magus (magic), or Venator (ranged). Burning claws also drop, with a triple-hit Burning Barrage special.\n\nTeleport straight to them with ::vardorvis, ::duke, ::leviathan, and ::whisperer."
+  },
+  {
+    "date": "2026-07-15",
+    "tag": "Balance",
+    "title": "The Magus Ring - the definitive mage ring",
+    "body": "The Magus Ring is now the best magic ring in the game, bar none. +50 magic attack (the highest of any item), +20% magic damage, +25 magic defence, and +5 prayer.\n\nOn top of that it carries the Crown of the Magus passive: every spell you cast gains bonus accuracy and damage, and 1-in-6 casts trigger an Arcane Overload - a big damage spike, an arcane burst, and a refund of prayer points. Forge it from Duke Sucellus' magus vestige."
+  },
+  {
+    "date": "2026-07-15",
+    "tag": "Update",
+    "title": "Free to play, always - and a cleaner economy",
+    "body": "Morphscape is 100% free to play. Nothing in the game is sold for real money - every reward is earned by playing.\n\nWe've tightened the in-game economy so every currency has a real way to earn it: PVM points now drop from every monster (scaled to its difficulty), and wilderness points are earned from PvP kills. See the new Ways to Earn page for the full breakdown of every currency, how to earn it, and what it buys.\n\nWant to support the original world, story, and art behind Morphscape? The new Support page is entirely optional and gives nothing in-game."
+  },
+  {
+    "date": "2026-07-14",
+    "tag": "Update",
+    "title": "117HD post-processing: FXAA, Bloom & SSAO",
+    "body": "The 117HD renderer now has optional post-processing: FXAA edge smoothing, bloom glow, and screen-space ambient occlusion for real contact shadows in corners and creases. All off by default - turn them on in the 117HD plugin's Post Processing settings and tune to taste."
   }
 ]
