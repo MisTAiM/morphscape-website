@@ -1,7 +1,7 @@
 [
   {
     "username": "Morpheusxp",
-    "totalLevel": 2253,
+    "totalLevel": 2277,
     "totalXp": 4600000000,
     "skills": {
       "Attack": {
@@ -17,7 +17,7 @@
         "xp": 200000000
       },
       "Hitpoints": {
-        "level": 82,
+        "level": 99,
         "xp": 200000000
       },
       "Ranged": {
@@ -25,7 +25,7 @@
         "xp": 200000000
       },
       "Prayer": {
-        "level": 92,
+        "level": 99,
         "xp": 200000000
       },
       "Magic": {
@@ -100,8 +100,8 @@
   },
   {
     "username": "Kremersauto",
-    "totalLevel": 629,
-    "totalXp": 41662114,
+    "totalLevel": 679,
+    "totalXp": 44038046,
     "skills": {
       "Attack": {
         "level": 80,
@@ -109,15 +109,15 @@
       },
       "Defence": {
         "level": 80,
-        "xp": 2092459
+        "xp": 2133694
       },
       "Strength": {
         "level": 80,
         "xp": 2127865
       },
       "Hitpoints": {
-        "level": 32,
-        "xp": 2068215
+        "level": 80,
+        "xp": 2081925
       },
       "Ranged": {
         "level": 1,
@@ -144,8 +144,8 @@
         "xp": 0
       },
       "Fishing": {
-        "level": 97,
-        "xp": 10733400
+        "level": 99,
+        "xp": 13054387
       },
       "Firemaking": {
         "level": 10,
