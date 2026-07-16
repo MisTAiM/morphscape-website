@@ -1,7 +1,7 @@
 [
   {
     "username": "Morpheusxp",
-    "totalLevel": 2277,
+    "totalLevel": 2225,
     "totalXp": 4600000000,
     "skills": {
       "Attack": {
@@ -25,7 +25,7 @@
         "xp": 200000000
       },
       "Prayer": {
-        "level": 99,
+        "level": 47,
         "xp": 200000000
       },
       "Magic": {
@@ -101,7 +101,7 @@
   {
     "username": "Kremersauto",
     "totalLevel": 679,
-    "totalXp": 44038046,
+    "totalXp": 44091213,
     "skills": {
       "Attack": {
         "level": 80,
@@ -109,7 +109,7 @@
       },
       "Defence": {
         "level": 80,
-        "xp": 2133694
+        "xp": 2173594
       },
       "Strength": {
         "level": 80,
@@ -117,7 +117,7 @@
       },
       "Hitpoints": {
         "level": 80,
-        "xp": 2081925
+        "xp": 2095192
       },
       "Ranged": {
         "level": 1,
