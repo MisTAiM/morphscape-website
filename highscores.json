@@ -1,7 +1,7 @@
 [
   {
     "username": "Morpheusxp",
-    "totalLevel": 2277,
+    "totalLevel": 2253,
     "totalXp": 4600000000,
     "skills": {
       "Attack": {
@@ -17,7 +17,7 @@
         "xp": 200000000
       },
       "Hitpoints": {
-        "level": 99,
+        "level": 82,
         "xp": 200000000
       },
       "Ranged": {
@@ -25,7 +25,7 @@
         "xp": 200000000
       },
       "Prayer": {
-        "level": 99,
+        "level": 92,
         "xp": 200000000
       },
       "Magic": {
@@ -100,8 +100,8 @@
   },
   {
     "username": "Kremersauto",
-    "totalLevel": 676,
-    "totalXp": 40971976,
+    "totalLevel": 629,
+    "totalXp": 41662114,
     "skills": {
       "Attack": {
         "level": 80,
@@ -109,15 +109,15 @@
       },
       "Defence": {
         "level": 80,
-        "xp": 1989599
+        "xp": 2092459
       },
       "Strength": {
         "level": 80,
-        "xp": 2095199
+        "xp": 2127865
       },
       "Hitpoints": {
-        "level": 80,
-        "xp": 2023153
+        "level": 32,
+        "xp": 2068215
       },
       "Ranged": {
         "level": 1,
@@ -133,7 +133,7 @@
       },
       "Cooking": {
         "level": 99,
-        "xp": 14364450
+        "xp": 14613300
       },
       "Woodcutting": {
         "level": 7,
@@ -144,8 +144,8 @@
         "xp": 0
       },
       "Fishing": {
-        "level": 96,
-        "xp": 10472700
+        "level": 97,
+        "xp": 10733400
       },
       "Firemaking": {
         "level": 10,
