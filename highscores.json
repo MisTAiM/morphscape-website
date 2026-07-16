@@ -1,7 +1,7 @@
 [
   {
     "username": "Morpheusxp",
-    "totalLevel": 2225,
+    "totalLevel": 2277,
     "totalXp": 4600000000,
     "skills": {
       "Attack": {
@@ -25,7 +25,7 @@
         "xp": 200000000
       },
       "Prayer": {
-        "level": 47,
+        "level": 99,
         "xp": 200000000
       },
       "Magic": {
