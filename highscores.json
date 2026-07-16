@@ -100,8 +100,8 @@
   },
   {
     "username": "Kremersauto",
-    "totalLevel": 679,
-    "totalXp": 44091213,
+    "totalLevel": 680,
+    "totalXp": 45215563,
     "skills": {
       "Attack": {
         "level": 80,
@@ -112,12 +112,12 @@
         "xp": 2173594
       },
       "Strength": {
-        "level": 80,
-        "xp": 2127865
+        "level": 81,
+        "xp": 2327865
       },
       "Hitpoints": {
         "level": 80,
-        "xp": 2095192
+        "xp": 2161692
       },
       "Ranged": {
         "level": 1,
@@ -133,7 +133,7 @@
       },
       "Cooking": {
         "level": 99,
-        "xp": 14613300
+        "xp": 15471150
       },
       "Woodcutting": {
         "level": 7,
