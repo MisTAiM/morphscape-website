@@ -2,6 +2,12 @@
   {
     "date": "2026-07-15",
     "tag": "New Content",
+    "title": "New boss: the Sundered Colossus",
+    "body": "A towering stone horror has torn its way out of the cracks in the Weave. The Sundered Colossus is a heavy crush boss with a stone-barrage AoE, a telegraphed seismic slam, and an enrage below a third health - reach it with ::colossus.\n\nIt drops the Colossus Maul: a top-tier two-handed crush weapon (+95 crush attack, +100 strength) that hits like the boss it came from. Chromium ingots and PVM points drop too."
+  },
+  {
+    "date": "2026-07-15",
+    "tag": "New Content",
     "title": "Desert Treasure II bosses are live",
     "body": "Four new bosses have arrived: Vardorvis, Duke Sucellus, the Leviathan, and the Whisperer. Each has its own attack patterns and drops one of the four Ancient Rings.\n\nCollect a boss's vestige plus three chromium ingots, then forge your ring: Ultor (melee), Bellator (melee accuracy), Magus (magic), or Venator (ranged). Burning claws also drop, with a triple-hit Burning Barrage special.\n\nTeleport straight to them with ::vardorvis, ::duke, ::leviathan, and ::whisperer."
   },
