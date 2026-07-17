@@ -1,7 +1,7 @@
 [
   {
     "username": "Morpheusxp",
-    "totalLevel": 2277,
+    "totalLevel": 2149,
     "totalXp": 4600000000,
     "skills": {
       "Attack": {
@@ -9,7 +9,7 @@
         "xp": 200000000
       },
       "Defence": {
-        "level": 99,
+        "level": 38,
         "xp": 200000000
       },
       "Strength": {
@@ -17,7 +17,7 @@
         "xp": 200000000
       },
       "Hitpoints": {
-        "level": 99,
+        "level": 32,
         "xp": 200000000
       },
       "Ranged": {
