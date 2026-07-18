@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiki - Morphscape</title>
+<meta name="description" content="Everything about Morphscape - the 300-item gear database, Desert Treasure II bosses, Theatre of Blood, quests, Leagues, and the Upgrade Machine.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .wiki-hub-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:22px; }
+  .wiki-hub-card { background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); border:1px solid var(--border);
+    border-radius:10px; padding:26px; text-decoration:none; display:block; transition:transform .2s ease, border-color .2s ease; }
+  .wiki-hub-card:hover { transform:translateY(-3px); border-color:var(--gold); }
+  .wiki-hub-card h3 { color:var(--gold-bright); font-size:1.15rem; margin:0 0 8px; }
+  .wiki-hub-card p { color:var(--text-dim); font-size:.9rem; line-height:1.6; margin:0; }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki" class="active">Wiki</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Wiki</h1>
+    <p>Everything Morphscape - the item database, bosses, raids, quests, and the systems that tie it all together.</p>
+</div>
+
+<section>
+    <div class="wiki-hub-grid">
+        <a class="wiki-hub-card reveal" href="/wiki-items">
+            <h3>Item Wiki</h3>
+            <p>All 300 custom items across 5 power tiers - Wayfarer to Weavebound. Icons, stats, and search/filter by slot.</p>
+        </a>
+        <a class="wiki-hub-card reveal" href="/wiki-bosses">
+            <h3>Bosses &amp; DT2</h3>
+            <p>Desert Treasure II's four bosses - Vardorvis, Duke Sucellus, the Leviathan, the Whisperer - plus the Sundered Colossus.</p>
+        </a>
+        <a class="wiki-hub-card reveal" href="/wiki-tob">
+            <h3>Theatre of Blood</h3>
+            <p>A room-by-room walkthrough of the full raid, from the Maiden of Sugadinti to Verzik Vitur.</p>
+        </a>
+        <a class="wiki-hub-card reveal" href="/wiki-quests">
+            <h3>Quests</h3>
+            <p>Morphscape's original questline - Cracks in the Weave and Echoes of a Perfect Champion.</p>
+        </a>
+        <a class="wiki-hub-card reveal" href="/wiki-leagues">
+            <h3>Leagues</h3>
+            <p>7 relic tiers, a 74-task points system, and 6 Divine Pact gods to align to.</p>
+        </a>
+        <a class="wiki-hub-card reveal" href="/wiki-upgrade-machine">
+            <h3>Upgrade Machine</h3>
+            <p>Gamble scrap into 43 random passive effects across 3 rarity tiers. Roll a Perfect item and earn the title.</p>
+        </a>
+    </div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/highscores">Highscores</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+</body>
+</html>

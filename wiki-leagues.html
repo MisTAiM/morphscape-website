@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leagues Wiki - Morphscape</title>
+<meta name="description" content="Morphscape Leagues mode: the 7-tier relic system, League tasks, and the Divine Pact god-alignment tree.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .tier-block { background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); border:1px solid var(--border);
+    border-radius:10px; padding:20px 22px; margin-bottom:18px; }
+  .tier-block h3 { font-family:var(--font-display); color:var(--gold-bright); font-size:1.15rem; margin:0 0 4px; }
+  .tier-meta { font-size:.82rem; color:var(--text-dim); margin-bottom:14px; }
+  .tier-meta b { color:var(--text); }
+  .relic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:12px; }
+  .relic-card { background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:12px 14px; }
+  .relic-card h4 { margin:0 0 4px; font-size:.9rem; color:var(--gold-bright); font-family:var(--font-body); font-weight:600; }
+  .relic-card p { margin:0; font-size:.8rem; color:var(--text-dim); line-height:1.5; }
+  .god-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px; margin-top:8px; }
+  .god-card { background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); border:1px solid var(--border);
+    border-radius:10px; padding:18px 20px; }
+  .god-card h4 { margin:0 0 2px; font-family:var(--font-display); color:var(--gold-bright); font-size:1.05rem; }
+  .god-card .playstyle { font-size:.8rem; color:var(--text-dim); margin-bottom:10px; font-style:italic; }
+  .god-card ul { margin:0; padding-left:18px; font-size:.82rem; color:var(--text-dim); line-height:1.7; }
+  .god-card ul li b { color:var(--text); }
+  .task-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:.92rem; }
+  .task-table th, .task-table td { text-align:left; padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .task-table th { color:var(--gold-bright); font-family:'Cinzel',serif; font-weight:600; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em; }
+  .earn-wrap { overflow-x:auto; }
+  .stat-row { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:20px 0 8px; }
+  .stat-pill { background:var(--bg-panel); border:1px solid var(--border-bright); border-radius:20px; padding:8px 18px; font-size:.85rem; color:var(--text-dim); }
+  .stat-pill b { color:var(--gold-bright); }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki" class="active">Wiki</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Leagues</h1>
+    <p>A full League game mode built around 7 relic tiers, a standalone task list, and the
+    Divine Pact god-alignment tree - inspired by August RSPS's Pantheon League.</p>
+</div>
+
+<section>
+    <div class="stat-row reveal">
+        <span class="stat-pill"><b>7</b> relic tiers</span>
+        <span class="stat-pill"><b>32</b> relics to choose from</span>
+        <span class="stat-pill"><b>74</b> League tasks</span>
+        <span class="stat-pill"><b>6</b> Divine Pact gods</span>
+        <span class="stat-pill"><b>15</b> pact nodes per god</span>
+    </div>
+
+    <div class="card reveal">
+        <h3>How it works</h3>
+        <p style="color:var(--text-dim); line-height:1.7;">
+        Sign up for League mode through the Gielinor Guide. Every League task you complete pays
+        League Points and a small amount of Divine Pact points. Cross a tier's point threshold and
+        you automatically get that tier's passive XP and drop-rate bonus, plus a one-time prompt to
+        choose an active relic from that tier - a choice that's locked in permanently once made.
+        Passive bonuses stack across every tier you've cleared; active relics are one pick per tier,
+        so across a full run you'll end up with 7 chosen relics total.</p>
+    </div>
+
+    <h2 class="reveal" style="text-align:center; margin:40px 0 8px; font-family:var(--font-display); color:var(--gold-bright);">Relic Tiers</h2>
+    <p style="text-align:center; color:var(--text-dim); max-width:640px; margin:0 auto 24px;">
+    Each tier grants an automatic passive bonus at its point threshold, then a choice of 4-5
+    active relics on top of it.</p>
+
+    <div class="tier-block reveal">
+        <h3>Tier 1</h3>
+        <div class="tier-meta"><b>1,400</b> points &middot; passive <b>+5%</b> XP &middot; passive <b>+100%</b> drop rate</div>
+        <div class="relic-grid">
+            <div class="relic-card"><h4>Endless Vigor</h4><p>Your run energy never depletes.</p></div>
+            <div class="relic-card"><h4>Quick Study</h4><p>+20% bonus experience from all sources.</p></div>
+            <div class="relic-card"><h4>Prospector's Fortune</h4><p>+20% bonus chance at extra loot rolls.</p></div>
+            <div class="relic-card"><h4>Beast Whisperer</h4><p>+20% bonus chance at pet drops.</p></div>
+        </div>
+    </div>
+
+    <div class="tier-block reveal">
+        <h3>Tier 2</h3>
+        <div class="tier-meta"><b>5,600</b> points &middot; passive <b>+8%</b> XP &middot; passive <b>+125%</b> drop rate</div>
+        <div class="relic-grid">
+            <div class="relic-card"><h4>Fast Learner</h4><p>+30% bonus experience from all sources.</p></div>
+            <div class="relic-card"><h4>Keen Eye</h4><p>+30% bonus chance at extra loot rolls.</p></div>
+            <div class="relic-card"><h4>Balanced Growth</h4><p>+15% bonus experience and +15% bonus loot rolls.</p></div>
+            <div class="relic-card"><h4>Bargain Hunter</h4><p>-15% off all coin-based shop purchases.</p></div>
+        </div>
+    </div>
+
+    <div class="tier-block reveal">
+        <h3>Tier 3</h3>
+        <div class="tier-meta"><b>17,500</b> points &middot; passive <b>+12%</b> XP &middot; passive <b>+150%</b> drop rate</div>
+        <div class="relic-grid">
+            <div class="relic-card"><h4>Scholar's Insight</h4><p>+45% bonus experience from all sources.</p></div>
+            <div class="relic-card"><h4>Lucky Strike</h4><p>+45% bonus chance at extra loot rolls.</p></div>
+            <div class="relic-card"><h4>Steady Progress</h4><p>+22% bonus experience and +22% bonus loot rolls.</p></div>
+            <div class="relic-card"><h4>Bounty Hunter</h4><p>+30% bonus slayer points per completed task.</p></div>
+        </div>
+    </div>
+
+    <div class="tier-block reveal">
+        <h3>Tier 4</h3>
+        <div class="tier-meta"><b>42,500</b> points &middot; passive <b>+18%</b> XP &middot; passive <b>+175%</b> drop rate</div>
+        <div class="relic-grid">
+            <div class="relic-card"><h4>Mind Over Matter</h4><p>+65% bonus experience from all sources.</p></div>
+            <div class="relic-card"><h4>Fortune's Favor</h4><p>+65% bonus chance at extra loot rolls.</p></div>
+            <div class="relic-card"><h4>Dual Focus</h4><p>+32% bonus experience and +32% bonus loot rolls.</p></div>
+            <div class="relic-card"><h4>Efficient Collector</h4><p>Any noteable NPC drop is automatically received noted.</p></div>
+        </div>
+    </div>
+
+    <div class="tier-block reveal">
+        <h3>Tier 5</h3>
+        <div class="tier-meta"><b>80,000</b> points &middot; passive <b>+24%</b> XP &middot; passive <b>+200%</b> drop rate</div>
+        <div class="relic-grid">
+            <div class="relic-card"><h4>Enlightened Mind</h4><p>+90% bonus experience from all sources.</p></div>
+            <div class="relic-card"><h4>Golden Touch</h4><p>+90% bonus chance at extra loot rolls.</p></div>
+            <div class="relic-card"><h4>Harmonic Balance</h4><p>+45% bonus experience and +45% bonus loot rolls.</p></div>
+            <div class="relic-card"><h4>Beast Master</h4><p>+50% bonus chance at pet drops.</p></div>
+        </div>
+    </div>
+
+    <div class="tier-block reveal">
+        <h3>Tier 6</h3>
+        <div class="tier-meta"><b>125,000</b> points &middot; passive <b>+30%</b> XP &middot; passive <b>+225%</b> drop rate</div>
+        <div class="relic-grid">
+            <div class="relic-card"><h4>Transcendent Wisdom</h4><p>+120% bonus experience from all sources.</p></div>
+            <div class="relic-card"><h4>Midas' Blessing</h4><p>+120% bonus chance at extra loot rolls.</p></div>
+            <div class="relic-card"><h4>Perfect Equilibrium</h4><p>+60% bonus experience and +60% bonus loot rolls.</p></div>
+            <div class="relic-card"><h4>Merchant's Boon</h4><p>-50% off all coin-based shop purchases.</p></div>
+        </div>
+    </div>
+
+    <div class="tier-block reveal">
+        <h3>Tier 7</h3>
+        <div class="tier-meta"><b>200,000</b> points &middot; passive <b>+40%</b> XP &middot; passive <b>+250%</b> drop rate</div>
+        <div class="relic-grid">
+            <div class="relic-card"><h4>Omniscience</h4><p>+160% bonus experience from all sources.</p></div>
+            <div class="relic-card"><h4>Avarice Incarnate</h4><p>+160% bonus chance at extra loot rolls.</p></div>
+            <div class="relic-card"><h4>Zenith</h4><p>+80% bonus experience and +80% bonus loot rolls.</p></div>
+            <div class="relic-card"><h4>Apex Hunter</h4><p>+100% bonus slayer points and +30% bonus pet drop chance.</p></div>
+            <div class="relic-card"><h4>Free Market</h4><p>-100% off all coin-based shop purchases - everything is free.</p></div>
+        </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:32px;">
+        <h3>League Tasks</h3>
+        <p style="color:var(--text-dim); line-height:1.7;">
+        74 tasks spread across three types - reach a skill level, rack up a cumulative kill count
+        against a monster (or list of monster variants), or receive a specific item as a monster
+        drop for the first time. Every task pays League Points on completion (6,415 points on
+        offer across the full list) plus a small amount of Divine Pact points, worth a minimum of
+        1 and roughly 1 for every 20 League Points the task pays. Talk to the League Guide or use
+        <code>::leaguetasks</code> to see your point total and the next 15 incomplete tasks.</p>
+        <div class="earn-wrap" style="margin-top:14px;">
+        <table class="task-table">
+            <thead><tr><th>Task type</th><th>Count</th><th>How it's tracked</th></tr></thead>
+            <tbody>
+                <tr><td>Level</td><td>55</td><td>Reach a target level in a given skill. Levels you already met before joining League mode are backfilled automatically.</td></tr>
+                <tr><td>Kill Count</td><td>11</td><td>Cumulative kills against one or more matching NPC ids/names, tracked per-task.</td></tr>
+                <tr><td>Item Drop</td><td>8</td><td>Receive a specific item as a monster drop at least once.</td></tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <h2 class="reveal" style="text-align:center; margin:48px 0 8px; font-family:var(--font-display); color:var(--gold-bright);">The Divine Pact</h2>
+    <p style="text-align:center; color:var(--text-dim); max-width:680px; margin:0 auto 24px;">
+    A second, separate points economy that runs alongside the relic tiers. Align to one of 6
+    gods at the Pact Keeper (a permanent choice, short of a full reset), then spend Divine Pact
+    points on that god's 15-node tree - no fixed order, buy whatever you can afford. Each god's
+    tree caps out at an "Avatar" node combining two of that god's effects. You get up to 8 full
+    tree resets per character, which refund every point you've spent.</p>
+
+    <div class="god-grid">
+        <div class="god-card reveal">
+            <h4>Saradomin</h4>
+            <div class="playstyle">Holy Paladin</div>
+            <ul>
+                <li>Prayer drain reduction, up to <b>-35%</b> (Avatar)</li>
+                <li>Healing from food, up to <b>+25%</b></li>
+                <li>Damage &amp; accuracy boosts</li>
+                <li>Infinite run energy node</li>
+            </ul>
+        </div>
+        <div class="god-card reveal">
+            <h4>Zamorak</h4>
+            <div class="playstyle">Chaos Pyromancer</div>
+            <ul>
+                <li>Damage, up to <b>+25%</b> (Avatar)</li>
+                <li>Attack speed &amp; accuracy boosts</li>
+                <li>Special attack energy regen &amp; cost reduction</li>
+            </ul>
+        </div>
+        <div class="god-card reveal">
+            <h4>Zaros</h4>
+            <div class="playstyle">Void Summoner</div>
+            <ul>
+                <li>Slayer points, up to <b>+40%</b> (Avatar)</li>
+                <li>Coin shop discounts, up to <b>-35%</b></li>
+                <li>Pet drop chance &amp; bonus loot rolls</li>
+                <li>Auto-noted NPC drops</li>
+            </ul>
+        </div>
+        <div class="god-card reveal">
+            <h4>Armadyl</h4>
+            <div class="playstyle">Skyborne Marksman</div>
+            <ul>
+                <li>Accuracy, up to <b>+30%</b></li>
+                <li>Attack speed, stacking with Avatar's +20%</li>
+                <li>Special attack regen &amp; infinite run energy</li>
+            </ul>
+        </div>
+        <div class="god-card reveal">
+            <h4>Guthix</h4>
+            <div class="playstyle">Thorned Guardian</div>
+            <ul>
+                <li>Experience, up to <b>+30%</b> (Avatar)</li>
+                <li>Bonus loot rolls &amp; healing from food</li>
+                <li>Prayer drain reduction &amp; coin shop discounts</li>
+            </ul>
+        </div>
+        <div class="god-card reveal">
+            <h4>Bandos</h4>
+            <div class="playstyle">Two-Handed Destroyer</div>
+            <ul>
+                <li>Damage, up to <b>+35%</b> (Avatar)</li>
+                <li>Accuracy &amp; attack speed boosts</li>
+                <li>Special attack cost reduction</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="notice reveal" style="margin-top:32px; border-left:3px solid var(--gold-bright);">
+        <strong>Relics and pacts stack independently.</strong> A relic's XP/drop-rate bonus and a
+        pact node's XP/drop-rate bonus both apply on top of each other - there's no overlap
+        penalty for investing in both systems.
+    </div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/highscores">Highscores</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+</body>
+</html>

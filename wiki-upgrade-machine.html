@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upgrade Machine Wiki - Morphscape</title>
+<meta name="description" content="How the Morphscape Upgrade Machine works: scrapping gear, rolling random item effects, rarity tiers, rerolling, and the Perfect Roll title.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .loop { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center; margin:8px 0 4px; }
+  .loop .step { background:var(--bg-panel); border:1px solid var(--border-bright); border-radius:10px; padding:14px 18px; font-weight:600; }
+  .loop .arrow { color:var(--gold-bright); font-size:1.3rem; }
+  .rarity-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-top:8px; }
+  .rarity-card { border-radius:10px; padding:18px 20px; border:1px solid var(--border); background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); }
+  .rarity-card h4 { margin:0 0 6px; font-family:var(--font-display); font-size:1.05rem; }
+  .rarity-card p { margin:0; font-size:.85rem; color:var(--text-dim); line-height:1.6; }
+  .rarity-common h4 { color:#e8e8e8; }
+  .rarity-uncommon h4 { color:#4fd8e0; }
+  .rarity-rare h4 { color:var(--gold-bright); }
+  .effect-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:.92rem; }
+  .effect-table th, .effect-table td { text-align:left; padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .effect-table th { color:var(--gold-bright); font-family:'Cinzel',serif; font-weight:600; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em; }
+  .earn-wrap { overflow-x:auto; }
+  .effect-table .rare { color:var(--gold-bright); font-weight:600; }
+  .effect-table .uncommon { color:#4fd8e0; font-weight:600; }
+  .effect-table .common { color:#e8e8e8; font-weight:600; }
+  .slot-tags { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:16px 0; }
+  .slot-tag { background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; padding:10px 16px; font-size:.85rem; color:var(--text-dim); }
+  .slot-tag b { color:var(--text); display:block; font-size:.78rem; text-transform:uppercase; letter-spacing:.03em; color:var(--gold-bright); margin-bottom:2px; }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki" class="active">Wiki</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">The Upgrade Machine</h1>
+    <p>Feed gear you don't need into the machine for scrap, then gamble that scrap into
+    permanent random effects on your equipment. All earned, all in-game.</p>
+</div>
+
+<section>
+    <div class="loop reveal">
+        <span class="step">Scrap unwanted gear</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">Spend scrap + coins</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">Roll a random effect</span>
+    </div>
+    <p style="text-align:center; color:var(--text-dim); max-width:680px; margin:16px auto 0; line-height:1.6;">
+    Found at the Drunken Dwarf's workshop. Drop a wieldable item onto the machine and it's
+    destroyed for scrap - the amount depends on the item. Select an equippable item inside the
+    machine's interface and spend 10,000,000 coins plus 250,000 scrap (cost scales per slot, see
+    below) to roll one random effect into an empty upgrade slot.</p>
+
+    <div class="card reveal" style="margin-top:28px;">
+        <h3>Three upgrade slots, three rolls</h3>
+        <p style="color:var(--text-dim); line-height:1.7;">
+        Every eligible item has 3 upgrade slots. Each time you upgrade, the machine fills the next
+        empty slot with a random effect drawn from every effect valid for that item's equipment
+        slot (weapon, shield, jewelry, armour piece, cape, ammo, or gathering gloves) - each roll
+        excludes effects the item already has, so you never get a duplicate on the same item. Once
+        all 3 slots are full, upgrading again opens a reroll menu instead: pick one of your 3
+        existing effects to replace, pay the cost again, and get a fresh random roll (which can
+        land on anything, including the effect you're rerolling away from).</p>
+    </div>
+
+    <h2 class="reveal" style="text-align:center; margin:40px 0 8px; font-family:var(--font-display); color:var(--gold-bright);">Rarity Tiers</h2>
+    <p style="text-align:center; color:var(--text-dim); max-width:640px; margin:0 auto 16px;">
+    Every effect belongs to one of 3 rarity tiers, which weights how often it comes up in a roll.
+    Weights are per-effect, then multiplied by the tier's overall multiplier.</p>
+    <div class="rarity-grid">
+        <div class="rarity-card rarity-common reveal">
+            <h4>Common</h4>
+            <p>Weight multiplier <b>2.0x</b> - the bulk of your early rolls. Shown in white text
+            in-game.</p>
+        </div>
+        <div class="rarity-card rarity-uncommon reveal">
+            <h4>Uncommon</h4>
+            <p>Weight multiplier <b>1.0x</b> - a solid middle tier. Shown in cyan text in-game.</p>
+        </div>
+        <div class="rarity-card rarity-rare reveal">
+            <h4>Rare</h4>
+            <p>Weight multiplier <b>0.35x</b> - the hardest effects to land. Shown in gold text
+            in-game, and rolling one broadcasts to the whole server.</p>
+        </div>
+    </div>
+
+    <div class="notice reveal" style="margin-top:28px; border-left:3px solid var(--gold-bright);">
+        <strong>Not every effect is a buff.</strong> A handful of effects are deliberately
+        negative - Damaged (reduced damage), Wreckless and Overcharge (bonus damage that can also
+        hurt or misfire you), Brittle (chance to take bonus damage), Zamorak's Curse, Cursed Band,
+        and Overdrawn all carry a downside alongside whatever comes up next to them. The roll pool
+        doesn't filter these out - it's part of the gamble.
+    </div>
+
+    <h2 class="reveal" style="text-align:center; margin:48px 0 8px; font-family:var(--font-display); color:var(--gold-bright);">A Sample of Effects</h2>
+    <p style="text-align:center; color:var(--text-dim); max-width:640px; margin:0 auto 16px;">
+    43 effects exist across every equipment slot. Here's a representative sample - check
+    <code>::title</code> or ask the Drunken Dwarf "What upgrades have I discovered?" in-game for
+    your own discovery log.</p>
+
+    <div class="card reveal">
+        <div class="earn-wrap">
+        <table class="effect-table">
+            <thead><tr><th>Effect</th><th>Rarity</th><th>Slot</th><th>Effect</th></tr></thead>
+            <tbody>
+                <tr><td>Looting</td><td class="rare">Rare</td><td>Weapon / Ring</td><td>Increases your chances of getting a rare drop.</td></tr>
+                <tr><td>Executioner</td><td class="rare">Rare</td><td>Weapon</td><td>Deals 20% bonus damage to targets below 25% health.</td></tr>
+                <tr><td>Vampiric Edge</td><td class="rare">Rare</td><td>Weapon</td><td>Chance to heal for a portion of the damage you deal.</td></tr>
+                <tr><td>Zulrah's Kiss</td><td class="rare">Rare</td><td>Weapon</td><td>10% chance to inflict poison.</td></tr>
+                <tr><td>Bulwark</td><td class="rare">Rare</td><td>Shield</td><td>Chance to fully block an incoming hit.</td></tr>
+                <tr><td>Soul Siphon</td><td class="rare">Rare</td><td>Amulet</td><td>On a killing blow, chance to restore 6 prayer points.</td></tr>
+                <tr><td>Fortune's Favor</td><td class="rare">Rare</td><td>Ring</td><td>Chance to double a coin drop.</td></tr>
+                <tr><td>Bane of Dragons</td><td class="uncommon">Uncommon</td><td>Weapon</td><td>Does more damage against dragons.</td></tr>
+                <tr><td>Fire Aspect</td><td class="uncommon">Uncommon</td><td>Weapon</td><td>Does fire damage to your target over time.</td></tr>
+                <tr><td>Holy</td><td class="uncommon">Uncommon</td><td>Weapon</td><td>Randomly heals you when you deal damage.</td></tr>
+                <tr><td>Reflective Ward</td><td class="uncommon">Uncommon</td><td>Shield</td><td>Chance to reflect a portion of incoming damage.</td></tr>
+                <tr><td>Prospector's Luck</td><td class="uncommon">Uncommon</td><td>Hands (mining)</td><td>Chance for a mined ore to come out doubled.</td></tr>
+                <tr><td>Recoil</td><td class="common">Common</td><td>Weapon</td><td>Reflects some damage back at your target.</td></tr>
+                <tr><td>Coin Collector</td><td class="common">Common</td><td>Ring</td><td>Automatically picks up coins.</td></tr>
+                <tr><td>Swift Boots</td><td class="common">Common</td><td>Feet</td><td>Small chance to sidestep an incoming hit entirely.</td></tr>
+                <tr><td>Featherlight</td><td class="common">Common</td><td>Cape</td><td>Chance to restore run energy when taking damage.</td></tr>
+                <tr><td>Damaged</td><td class="common">Common</td><td>Weapon</td><td>Reduced damage dealt. (negative effect)</td></tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div class="slot-tags reveal">
+        <div class="slot-tag"><b>Weapon</b>14 effects</div>
+        <div class="slot-tag"><b>Jewelry</b>10 effects</div>
+        <div class="slot-tag"><b>Armour</b>6 effects</div>
+        <div class="slot-tag"><b>Shield</b>3 effects</div>
+        <div class="slot-tag"><b>Cape</b>3 effects</div>
+        <div class="slot-tag"><b>Ammo</b>3 effects</div>
+        <div class="slot-tag"><b>Gathering gloves</b>4 effects</div>
+    </div>
+
+    <div class="card reveal" style="margin-top:24px;">
+        <h3>Perfect Roll</h3>
+        <p style="color:var(--text-dim); line-height:1.7;">
+        Fill all 3 of an item's upgrade slots with Rare-tier effects and you earn a permanent
+        title, checkable and equippable via <code>::title</code> or the Make-over Mage. It's a
+        one-time, account-wide unlock the first time any item you own hits 3/3 Rare - after that,
+        every Rare roll still fires a server-wide broadcast, but the title itself only pops once.
+        With Rare weighted at 0.35x against Common's 2.0x, three-for-three on a single item is a
+        genuine long shot.</p>
+    </div>
+
+    <div class="notice reveal" style="margin-top:28px; border-left:3px solid var(--gold-bright);">
+        <strong>No pay-to-win, ever.</strong> Every coin, every piece of scrap, and every roll
+        comes from playing the game. Removing all upgrades from an item (via a Removal item) is
+        also entirely in-game obtainable - nothing in the Upgrade Machine is sold for real money.
+    </div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/highscores">Highscores</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+</body>
+</html>

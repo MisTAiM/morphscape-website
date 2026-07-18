@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theatre of Blood - Morphscape Wiki</title>
+<meta name="description" content="Room-by-room breakdown of Morphscape's Theatre of Blood: Maiden, Bloat, Nylocas, Sotetseg, Xarpus, Verzik, and the treasure room.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .room-list { counter-reset: room; }
+  .room-card { background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); border:1px solid var(--border);
+    border-radius:10px; padding:24px; margin-bottom:22px; position:relative; }
+  .room-card h3 { font-family:var(--font-display); color:var(--gold-bright); font-size:1.4rem; margin:0 0 4px;
+    display:flex; align-items:center; gap:12px; }
+  .room-num { counter-increment: room; display:inline-flex; align-items:center; justify-content:center;
+    width:32px; height:32px; border-radius:50%; border:1px solid var(--gold); color:var(--gold-bright);
+    font-family:var(--font-display); font-size:.95rem; flex-shrink:0; }
+  .room-num::before { content: counter(room); }
+  .boss-meta { color:var(--text-dim); font-size:.85rem; margin:0 0 14px 44px; letter-spacing:.02em; }
+  .boss-meta b { color:var(--text); }
+  .room-body { margin-left:44px; }
+  .room-body p, .room-body li { color:var(--text-dim); line-height:1.7; font-size:.95rem; }
+  .room-body h4 { font-family:var(--font-display); color:var(--gold); font-size:.9rem; margin:14px 0 6px;
+    text-transform:uppercase; letter-spacing:.05em; }
+  .room-body ul { margin:0; padding-left:20px; }
+  .hs-table-wrap { overflow-x:auto; }
+  .hs-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:.95rem; }
+  .hs-table th, .hs-table td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .hs-table th { color:var(--gold-bright); font-family:var(--font-display); font-weight:600; font-size:.85rem;
+    text-transform:uppercase; letter-spacing:.04em; }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki" class="active">Wiki</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Theatre of Blood</h1>
+    <p>A six-room party raid through Verzik Vitur's theatre - Maiden, Bloat, the Nylocas waves,
+    Sotetseg, Xarpus, and Verzik herself, capped off by a personal loot chest for every survivor.</p>
+</div>
+
+<section>
+
+    <div class="notice reveal" style="margin-bottom:28px; border-left:3px solid var(--gold-bright);">
+        <strong>How the raid is structured.</strong> A party enters together and clears each room
+        in a fixed order behind "Formidable passage" gates that stay locked until the room's boss
+        is dead. Dying doesn't end your raid outright - death handling (spectating, and checking
+        for a full party wipe) is assigned to every room, not just some of them.
+    </div>
+
+    <div class="room-list">
+
+    <div class="room-card reveal">
+        <h3><span class="room-num"></span> The Maiden of Sugadinti</h3>
+        <div class="boss-meta">Blood-themed entry boss &middot; four health-threshold phases</div>
+        <div class="room-body">
+            <p>The raid's opening boss fights in four stages, transforming at 70%, 50%, and 30%
+            health. At each threshold she spawns a wave of blood spawns (Nylocas Matomenos) that
+            crawl toward her - if one reaches her, it's destroyed but heals her for <b>twice its
+            remaining health</b>, so killing the crawlers before they arrive is the entire point of
+            the phase. The room only starts once the party leader confirms the group is ready at
+            the entry barrier, and the exit gate won't open until Maiden is dead.</p>
+        </div>
+    </div>
+
+    <div class="room-card reveal">
+        <h3><span class="room-num"></span> Pestilent Bloat</h3>
+        <div class="boss-meta">Overhead hazard boss &middot; alternating flying/grounded cycle</div>
+        <div class="boss-body room-body">
+            <p>Bloat hangs from the ceiling and cycles between a long "risen" flying phase and a
+            "down" phase. While flying overhead it periodically pelts anyone below it with falling
+            damage if they're caught in range. Partway through its down phase it slams into the
+            floor, hitting anyone standing within a couple of tiles of it with a burst of falling
+            rot. The pattern simply repeats until it's dead - there's no separate health-phase
+            trigger, just riding out the up/down cycle safely.</p>
+        </div>
+    </div>
+
+    <div class="room-card reveal">
+        <h3><span class="room-num"></span> The Nylocas / Vasilias</h3>
+        <div class="boss-meta">Wave-clear + style-switching boss &middot; three escalating adds waves, then Nylocas Vasilias</div>
+        <div class="room-body">
+            <p>Before the boss even spawns, the room throws three escalating waves of small
+            Nylocas adds (melee, ranged, and magic variants) that the party has to clear. Once the
+            waves are down, <b>Nylocas Vasilias</b> spawns and cycles between three forms roughly
+            every 12 ticks - a melee-weak form, a ranged-weak form, and a magic-weak form. Hit it
+            with anything other than its current weakness and the damage heals it back instead of
+            hurting it, so the room is really a running style-check: match your attack style to
+            its current form or you're feeding it health.</p>
+        </div>
+    </div>
+
+    <div class="room-card reveal">
+        <h3><span class="room-num"></span> Sotetseg</h3>
+        <div class="boss-meta">Ranged/magic projectile boss &middot; two invulnerable "maze" interludes</div>
+        <div class="room-body">
+            <p>Sotetseg fights from range, alternating small red (magic) and grey (ranged)
+            splitting projectiles roughly every 5 ticks - block the correct protection prayer or
+            take the hit. Every tenth attack it instead hurls one big, slow "ball" at a random
+            target for heavy damage that splits among anyone standing within a 3x3 of the target
+            tile. At roughly 66% and 33% health it transforms into an invulnerable "maze" form for
+            a short stretch - anyone standing too close to it during this window still takes chip
+            damage - before reverting to its normal attacking form and continuing the fight. This is
+            a simplified stand-in for the real fight's tile-perfect maze puzzle.</p>
+        </div>
+    </div>
+
+    <div class="room-card reveal">
+        <h3><span class="room-num"></span> Xarpus</h3>
+        <div class="boss-meta">Poison-then-active boss &middot; long "exhumed" phase before it screeches into its real fight</div>
+        <div class="room-body">
+            <p>Xarpus starts the room in an "exhumed" phase where it can't be meaningfully hurt -
+            for about 60 ticks it simply spits poison at anyone nearby every few ticks. Once that
+            window ends, it screeches, transforms into its active form, and the real fight begins;
+            its poison attacks stop the moment it screeches. This mirrors the real fight's
+            two-stage structure where the opening stretch is about managing poison, not damage.</p>
+        </div>
+    </div>
+
+    <div class="room-card reveal">
+        <h3><span class="room-num"></span> Verzik Vitur</h3>
+        <div class="boss-meta">Final boss &middot; three health-gated phases</div>
+        <div class="room-body">
+            <p>The Theatre's final boss fights across three phases, transforming at 66% and 33%
+            health.</p>
+            <h4>Phase 1</h4>
+            <p>A straightforward melee/ranged tank-and-spank - Verzik only auto-attacks when
+            something is standing adjacent to her.</p>
+            <h4>Phase 2</h4>
+            <p>She shifts into a spider form and switches to ranged bounce attacks, striking a
+            random party member roughly every 6 ticks.</p>
+            <h4>Phase 3</h4>
+            <p>Her final form throws a "green ball" attack at a random target each cycle. If
+            nobody is standing close enough to soak the hit, Verzik heals herself instead of the
+            target taking damage - matching the real fight's idea that someone has to tank the
+            ball rather than let it go unanswered.</p>
+        </div>
+    </div>
+
+    <div class="room-card reveal">
+        <h3><span class="room-num"></span> The Treasure Room</h3>
+        <div class="boss-meta">Personal loot chest &middot; every surviving party member gets their own reward</div>
+        <div class="room-body">
+            <p>Once Verzik falls, the party moves into the reward room, where each member gets
+            their own personal chest (rather than one shared drop) - matching the real Theatre's
+            individual loot system. Opening your chest always pays out <b>500,000-1,000,000
+            coins</b>, and there's roughly a <b>1-in-15</b> chance of it instead handing you one of
+            the raid's seven unique items:</p>
+            <div class="hs-table-wrap">
+            <table class="hs-table">
+                <thead><tr><th>Unique drop</th></tr></thead>
+                <tbody>
+                    <tr><td>Sanguinesti staff (uncharged)</td></tr>
+                    <tr><td>Scythe of Vitur (uncharged)</td></tr>
+                    <tr><td>Ghrazi rapier</td></tr>
+                    <tr><td>Avernic defender hilt</td></tr>
+                    <tr><td>Justiciar faceguard</td></tr>
+                    <tr><td>Justiciar chestguard</td></tr>
+                    <tr><td>Justiciar legguards</td></tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/highscores">Highscores</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+</body>
+</html>

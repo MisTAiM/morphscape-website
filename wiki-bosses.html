@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desert Treasure II Bosses - Morphscape Wiki</title>
+<meta name="description" content="Vardorvis, Duke Sucellus, the Leviathan, the Whisperer, and the Sundered Colossus - mechanics, phases, and drops on Morphscape.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .boss-card { background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); border:1px solid var(--border);
+    border-radius:10px; padding:24px; margin-bottom:22px; }
+  .boss-card h3 { font-family:var(--font-display); color:var(--gold-bright); font-size:1.4rem; margin:0 0 4px; }
+  .boss-meta { color:var(--text-dim); font-size:.85rem; margin-bottom:14px; letter-spacing:.02em; }
+  .boss-meta b { color:var(--text); }
+  .boss-section { margin-top:14px; }
+  .boss-section h4 { font-family:var(--font-display); color:var(--gold); font-size:.95rem; margin:0 0 6px;
+    text-transform:uppercase; letter-spacing:.05em; }
+  .boss-section p, .boss-section li { color:var(--text-dim); line-height:1.7; font-size:.95rem; }
+  .boss-section ul { margin:0; padding-left:20px; }
+  .ring-badge { display:inline-flex; align-items:center; gap:6px; background:var(--bg-panel); border:1px solid var(--border-bright);
+    border-radius:6px; padding:6px 12px; font-size:.85rem; color:var(--gold-bright); font-weight:600; }
+  .hs-table-wrap { overflow-x:auto; }
+  .hs-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:.95rem; }
+  .hs-table th, .hs-table td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .hs-table th { color:var(--gold-bright); font-family:var(--font-display); font-weight:600; font-size:.85rem;
+    text-transform:uppercase; letter-spacing:.04em; }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki" class="active">Wiki</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Desert Treasure II Bosses</h1>
+    <p>Vardorvis, Duke Sucellus, the Leviathan, and the Whisperer - four solo bosses built on
+    reskinned OSRS models, each with its own attack pattern and its own ancient ring.</p>
+</div>
+
+<section>
+
+    <div class="notice reveal" style="margin-bottom:28px; border-left:3px solid var(--gold-bright);">
+        <strong>How these bosses work here.</strong> Morphscape's version of each DT2 boss runs on
+        a reskinned OSRS NPC model (the underlying combat rig and animations belong to that base
+        monster) with a custom attack script layered on top that reproduces the real fight's
+        signature mechanics. None of them have a level requirement to enter - just show up and fight.
+    </div>
+
+    <div class="boss-card reveal">
+        <h3>Vardorvis</h3>
+        <div class="boss-meta">Combat level <b>572</b> &middot; Melee boss &middot; built on the Hespori combat rig</div>
+        <div class="boss-section">
+            <h4>The fight</h4>
+            <p>Vardorvis is a fast, aggressive melee attacker that fights almost entirely up close.
+            Its signature attack is <b>Swinging Axes</b>: it marks your tile and the four tiles
+            around you with a warning splash, then after a short delay the marked ground erupts -
+            stand on a marked tile when it lands and you take heavy damage that ignores your
+            defence bonuses, so the only real counter is moving off the marked tiles in time.
+            If you try to kite out of melee range, Vardorvis switches to <b>the Strangler's Head</b>,
+            a ranged tendril snipe that punishes running away instead of trivializing the fight.
+            Below 30% health it enrages - "THE STRANGLER HUNGERS!" - and its attack speed increases
+            for the rest of the fight.</p>
+        </div>
+    </div>
+
+    <div class="boss-card reveal">
+        <h3>Duke Sucellus</h3>
+        <div class="boss-meta">Combat level <b>538</b> &middot; Magic boss &middot; built on the Basilisk Knight combat rig</div>
+        <div class="boss-section">
+            <h4>The fight</h4>
+            <p>Duke Sucellus fights at range with heavy magic bolts and two set-piece mechanics.
+            <b>Noxious Gas</b> lobs a gas cloud onto your position that lingers for three pulses,
+            damaging anyone standing in it and draining Attack and Strength each time it ticks -
+            step out of the cloud to stop the bleed. <b>Stare of the Deep</b> is a telegraphed gaze
+            attack ("Gaze upon the abyss!") that punishes standing still: if you're on the exact
+            same tile when the gaze lands, you take a hefty hit and get stunned for a few ticks -
+            moving during the wind-up avoids it entirely, mirroring the real fight's sleep mechanic.</p>
+        </div>
+    </div>
+
+    <div class="boss-card reveal">
+        <h3>The Leviathan</h3>
+        <div class="boss-meta">Combat level <b>593</b> &middot; Ranged/Magic hybrid boss &middot; built on the Ancient Wyvern combat rig</div>
+        <div class="boss-section">
+            <h4>The fight</h4>
+            <p>The Leviathan alternates its basic attack between a ranged orb and a magic orb every
+            other hit, so a single protection prayer never fully shuts its damage off - matching
+            the real fight's core idea of forcing prayer swaps. Periodically it unleashes a
+            <b>Lightning Volley</b> ("The storm answers!"): five tiles around your position are
+            telegraphed and then struck, hitting anyone caught standing on a marked tile for heavy
+            unavoidable magic damage.</p>
+        </div>
+    </div>
+
+    <div class="boss-card reveal">
+        <h3>The Whisperer</h3>
+        <div class="boss-meta">Combat level <b>604</b> &middot; Magic/Ranged hybrid boss &middot; built on the Crystalline Hunllef combat rig</div>
+        <div class="boss-section">
+            <h4>The fight</h4>
+            <p>The Whisperer alternates magic and ranged bolts at range, and adds a melee
+            <b>Trample</b> attack when you're standing next to it. Its two special mechanics:
+            <b>Soul Siphon</b> ("Your soul is mine to whisper to...") is a screech that drains a
+            chunk of your prayer points and heals the Whisperer for twice the amount drained -
+            keep prayer topped up or accept the trade-off. <b>Shadow Tendrils</b> telegraphs and
+            then erupts on the five tiles around your position, hitting anyone still standing on a
+            marked tile for heavy unavoidable magic damage - the same warn-then-erupt pattern used
+            by Vardorvis' axes and the Leviathan's lightning.</p>
+        </div>
+    </div>
+
+    <h2 style="font-family:var(--font-display); color:var(--gold-bright); margin:40px 0 16px; text-align:center;">
+        Drops &amp; the ancient rings</h2>
+
+    <div class="card reveal">
+        <h3 style="margin-bottom:6px;">Vestige &rarr; ring forging</h3>
+        <p style="color:var(--text-dim); line-height:1.7;">
+        Each of the four DT2 bosses drops its own named vestige item. Use a vestige on 3
+        <b>Chromium Ingots</b> while carrying all 3 in your inventory to forge that boss's
+        ancient ring - the vestige and the three ingots are consumed and the finished ring is
+        added to your inventory. This mirrors the real DT2 mechanic, minus the 90 Magic
+        requirement gate.</p>
+        <div class="hs-table-wrap">
+        <table class="hs-table">
+            <thead><tr><th>Boss</th><th>Vestige</th><th>Ring forged</th></tr></thead>
+            <tbody>
+                <tr><td>Vardorvis</td><td>Ultor vestige</td><td><span class="ring-badge">Ultor ring</span></td></tr>
+                <tr><td>The Whisperer</td><td>Bellator vestige</td><td><span class="ring-badge">Bellator ring</span></td></tr>
+                <tr><td>Duke Sucellus</td><td>Magus vestige</td><td><span class="ring-badge">Magus ring</span></td></tr>
+                <tr><td>The Leviathan</td><td>Venator vestige</td><td><span class="ring-badge">Venator ring</span></td></tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:22px;">
+        <h3 style="margin-bottom:6px;">Other notable drops</h3>
+        <p style="color:var(--text-dim); line-height:1.7;">
+        The DT2 boss pool also drops <b>Chromium Ingots</b> (the material needed to forge every
+        ring) and <b>Burning claws</b>, a melee special weapon whose special attack (Burning
+        Barrage) fires three quick slashes and sets the target alight for extra burn damage if
+        any of them land.</p>
+    </div>
+
+    <div class="notice reveal" style="margin-top:24px; border-left:3px solid var(--gold-bright);">
+        <strong>Drop rates aren't published here.</strong> This page describes what each boss's
+        attack script actually does and what items its kit is built around (verified against the
+        boss combat classes and the vestige-forging system in the server source). The precise
+        drop-rate table for these five bosses - how often a vestige, ingot, or claws piece rolls
+        per kill - isn't present as a registered loot table in the current source, so exact odds
+        aren't listed rather than guessed at.
+    </div>
+
+    <h2 style="font-family:var(--font-display); color:var(--gold-bright); margin:40px 0 16px; text-align:center;">
+        Saga boss: the Sundered Colossus</h2>
+
+    <div class="boss-card reveal">
+        <h3>The Sundered Colossus</h3>
+        <div class="boss-meta">Combat level <b>512</b> &middot; Melee boss &middot; built on the Grotesque Guardian "Dusk" combat rig
+        &middot; found in the Catacombs of Kourend</div>
+        <div class="boss-section">
+            <h4>The fight</h4>
+            <p>A Morphscape-original Saga boss, not from Desert Treasure II: a towering stone
+            horror pulled from the cracks in the Weave. It's primarily a heavy melee slammer with
+            two ranged-punishing mechanics. <b>Stone Barrage</b> hurls shattered rock at the five
+            tiles around your position when you try to kite out of melee range, so standing back
+            isn't a safe way to avoid its melee hits. <b>Seismic Slam</b> is a telegraphed
+            ground-pound ("BRACE YOURSELF.") that deals heavy unavoidable damage to anyone still
+            adjacent when it lands - move away during the wind-up. Below one-third health it
+            enrages, attacking noticeably faster for the rest of the fight.</p>
+            <h4 style="margin-top:14px;">Drops</h4>
+            <p>Drops the <b>Colossus Maul</b>. As with the DT2 bosses above, no formal drop-rate
+            table for this boss was found in the server source, so no odds are listed.</p>
+        </div>
+    </div>
+
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/highscores">Highscores</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+</body>
+</html>

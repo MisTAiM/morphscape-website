@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Item Wiki - Morphscape</title>
+<meta name="description" content="Browse all 300 Morphscape custom items across 5 power tiers - Wayfarer to Weavebound.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .wiki-controls { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-bottom:24px; }
+  .wiki-controls input[type="text"] { background:var(--bg-panel); color:var(--text); border:1px solid var(--border-bright);
+    border-radius:6px; padding:11px 16px; font-size:.95rem; font-family:inherit; min-width:240px; }
+  .tier-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:28px; }
+  .tier-tab { background:var(--bg-panel); color:var(--text-dim); border:1px solid var(--border); border-radius:20px;
+    padding:8px 18px; font-size:.85rem; font-family:var(--font-display); letter-spacing:.03em; cursor:pointer; }
+  .tier-tab.active { color:var(--gold-bright); border-color:var(--gold); background:var(--bg-panel-2); }
+  .item-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px; }
+  .item-card { background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); border:1px solid var(--border);
+    border-radius:10px; padding:16px; display:flex; gap:12px; align-items:flex-start; }
+  .item-card img { width:36px; height:32px; image-rendering:pixelated; flex-shrink:0; margin-top:2px; }
+  .item-card .item-body { min-width:0; }
+  .item-card h4 { font-size:.9rem; margin:0 0 4px; color:var(--gold-bright); font-family:var(--font-body); font-weight:600; }
+  .item-card .item-meta { font-size:.78rem; color:var(--text-dim); margin-bottom:6px; }
+  .item-card .item-stats { font-size:.75rem; color:var(--text-dim); line-height:1.5; }
+  .item-card .item-stats b { color:var(--text); }
+  .tier-heading { font-family:var(--font-display); color:var(--gold-bright); font-size:1.3rem; margin:36px 0 16px;
+    padding-bottom:8px; border-bottom:1px solid var(--border); }
+  .tier-heading:first-of-type { margin-top:0; }
+  .wiki-empty { text-align:center; color:var(--text-dim); padding:50px 20px; }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki" class="active">Wiki</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">Item Wiki</h1>
+    <p>300 custom items across 5 power tiers - Wayfarer to Weavebound. All earned in-game, never sold.</p>
+</div>
+
+<section>
+    <div class="wiki-controls">
+        <input type="text" id="wiki-search" placeholder="Search item name...">
+        <select id="wiki-slot-select" class="hs-select" style="min-width:180px;">
+            <option value="">All slots</option>
+            <option value="Weapon">Weapon</option>
+            <option value="Shield">Shield</option>
+            <option value="Head">Head</option>
+            <option value="Cape">Cape</option>
+            <option value="Amulet">Amulet</option>
+            <option value="Body">Body</option>
+            <option value="Legs">Legs</option>
+            <option value="Hands">Hands</option>
+            <option value="Feet">Feet</option>
+            <option value="Ring">Ring</option>
+            <option value="Ammo">Ammo</option>
+        </select>
+    </div>
+
+    <div class="tier-tabs" id="wiki-tier-tabs">
+        <div class="tier-tab active" data-tier="">All Tiers</div>
+        <div class="tier-tab" data-tier="Wayfarer">Wayfarer</div>
+        <div class="tier-tab" data-tier="Verge-Touched">Verge-Touched</div>
+        <div class="tier-tab" data-tier="Sundered">Sundered</div>
+        <div class="tier-tab" data-tier="Unmade">Unmade</div>
+        <div class="tier-tab" data-tier="Weavebound">Weavebound</div>
+    </div>
+
+    <div id="wiki-results"></div>
+    <div class="wiki-empty" id="wiki-empty">Loading...</div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/highscores">Highscores</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script>
+var allItems = null;
+var TIER_ORDER = ["Wayfarer", "Verge-Touched", "Sundered", "Unmade", "Weavebound"];
+
+var search = document.getElementById('wiki-search');
+var slotSelect = document.getElementById('wiki-slot-select');
+var tierTabs = document.getElementById('wiki-tier-tabs');
+var results = document.getElementById('wiki-results');
+var empty = document.getElementById('wiki-empty');
+var activeTier = '';
+
+function statLine(stats) {
+    var parts = [];
+    var labels = {
+        stab_attack_bonus: 'Stab', slash_attack_bonus: 'Slash', crush_attack_bonus: 'Crush',
+        magic_attack_bonus: 'Magic Atk', range_attack_bonus: 'Range Atk',
+        stab_defence_bonus: 'Stab Def', slash_defence_bonus: 'Slash Def', crush_defence_bonus: 'Crush Def',
+        magic_defence_bonus: 'Magic Def', range_defence_bonus: 'Range Def',
+        melee_strength_bonus: 'Str', ranged_strength_bonus: 'Ranged Str',
+        magic_damage_bonus: 'Magic Dmg%', prayer_bonus: 'Prayer'
+    };
+    for (var key in labels) {
+        if (stats[key]) {
+            var v = stats[key];
+            parts.push('<b>' + labels[key] + '</b> ' + (v > 0 ? '+' : '') + v);
+        }
+    }
+    return parts.slice(0, 4).join(' &middot; ');
+}
+
+function itemCardHtml(item) {
+    return '<div class="item-card">' +
+        '<img src="' + item.icon + '" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' +
+        '<div class="item-body">' +
+        '<h4>' + item.name + (item.hasColorVariant ? '' : '') + '</h4>' +
+        '<div class="item-meta">' + item.equipSlotName + (item.weaponType ? ' &middot; ' + item.weaponType : '') + '</div>' +
+        '<div class="item-stats">' + statLine(item.stats) + '</div>' +
+        '</div></div>';
+}
+
+function render() {
+    if (!allItems) return;
+
+    var q = search.value.trim().toLowerCase();
+    var slot = slotSelect.value;
+
+    var filtered = allItems.filter(function(item) {
+        if (q && item.name.toLowerCase().indexOf(q) === -1) return false;
+        if (slot && item.equipSlotName !== slot) return false;
+        if (activeTier && item.tier !== activeTier) return false;
+        return true;
+    });
+
+    if (filtered.length === 0) {
+        results.innerHTML = '';
+        empty.textContent = 'No items match your filters.';
+        empty.style.display = '';
+        return;
+    }
+    empty.style.display = 'none';
+
+    var tiersToShow = activeTier ? [activeTier] : TIER_ORDER;
+    var html = '';
+    tiersToShow.forEach(function(tier) {
+        var tierItems = filtered.filter(function(it) { return it.tier === tier; });
+        if (tierItems.length === 0) return;
+        html += '<h3 class="tier-heading">' + tier + ' (' + tierItems.length + ')</h3>';
+        html += '<div class="item-grid">' + tierItems.map(itemCardHtml).join('') + '</div>';
+    });
+    results.innerHTML = html;
+}
+
+search.addEventListener('input', render);
+slotSelect.addEventListener('change', render);
+tierTabs.addEventListener('click', function(e) {
+    var tab = e.target.closest('.tier-tab');
+    if (!tab) return;
+    Array.prototype.forEach.call(tierTabs.children, function(c) { c.classList.remove('active'); });
+    tab.classList.add('active');
+    activeTier = tab.getAttribute('data-tier');
+    render();
+});
+
+fetch('/items.json')
+    .then(function(res) {
+        if (!res.ok) throw new Error('no data');
+        return res.json();
+    })
+    .then(function(data) {
+        allItems = data;
+        render();
+    })
+    .catch(function() {
+        empty.textContent = "Item data hasn't been published yet - check back soon.";
+    });
+</script>
+<script src="/site.js"></script>
+</body>
+</html>
