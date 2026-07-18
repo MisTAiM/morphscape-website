@@ -36,10 +36,41 @@
     <div class="card reveal" style="text-align:center;">
         <h3 style="margin-bottom:10px;">Vote sites</h3>
         <p style="color:var(--text-dim); line-height:1.7; margin-bottom:18px;">
-        <!-- TODO: replace with the real per-server listing URL(s), e.g. your rsps.dev vote page -->
-        Vote links go here once the server's listing pages are live.</p>
-        <a href="#" class="btn">Vote on rsps.dev</a>
+        Enter your exact in-game username, then vote - it has to match your character name
+        exactly or the reward won't find you.</p>
+        <input type="text" id="vote-username" placeholder="Your in-game username"
+            style="width:100%; max-width:320px; padding:12px 14px; border-radius:8px; border:1px solid var(--edge, #2c2940);
+            background:var(--panel, #1b1926); color:var(--text, #eee); font-size:.95rem; text-align:center; margin-bottom:16px;">
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a href="#" id="vote-rspsdev" class="btn" target="_blank" rel="noopener">Vote on rsps.dev</a>
+        </div>
+        <p id="vote-username-warning" style="color:#e06060; margin-top:12px; display:none;">
+        Enter your username above first.</p>
     </div>
+
+    <script>
+    (function () {
+        var RSPSDEV_SERVER_ID = '0';
+
+        var input = document.getElementById('vote-username');
+        var warning = document.getElementById('vote-username-warning');
+        var stored = localStorage.getItem('morphscape_vote_username');
+        if (stored) input.value = stored;
+
+        document.getElementById('vote-rspsdev').addEventListener('click', function (e) {
+            var name = input.value.trim();
+            if (!name) {
+                e.preventDefault();
+                warning.style.display = 'block';
+                input.focus();
+                return;
+            }
+            warning.style.display = 'none';
+            localStorage.setItem('morphscape_vote_username', name);
+            this.href = 'https://rsps.dev/servers/' + RSPSDEV_SERVER_ID + '/vote?callback=' + encodeURIComponent(name);
+        });
+    })();
+    </script>
 
     <div class="card reveal" style="margin-top:24px;">
         <h3 style="margin-bottom:6px;">How it works</h3>
