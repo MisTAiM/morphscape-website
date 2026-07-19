@@ -57,9 +57,24 @@ function extractUsername(query) {
 module.exports = async (req, res) => {
     res.setHeader('Cache-Control', 'no-store');
 
-    const username = extractUsername(req.query || {});
+    // Logged so the real incoming request (from rsps.dev's tester or a live vote) is visible in
+    // Vercel's Function Logs - the ground truth if a vote-site's callback still fails after this.
+    console.log('vote callback hit:', req.url, JSON.stringify(req.query || {}));
+
+    const query = req.query || {};
+
+    // rsps.dev's Legacy tester appends "&test_mode=true" and a placeholder "test_user" username
+    // rather than a real one - since we don't validate usernames against anything, this was never
+    // actually the cause of the 400 seen in their dashboard, but short-circuiting it here is cheap
+    // and matches their documented behavior exactly.
+    if (query.test_mode === 'true' || query.test_mode === '1') {
+        res.status(200).json({ ok: true, test: true });
+        return;
+    }
+
+    const username = extractUsername(query);
     if (!username) {
-        res.status(400).json({ ok: false, error: "Missing username query parameter (expected one of: i, callback, username, player, user)." });
+        res.status(400).json({ ok: false, error: "Missing username query parameter (expected one of: i, callback, username, player, user).", receivedUrl: req.url });
         return;
     }
 
