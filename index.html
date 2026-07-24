@@ -22,6 +22,8 @@
 </head>
 <body>
 
+<div class="intro-veil" id="intro-veil"><img src="/logo.png" alt=""></div>
+
 <nav>
     <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
     <div class="links">
@@ -46,6 +48,14 @@
         <a class="btn" href="/play">Play Now</a>
         <a class="btn secondary" href="#features">Explore Features</a>
     </div>
+</div>
+
+<div style="max-width: 1080px; margin: 0 auto; padding: 40px 20px 0;">
+    <a href="/updates" class="update-teaser reveal" id="update-teaser" style="display: none;">
+        <span class="tag" id="update-teaser-tag">Update</span>
+        <span class="title" id="update-teaser-title"></span>
+        <span class="arrow">&rarr;</span>
+    </a>
 </div>
 
 <section id="features">
@@ -206,5 +216,44 @@
 
 <script src="/status-widget.js"></script>
 <script src="/site.js"></script>
+<script>
+// Homepage intro veil - a brief "entering the realm" flourish on first visit per tab session
+// only. Skipped entirely for repeat views in the same session and for reduced-motion users
+// (CSS also hard-hides it in that case, this just avoids the pointless timers).
+(function () {
+    var veil = document.getElementById('intro-veil');
+    if (!veil) return;
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || sessionStorage.getItem('morphscape-intro-seen')) {
+        veil.remove();
+        return;
+    }
+    sessionStorage.setItem('morphscape-intro-seen', '1');
+    setTimeout(function () {
+        veil.classList.add('hide');
+        setTimeout(function () { veil.remove(); }, 700);
+    }, 550);
+})();
+
+// Latest-update teaser - pulls the newest admin-published entry from updates.json (same feed
+// the Updates page renders live) so the homepage always reflects real, current content instead
+// of a hand-edited summary that goes stale.
+(function () {
+    var link = document.getElementById('update-teaser');
+    var tagEl = document.getElementById('update-teaser-tag');
+    var titleEl = document.getElementById('update-teaser-title');
+    if (!link) return;
+    fetch('/updates.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (list) {
+            if (!Array.isArray(list) || !list.length) return;
+            var latest = list[0];
+            tagEl.textContent = latest.tag || 'Update';
+            titleEl.textContent = latest.title || '';
+            link.style.display = 'flex';
+        })
+        .catch(function () { /* no live updates yet - teaser just stays hidden */ });
+})();
+</script>
 </body>
 </html>

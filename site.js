@@ -99,6 +99,69 @@
         }
     });
 
+    // Reveal-sweep for ornate dividers (reuses the same IntersectionObserver pattern as .reveal,
+    // kept separate since dividers use their own ::after shimmer, not opacity/transform).
+    var dividers = document.querySelectorAll('.ornate-divider, .divider');
+    if (dividers.length && 'IntersectionObserver' in window) {
+        var divObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    divObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+        dividers.forEach(function(el) { divObserver.observe(el); });
+    }
+
+    // Cursor torch-glow - a soft radial light that follows the pointer, lerped for smoothness.
+    // Skipped on touch devices and when the user prefers reduced motion (both checked via media
+    // queries so no JS work happens at all on those setups, not just a hidden/inert element).
+    var finePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (finePointer && !reducedMotion) {
+        var glow = document.createElement('div');
+        glow.className = 'cursor-glow';
+        document.body.appendChild(glow);
+        var glowX = 0, glowY = 0, targetX = 0, targetY = 0, glowActive = false;
+        document.addEventListener('mousemove', function(e) {
+            targetX = e.clientX;
+            targetY = e.clientY;
+            if (!glowActive) {
+                glowActive = true;
+                glow.classList.add('active');
+            }
+        }, { passive: true });
+        var tickGlow = function() {
+            glowX += (targetX - glowX) * 0.12;
+            glowY += (targetY - glowY) * 0.12;
+            glow.style.transform = 'translate(' + glowX + 'px, ' + glowY + 'px) translate(-50%, -50%)';
+            requestAnimationFrame(tickGlow);
+        };
+        requestAnimationFrame(tickGlow);
+
+        // Subtle 3D tilt on cards/steps/packages, following pointer position within each card.
+        var tiltTargets = document.querySelectorAll('.card, .step, .package');
+        tiltTargets.forEach(function(el) {
+            el.addEventListener('mousemove', function(e) {
+                var rect = el.getBoundingClientRect();
+                var px = (e.clientX - rect.left) / rect.width - 0.5;
+                var py = (e.clientY - rect.top) / rect.height - 0.5;
+                var rotY = px * 10;
+                var rotX = py * -10;
+                el.style.transform = 'perspective(700px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateY(-6px)';
+            });
+            el.addEventListener('mouseleave', function() {
+                el.style.transform = '';
+            });
+        });
+    }
+
+    // Fixed film-grain overlay, added once site-wide for a less flat/digital dark background.
+    var grain = document.createElement('div');
+    grain.className = 'grain-overlay';
+    document.body.appendChild(grain);
+
     // Animated count-up for .stat-block .num elements once they enter view.
     var statNums = document.querySelectorAll('.stat-block .num[data-count]');
     if (statNums.length && 'IntersectionObserver' in window) {
