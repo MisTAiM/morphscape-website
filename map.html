@@ -16,17 +16,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-    /* This is an original, hand-built illustration of the world's rough layout - terrain shapes,
-       roads, and rivers are stylized approximations I drew myself, not traced or copied from the
-       in-game map or any wiki/Jagex map art. Landmark names and their rough coordinates are
-       public facts about how the game world is laid out, not protected expression - the
-       DIFFERENCE that matters is the actual pixels: original artwork here vs. someone else's
-       rendered tiles, which is the line that got held even with an explicit go-ahead to cross it. */
+    /* map-tile.jpg is rendered straight from this server's own game cache (see
+       Kronos-master/runelite/cache's MapImageDumper/MapDumpMain - a new CLI entry point wired up
+       to an existing-but-unused-until-now cache decoder class) - not copied or traced from
+       anyone else's rendered map. Cropped to world coords x:2550-3400, y:3050-3560, matching the
+       BOUNDS used below for pin placement, so percentage math lines up between the two. */
     .map-wrap {
         position: relative;
         max-width: 900px;
         margin: 0 auto;
-        aspect-ratio: 900 / 619;
+        aspect-ratio: 1700 / 1020;
         border: 3px solid var(--gold);
         border-radius: 6px;
         overflow: hidden;
@@ -39,6 +38,7 @@
         inset: 0;
         width: 100%;
         height: 100%;
+        object-fit: cover;
         display: block;
     }
 
@@ -46,7 +46,7 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-        opacity: 0.14;
+        opacity: 0.08;
         mix-blend-mode: overlay;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
@@ -227,60 +227,11 @@
 <section>
     <div class="notice reveal">
         Players in the Wilderness are never shown here - it's a PVP area, and broadcasting exact
-        positions there would just hand out free targets. This is a hand-built, abstract map, not
-        a reproduction of the in-game one - use it for a rough sense of where people are, not
-        precise navigation.
+        positions there would just hand out free targets.
     </div>
 
     <div class="map-wrap reveal">
-        <svg class="map-terrain" viewBox="0 0 900 619" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#42552f"/>
-                    <stop offset="100%" stop-color="#2b3a20"/>
-                </linearGradient>
-                <linearGradient id="waterGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#3a6478"/>
-                    <stop offset="100%" stop-color="#1e3846"/>
-                </linearGradient>
-            </defs>
-
-            <rect x="0" y="0" width="900" height="619" fill="url(#landGrad)"/>
-
-            <!-- western sea, roughly the Port Sarim / Karamja coastline -->
-            <path d="M0,619 L0,260 C55,300 95,360 78,430 C62,495 100,545 150,585 C178,608 168,619 168,619 Z"
-                  fill="url(#waterGrad)"/>
-            <path d="M0,260 C55,300 95,360 78,430 C62,495 100,545 150,585"
-                  fill="none" stroke="#5a8a9c" stroke-width="2" opacity="0.55"/>
-
-            <!-- Al Kharid desert, southeast -->
-            <path d="M900,619 L900,360 C810,375 765,420 745,475 C725,530 760,585 815,619 Z"
-                  fill="#8f7a4c" opacity="0.6"/>
-            <path d="M900,360 C810,375 765,420 745,475 C725,530 760,585 815,619"
-                  fill="none" stroke="#b39b63" stroke-width="1.5" opacity="0.4"/>
-
-            <!-- forest patches -->
-            <ellipse cx="150" cy="150" rx="95" ry="58" fill="#1f3018" opacity="0.6"/>
-            <ellipse cx="330" cy="235" rx="72" ry="46" fill="#1f3018" opacity="0.5"/>
-            <ellipse cx="470" cy="235" rx="58" ry="36" fill="#1f3018" opacity="0.45"/>
-            <ellipse cx="245" cy="360" rx="60" ry="40" fill="#1f3018" opacity="0.4"/>
-
-            <!-- River Lum, roughly Lumbridge to the western coast near Draynor/Port Sarim -->
-            <path d="M711,415 C655,402 615,398 574,382 C542,372 518,398 503,415"
-                  fill="none" stroke="#4a7a90" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
-
-            <!-- roads between major hubs -->
-            <g stroke="#8a6a44" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round" fill="none" opacity="0.65">
-                <path d="M711,415 L787,445"/>
-                <path d="M711,415 L698,165"/>
-                <path d="M698,165 L439,220"/>
-                <path d="M439,220 L503,415"/>
-                <path d="M574,382 L503,415"/>
-                <path d="M698,165 L568,78"/>
-                <path d="M119,310 L185,89"/>
-                <path d="M185,89 L268,148"/>
-            </g>
-        </svg>
+        <img class="map-terrain" src="/map-tile.jpg" alt="Morphscape world map">
         <div class="map-parchment"></div>
         <div class="map-wilderness">
             <div class="map-wilderness-label">Wilderness &mdash; positions hidden</div>
@@ -332,10 +283,11 @@
 <script src="/site.js"></script>
 <script>
 (function () {
-    // Bounding box for the abstract map, in real in-game coordinates. Chosen to cover the main
-    // populated area (Lumbridge/Varrock/Falador/Edgeville/Ardougne) plus a thin strip of the
-    // Wilderness ditch at the north edge for orientation - no player dots ever render inside
-    // that band since the server already excludes Wilderness positions from the feed.
+    // Must match exactly what map-tile.jpg was cropped to (see MapDumpMain's printed bounds and
+    // the crop script) - this is what turns real x/y coordinates into a percentage position on
+    // that image. Covers the main populated area (Lumbridge/Varrock/Falador/Edgeville/Ardougne)
+    // plus a thin strip of the Wilderness ditch at the north edge for orientation - no player
+    // dots ever render inside that band since the server already excludes Wilderness positions.
     var BOUNDS = { minX: 2550, maxX: 3400, minY: 3050, maxY: 3560 };
 
     var LANDMARKS = [
