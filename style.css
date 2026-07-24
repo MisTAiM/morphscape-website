@@ -570,7 +570,7 @@ section .subtitle {
 .hs-table-wrap {
     border: 1px solid var(--border);
     border-radius: 10px;
-    overflow: hidden;
+    overflow-x: auto;
     box-shadow: 0 12px 34px rgba(0, 0, 0, 0.35);
 }
 
@@ -1047,6 +1047,25 @@ footer::before {
 
 @media (max-width: 720px) {
     .footer-grid { grid-template-columns: 1fr; }
+
+    /* Desktop's per-section padding (70px) and card padding (28-36px) add up to a lot of pure
+       scrolling once every section stacks to one column - tightened for a page that feels sized
+       for a phone instead of a squeezed-down desktop layout. Placed in this later media query
+       block (not the earlier one near the top of the file) so these rules actually win the
+       cascade against the base .stats-strip/.card/etc. definitions that sit between the two -
+       equal specificity means source order decides the tie, and the earlier block lost it. */
+    section { padding: 44px 18px; }
+    section h2 { font-size: 1.7rem; }
+    section .subtitle { margin-bottom: 32px; }
+    .card, .step { padding: 22px; }
+    .package { padding: 28px 20px; }
+    .cta-banner { padding: 40px 18px; }
+
+    /* Stat blocks are just a number + a short label - two per row reads as a considered mobile
+       layout instead of five near-identical full-width rows stacked in a long column. */
+    .stats-strip { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .stat-block { padding: 20px 12px; }
+    .stat-block .num { font-size: 2rem; }
 }
 
 /* ---------- Film grain texture (fixed overlay, whole site) ---------- */
