@@ -15,81 +15,54 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-    /* map-tile.jpg is rendered straight from this server's own game cache (see
+    /* map-full.webp is rendered straight from this server's own game cache (see
        Kronos-master/runelite/cache's MapImageDumper/MapDumpMain - a new CLI entry point wired up
-       to an existing-but-unused-until-now cache decoder class) - not copied or traced from
-       anyone else's rendered map. Cropped to world coords x:2550-3400, y:3050-3560, matching the
-       BOUNDS used below for pin placement, so percentage math lines up between the two. */
+       to an existing-but-unused-until-now cache decoder class), covering the full mainland - not
+       copied or traced from anyone else's rendered map. Leaflet itself is a generic, open-source
+       pan/zoom map UI library (MIT licensed) with no game-specific content of its own - it just
+       provides the interaction layer over an image we already own the rights to show. */
     .map-wrap {
         position: relative;
-        max-width: 900px;
+        max-width: 1100px;
         margin: 0 auto;
-        aspect-ratio: 1700 / 1020;
         border: 3px solid var(--gold);
         border-radius: 6px;
         overflow: hidden;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(var(--gold-bright-rgb), 0.25),
-            inset 0 0 40px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(var(--gold-bright-rgb), 0.25);
+        background: #1c2a38;
     }
 
-    .map-terrain {
-        position: absolute;
-        inset: 0;
+    #leaflet-map {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+        height: 640px;
     }
 
-    .map-parchment {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        opacity: 0.08;
-        mix-blend-mode: overlay;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    @media (max-width: 720px) {
+        #leaflet-map { height: 420px; }
     }
 
-    .map-vignette {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        box-shadow: inset 0 0 90px 20px rgba(0, 0, 0, 0.65);
+    /* Leaflet's own chrome (zoom buttons, attribution) restyled to match the site rather than
+       stock Leaflet blue/white. */
+    .leaflet-control-zoom a {
+        background: rgba(10, 7, 6, 0.92) !important;
+        color: var(--gold-bright) !important;
+        border-color: var(--border-bright) !important;
     }
 
-    .map-wilderness {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        height: 11%;
-        background: repeating-linear-gradient(
-            135deg,
-            rgba(179, 58, 58, 0.28),
-            rgba(179, 58, 58, 0.28) 10px,
-            rgba(179, 58, 58, 0.14) 10px,
-            rgba(179, 58, 58, 0.14) 20px
-        );
-        border-bottom: 2px dashed rgba(255, 120, 120, 0.55);
+    .leaflet-control-zoom a:hover {
+        background: rgba(30, 15, 12, 0.95) !important;
     }
 
-    .map-wilderness-label {
-        position: absolute;
-        top: 6px;
-        left: 12px;
-        font-family: var(--font-display);
-        font-size: 0.72rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-        color: #ffd3d3;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+    .leaflet-control-attribution {
+        background: rgba(10, 7, 6, 0.75) !important;
+        color: var(--text-dim) !important;
     }
 
-    .map-landmark {
-        position: absolute;
-        transform: translate(-50%, -50%);
+    .leaflet-control-attribution a { color: var(--gold-bright) !important; }
+
+    .map-landmark-icon {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -97,7 +70,7 @@
         pointer-events: none;
     }
 
-    .map-landmark .dot {
+    .map-landmark-icon .dot {
         width: 11px;
         height: 11px;
         border-radius: 50% 50% 50% 0;
@@ -107,20 +80,18 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     }
 
-    .map-landmark .label {
+    .map-landmark-icon .label {
         font-family: var(--font-display);
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         font-weight: 600;
         color: #f4ead2;
         white-space: nowrap;
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.9);
     }
 
-    .map-player {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        width: 9px;
-        height: 9px;
+    .map-player-icon {
+        width: 11px;
+        height: 11px;
         border-radius: 50%;
         background: var(--gold-bright);
         box-shadow: 0 0 8px 2px rgba(var(--gold-bright-rgb), 0.8);
@@ -133,44 +104,20 @@
         50% { box-shadow: 0 0 12px 4px rgba(var(--gold-bright-rgb), 0.9); }
     }
 
-    .map-player .tag {
-        position: absolute;
-        bottom: 130%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(10, 7, 6, 0.95);
+    .leaflet-popup-content-wrapper {
+        background: rgba(10, 7, 6, 0.95) !important;
         border: 1px solid var(--border-bright);
-        border-radius: 4px;
-        padding: 3px 8px;
-        font-size: 0.72rem;
-        color: var(--text);
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.15s ease;
+        color: var(--text) !important;
     }
 
-    .map-player:hover .tag { opacity: 1; }
+    .leaflet-popup-tip { background: rgba(10, 7, 6, 0.95) !important; }
 
-    .map-empty {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        pointer-events: none;
-        z-index: 2;
-    }
-
-    .map-empty span {
-        background: rgba(10, 7, 6, 0.9);
-        border: 1px solid var(--border-bright);
-        border-radius: 8px;
-        color: var(--text-dim);
-        font-size: 0.95rem;
+    .map-empty-banner {
         text-align: center;
-        padding: 12px 20px;
-        max-width: 80%;
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        margin-top: 12px;
+        display: none;
     }
 
     .map-legend {
@@ -194,10 +141,6 @@
         height: 10px;
         border-radius: 50%;
         display: inline-block;
-    }
-
-    @media (max-width: 720px) {
-        .map-landmark .label { font-size: 0.6rem; }
     }
 </style>
 </head>
@@ -231,19 +174,13 @@
     </div>
 
     <div class="map-wrap reveal">
-        <img class="map-terrain" src="/map-tile.jpg" alt="Morphscape world map">
-        <div class="map-parchment"></div>
-        <div class="map-wilderness">
-            <div class="map-wilderness-label">Wilderness &mdash; positions hidden</div>
-        </div>
-        <div id="map-landmarks"></div>
-        <div id="map-players"></div>
-        <div id="map-empty" class="map-empty" style="display: none;"><span>No one else is exploring right now - be the first!</span></div>
-        <div class="map-vignette"></div>
+        <div id="leaflet-map"></div>
     </div>
 
+    <div class="map-empty-banner" id="map-empty">No one else is exploring right now - be the first!</div>
+
     <div class="map-legend">
-        <span><i class="swatch" style="background: var(--gold-bright); box-shadow: 0 0 6px rgba(var(--gold-bright-rgb), 0.7);"></i>Player</span>
+        <span><i class="swatch" style="background: var(--gold-bright); box-shadow: 0 0 6px rgba(var(--gold-bright-rgb), 0.7);"></i>Player (hover for name)</span>
         <span><i class="swatch" style="background: #a68a5c;"></i>Landmark</span>
         <span id="map-count" style="color: var(--gold-bright); font-weight: 600;"></span>
     </div>
@@ -281,14 +218,52 @@
 </footer>
 
 <script src="/site.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function () {
-    // Must match exactly what map-tile.jpg was cropped to (see MapDumpMain's printed bounds and
-    // the crop script) - this is what turns real x/y coordinates into a percentage position on
-    // that image. Covers the main populated area (Lumbridge/Varrock/Falador/Edgeville/Ardougne)
-    // plus a thin strip of the Wilderness ditch at the north edge for orientation - no player
-    // dots ever render inside that band since the server already excludes Wilderness positions.
-    var BOUNDS = { minX: 2550, maxX: 3400, minY: 3050, maxY: 3560 };
+    // map-full.webp is a straight crop of the full mainland from the game cache render (see
+    // MapDumpMain's printed bounds: minX=1152 maxX=4288 minY=1216 maxY=12608 for the WHOLE
+    // stitched cache, further cropped here to just the populated mainland). Image is 5000x3488px.
+    var IMG_W = 5000, IMG_H = 3488;
+    var BOUNDS = { minX: 1152, maxX: 3904, minY: 2496, maxY: 4416 };
+    var pxPerX = IMG_W / (BOUNDS.maxX - BOUNDS.minX);
+    var pxPerY = IMG_H / (BOUNDS.maxY - BOUNDS.minY);
+
+    // Leaflet's CRS.Simple treats the map as a plain 2D pixel grid, not real-world lat/lng - the
+    // convention used here (image bounds [[-h,0],[0,w]], marker lat = -pixelY) is the standard
+    // way to point Leaflet at a single static image instead of a real tile-based world map.
+    function worldToLatLng(x, y) {
+        var px = (x - BOUNDS.minX) * pxPerX;
+        var py = (BOUNDS.maxY - y) * pxPerY; // north (high y) = up = smaller py
+        return [-py, px];
+    }
+
+    var imageBounds = [[-IMG_H, 0], [0, IMG_W]];
+
+    var map = L.map('leaflet-map', {
+        crs: L.CRS.Simple,
+        minZoom: -2,
+        maxZoom: 2,
+        zoomSnap: 0.25,
+        attributionControl: false,
+    });
+    L.imageOverlay('/map-full.webp', imageBounds).addTo(map);
+    map.fitBounds(imageBounds);
+    // Without this, dragging far enough pans clean off the image into blank grey space with no
+    // easy way back (found by actually testing a drag, not just reading the Leaflet docs) - a
+    // slightly padded bound keeps a small natural overpan feel without losing the map entirely.
+    map.setMaxBounds(L.latLngBounds(imageBounds).pad(0.15));
+    L.control.attribution({ prefix: false })
+        .addAttribution('Map rendered from the Morphscape game cache')
+        .addTo(map);
+
+    // Approximate Wilderness boundary (a PVP area) - shown for orientation only, not pixel-exact.
+    // No player dot can ever land inside it regardless, since the server excludes those
+    // positions from the feed entirely before this page ever sees them.
+    var wildBounds = [worldToLatLng(2944, 4160), worldToLatLng(3392, 3520)];
+    L.rectangle(wildBounds, {
+        color: '#ff7878', weight: 2, dashArray: '6 6', fillColor: '#b33a3a', fillOpacity: 0.12,
+    }).addTo(map).bindTooltip('Wilderness - positions hidden', { direction: 'top', sticky: true });
 
     var LANDMARKS = [
         { name: 'Lumbridge', x: 3222, y: 3218 },
@@ -303,26 +278,24 @@
         { name: 'Catherby', x: 2803, y: 3438 },
         { name: 'Camelot', x: 2725, y: 3487 },
         { name: 'Ardougne', x: 2662, y: 3305 },
+        { name: 'Canifis', x: 3510, y: 3488 },
+        { name: 'Castle Wars', x: 2440, y: 3092 },
+        { name: 'Taverley', x: 2884, y: 3434 },
+        { name: 'Rimmington', x: 2953, y: 3243 },
+        { name: 'Yanille', x: 2606, y: 3095 },
+        { name: 'Karamja', x: 2954, y: 3147 },
     ];
 
-    function toPercent(x, y) {
-        var left = (x - BOUNDS.minX) / (BOUNDS.maxX - BOUNDS.minX) * 100;
-        var top = (BOUNDS.maxY - y) / (BOUNDS.maxY - BOUNDS.minY) * 100; // north (high y) = up
-        return { left: Math.max(0, Math.min(100, left)), top: Math.max(0, Math.min(100, top)) };
-    }
-
-    var landmarkHost = document.getElementById('map-landmarks');
     LANDMARKS.forEach(function (lm) {
-        var pos = toPercent(lm.x, lm.y);
-        var el = document.createElement('div');
-        el.className = 'map-landmark';
-        el.style.left = pos.left + '%';
-        el.style.top = pos.top + '%';
-        el.innerHTML = '<span class="dot"></span><span class="label">' + lm.name + '</span>';
-        landmarkHost.appendChild(el);
+        var icon = L.divIcon({
+            className: 'map-landmark-icon',
+            html: '<span class="dot"></span><span class="label">' + lm.name + '</span>',
+            iconSize: null,
+        });
+        L.marker(worldToLatLng(lm.x, lm.y), { icon: icon, interactive: false }).addTo(map);
     });
 
-    var playerHost = document.getElementById('map-players');
+    var playerLayer = L.layerGroup().addTo(map);
     var emptyEl = document.getElementById('map-empty');
     var countEl = document.getElementById('map-count');
 
@@ -331,21 +304,15 @@
             .then(function (r) { return r.ok ? r.json() : []; })
             .then(function (players) {
                 if (!Array.isArray(players)) players = [];
-                playerHost.innerHTML = '';
+                playerLayer.clearLayers();
                 players.forEach(function (p) {
                     if (typeof p.x !== 'number' || typeof p.y !== 'number') return;
-                    var pos = toPercent(p.x, p.y);
-                    var el = document.createElement('div');
-                    el.className = 'map-player';
-                    el.style.left = pos.left + '%';
-                    el.style.top = pos.top + '%';
-                    var tag = document.createElement('span');
-                    tag.className = 'tag';
-                    tag.textContent = p.name || 'Player';
-                    el.appendChild(tag);
-                    playerHost.appendChild(el);
+                    var icon = L.divIcon({ className: 'map-player-icon', iconSize: [11, 11] });
+                    L.marker(worldToLatLng(p.x, p.y), { icon: icon })
+                        .bindTooltip(p.name || 'Player', { direction: 'top' })
+                        .addTo(playerLayer);
                 });
-                emptyEl.style.display = players.length ? 'none' : 'flex';
+                emptyEl.style.display = players.length ? 'none' : 'block';
                 countEl.textContent = players.length
                     ? players.length + (players.length === 1 ? ' player shown' : ' players shown')
                     : '';
