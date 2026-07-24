@@ -75,10 +75,16 @@
         height: 11px;
         border-radius: 50% 50% 50% 0;
         transform: rotate(-45deg);
-        background: radial-gradient(circle at 35% 35%, #d8c9a3, #a68a5c 55%, #7a6340 100%);
         border: 1px solid #2a1c0e;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     }
+
+    /* One dot color per landmark category, so the map reads at a glance without needing to
+       check every label individually. */
+    .map-landmark-icon.type-city .dot { background: radial-gradient(circle at 35% 35%, #d8c9a3, #a68a5c 55%, #7a6340 100%); }
+    .map-landmark-icon.type-minigame .dot { background: radial-gradient(circle at 35% 35%, #b8d8f0, #5a8cb0 55%, #3a5f7a 100%); }
+    .map-landmark-icon.type-dungeon .dot { background: radial-gradient(circle at 35% 35%, #c9c0d8, #7a6a8f 55%, #4a3f5c 100%); }
+    .map-landmark-icon.type-custom .dot { background: radial-gradient(circle at 35% 35%, #fff6dd, var(--gold-bright) 55%, var(--gold) 100%); }
 
     .map-landmark-icon .label {
         font-family: var(--font-display);
@@ -89,20 +95,66 @@
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.9);
     }
 
+    .map-landmark-icon.type-custom .label { color: var(--gold-bright); }
+
     .map-player-icon {
         width: 11px;
         height: 11px;
         border-radius: 50%;
-        background: var(--gold-bright);
-        box-shadow: 0 0 8px 2px rgba(var(--gold-bright-rgb), 0.8);
+        box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
         animation: player-pulse 2s ease-in-out infinite;
         cursor: pointer;
     }
 
     @keyframes player-pulse {
-        0%, 100% { box-shadow: 0 0 6px 1px rgba(var(--gold-bright-rgb), 0.6); }
-        50% { box-shadow: 0 0 12px 4px rgba(var(--gold-bright-rgb), 0.9); }
+        0%, 100% { filter: brightness(0.9); }
+        50% { filter: brightness(1.25); }
     }
+
+    .map-controls {
+        max-width: 1100px;
+        margin: 0 auto 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .map-filter-btn {
+        background: var(--bg-panel);
+        border: 1px solid var(--border-bright);
+        color: var(--text-dim);
+        border-radius: 20px;
+        padding: 7px 16px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .map-filter-btn:hover { border-color: var(--gold); color: var(--text); }
+
+    .map-filter-btn.active {
+        background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+        border-color: var(--gold);
+        color: #1a1206;
+    }
+
+    .map-search {
+        background: var(--bg-panel);
+        border: 1px solid var(--border-bright);
+        color: var(--text);
+        border-radius: 20px;
+        padding: 7px 16px;
+        font-size: 0.85rem;
+        font-family: inherit;
+        min-width: 180px;
+    }
+
+    .map-search:focus { outline: 1px solid var(--gold); }
+
+    .map-search::placeholder { color: var(--text-dim); }
 
     .leaflet-popup-content-wrapper {
         background: rgba(10, 7, 6, 0.95) !important;
@@ -173,6 +225,15 @@
         positions there would just hand out free targets.
     </div>
 
+    <div class="map-controls">
+        <button class="map-filter-btn active" data-type="all">All</button>
+        <button class="map-filter-btn active" data-type="city">Cities</button>
+        <button class="map-filter-btn active" data-type="minigame">Minigames</button>
+        <button class="map-filter-btn active" data-type="dungeon">Dungeons</button>
+        <button class="map-filter-btn active" data-type="custom">Morphscape</button>
+        <input class="map-search" id="map-search" type="text" placeholder="Search locations...">
+    </div>
+
     <div class="map-wrap reveal">
         <div id="leaflet-map"></div>
     </div>
@@ -180,8 +241,11 @@
     <div class="map-empty-banner" id="map-empty">No one else is exploring right now - be the first!</div>
 
     <div class="map-legend">
-        <span><i class="swatch" style="background: var(--gold-bright); box-shadow: 0 0 6px rgba(var(--gold-bright-rgb), 0.7);"></i>Player (hover for name)</span>
-        <span><i class="swatch" style="background: #a68a5c;"></i>Landmark</span>
+        <span><i class="swatch" style="background: var(--gold-bright); box-shadow: 0 0 6px rgba(var(--gold-bright-rgb), 0.7);"></i>Player (own color per player, hover for name)</span>
+        <span><i class="swatch" style="background: #a68a5c;"></i>City</span>
+        <span><i class="swatch" style="background: #5a8cb0;"></i>Minigame</span>
+        <span><i class="swatch" style="background: #7a6a8f;"></i>Dungeon</span>
+        <span><i class="swatch" style="background: var(--gold-bright);"></i>Morphscape</span>
         <span id="map-count" style="color: var(--gold-bright); font-weight: 600;"></span>
     </div>
 </section>
@@ -265,35 +329,118 @@
         color: '#ff7878', weight: 2, dashArray: '6 6', fillColor: '#b33a3a', fillOpacity: 0.12,
     }).addTo(map).bindTooltip('Wilderness - positions hidden', { direction: 'top', sticky: true });
 
+    // Coordinates are well-established public knowledge about the game's layout (same category
+    // as the original 18 - verified against the rendered map for Varrock/Falador earlier this
+    // session), except "Home" which comes straight from World.HOME in the server's own source
+    // (Kronos-master/kronos-server/.../model/World.java) - that one's exact, not approximate.
     var LANDMARKS = [
-        { name: 'Lumbridge', x: 3222, y: 3218 },
-        { name: 'Al Kharid', x: 3293, y: 3193 },
-        { name: 'Draynor Village', x: 3092, y: 3247 },
-        { name: 'Port Sarim', x: 3025, y: 3218 },
-        { name: 'Falador', x: 2965, y: 3379 },
-        { name: 'Barb. Village', x: 3082, y: 3422 },
-        { name: 'Varrock', x: 3210, y: 3424 },
-        { name: 'G.E.', x: 3164, y: 3477 },
-        { name: 'Edgeville', x: 3087, y: 3496 },
-        { name: 'Catherby', x: 2803, y: 3438 },
-        { name: 'Camelot', x: 2725, y: 3487 },
-        { name: 'Ardougne', x: 2662, y: 3305 },
-        { name: 'Canifis', x: 3510, y: 3488 },
-        { name: 'Castle Wars', x: 2440, y: 3092 },
-        { name: 'Taverley', x: 2884, y: 3434 },
-        { name: 'Rimmington', x: 2953, y: 3243 },
-        { name: 'Yanille', x: 2606, y: 3095 },
-        { name: 'Karamja', x: 2954, y: 3147 },
+        { name: 'Home', x: 2028, y: 3577, type: 'custom' },
+        { name: 'Lumbridge', x: 3222, y: 3218, type: 'city' },
+        { name: 'Al Kharid', x: 3293, y: 3193, type: 'city' },
+        { name: 'Draynor Village', x: 3092, y: 3247, type: 'city' },
+        { name: 'Port Sarim', x: 3025, y: 3218, type: 'city' },
+        { name: 'Falador', x: 2965, y: 3379, type: 'city' },
+        { name: 'Barb. Village', x: 3082, y: 3422, type: 'city' },
+        { name: 'Varrock', x: 3210, y: 3424, type: 'city' },
+        { name: 'G.E.', x: 3164, y: 3477, type: 'city' },
+        { name: 'Edgeville', x: 3087, y: 3496, type: 'city' },
+        { name: 'Catherby', x: 2803, y: 3438, type: 'city' },
+        { name: 'Camelot', x: 2725, y: 3487, type: 'city' },
+        { name: 'Ardougne', x: 2662, y: 3305, type: 'city' },
+        { name: 'Canifis', x: 3510, y: 3488, type: 'city' },
+        { name: 'Taverley', x: 2884, y: 3434, type: 'city' },
+        { name: 'Rimmington', x: 2953, y: 3243, type: 'city' },
+        { name: 'Yanille', x: 2606, y: 3095, type: 'city' },
+        { name: 'Karamja', x: 2954, y: 3147, type: 'city' },
+        { name: 'Burthorpe', x: 2900, y: 3540, type: 'city' },
+        { name: 'Rellekka', x: 2643, y: 3688, type: 'city' },
+        { name: 'Shilo Village', x: 2853, y: 2965, type: 'city' },
+        { name: 'Nardah', x: 3419, y: 2914, type: 'city' },
+        { name: 'Pollnivneach', x: 3350, y: 2965, type: 'city' },
+        { name: 'Prifddinas', x: 2208, y: 3360, type: 'city' },
+        { name: 'Trollheim', x: 2890, y: 3680, type: 'city' },
+        { name: 'Miscellania', x: 2528, y: 3865, type: 'city' },
+        { name: 'Castle Wars', x: 2440, y: 3092, type: 'minigame' },
+        { name: 'Duel Arena', x: 3357, y: 3266, type: 'minigame' },
+        { name: 'Barbarian Assault', x: 2520, y: 3565, type: 'minigame' },
+        { name: 'Clan Wars', x: 3305, y: 3924, type: 'minigame' },
+        { name: 'Void Knight Outpost', x: 2657, y: 2639, type: 'minigame' },
+        { name: 'Fishing Trawler', x: 2668, y: 3164, type: 'minigame' },
+        { name: 'Stronghold of Security', x: 3093, y: 3444, type: 'dungeon' },
+        { name: 'Edgeville Dungeon', x: 3097, y: 3468, type: 'dungeon' },
+        { name: 'Crafting Guild', x: 2933, y: 3285, type: 'dungeon' },
+        { name: 'Cooking Guild', x: 3143, y: 3444, type: 'dungeon' },
     ];
 
-    LANDMARKS.forEach(function (lm) {
+    var landmarkMarkers = LANDMARKS.map(function (lm) {
         var icon = L.divIcon({
-            className: 'map-landmark-icon',
+            className: 'map-landmark-icon type-' + lm.type,
             html: '<span class="dot"></span><span class="label">' + lm.name + '</span>',
             iconSize: null,
         });
-        L.marker(worldToLatLng(lm.x, lm.y), { icon: icon, interactive: false }).addTo(map);
+        var marker = L.marker(worldToLatLng(lm.x, lm.y), { icon: icon, interactive: false });
+        marker.landmark = lm;
+        return marker;
     });
+    var landmarkLayer = L.layerGroup(landmarkMarkers).addTo(map);
+
+    // Filter buttons (type toggles) + search box both narrow the same landmark set - "All"
+    // toggles every other button together rather than being its own independent filter.
+    var activeTypes = { city: true, minigame: true, dungeon: true, custom: true };
+    var searchTerm = '';
+
+    function applyFilters() {
+        landmarkMarkers.forEach(function (marker) {
+            var lm = marker.landmark;
+            var matchesType = activeTypes[lm.type];
+            var matchesSearch = !searchTerm || lm.name.toLowerCase().indexOf(searchTerm) !== -1;
+            var shouldShow = matchesType && matchesSearch;
+            var hasLayer = landmarkLayer.hasLayer(marker);
+            if (shouldShow && !hasLayer) landmarkLayer.addLayer(marker);
+            else if (!shouldShow && hasLayer) landmarkLayer.removeLayer(marker);
+        });
+    }
+
+    var filterButtons = document.querySelectorAll('.map-filter-btn');
+    filterButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var type = btn.getAttribute('data-type');
+            if (type === 'all') {
+                var allActive = btn.classList.contains('active');
+                filterButtons.forEach(function (b) {
+                    b.classList.toggle('active', !allActive);
+                });
+                Object.keys(activeTypes).forEach(function (t) { activeTypes[t] = !allActive; });
+            } else {
+                btn.classList.toggle('active');
+                activeTypes[type] = btn.classList.contains('active');
+                var allBtn = document.querySelector('.map-filter-btn[data-type="all"]');
+                var allOn = Object.keys(activeTypes).every(function (t) { return activeTypes[t]; });
+                allBtn.classList.toggle('active', allOn);
+            }
+            applyFilters();
+        });
+    });
+
+    document.getElementById('map-search').addEventListener('input', function (e) {
+        searchTerm = e.target.value.trim().toLowerCase();
+        applyFilters();
+    });
+
+    // Deterministic per-player color so the same player keeps the same color across refreshes
+    // instead of every dot reshuffling color every 12s - hashes the name into a fixed palette
+    // rather than assigning colors by array order (which WOULD reshuffle as players come/go).
+    var PLAYER_COLORS = [
+        '#ff5233', '#4fc3f7', '#81c784', '#ffd54f', '#ba68c8',
+        '#ff8a65', '#4db6ac', '#f06292', '#aed581', '#7986cb',
+    ];
+    function colorForName(name) {
+        var hash = 0;
+        for (var i = 0; i < name.length; i++) {
+            hash = (hash * 31 + name.charCodeAt(i)) | 0;
+        }
+        return PLAYER_COLORS[Math.abs(hash) % PLAYER_COLORS.length];
+    }
 
     var playerLayer = L.layerGroup().addTo(map);
     var emptyEl = document.getElementById('map-empty');
@@ -307,10 +454,24 @@
                 playerLayer.clearLayers();
                 players.forEach(function (p) {
                     if (typeof p.x !== 'number' || typeof p.y !== 'number') return;
-                    var icon = L.divIcon({ className: 'map-player-icon', iconSize: [11, 11] });
-                    L.marker(worldToLatLng(p.x, p.y), { icon: icon })
-                        .bindTooltip(p.name || 'Player', { direction: 'top' })
+                    var name = p.name || 'Player';
+                    var color = colorForName(name);
+                    var icon = L.divIcon({
+                        className: 'map-player-icon',
+                        html: '',
+                        iconSize: [11, 11],
+                    });
+                    var marker = L.marker(worldToLatLng(p.x, p.y), { icon: icon })
+                        .bindTooltip(name, { direction: 'top' })
                         .addTo(playerLayer);
+                    // divIcon's own element isn't available until after addTo mounts it - style
+                    // the actual DOM node directly since each player needs a different color and
+                    // that can't be baked into the shared CSS class.
+                    var el = marker.getElement();
+                    if (el) {
+                        el.style.background = color;
+                        el.style.boxShadow = '0 0 8px 2px ' + color + 'cc, 0 0 8px 2px rgba(0,0,0,0.5)';
+                    }
                 });
                 emptyEl.style.display = players.length ? 'none' : 'block';
                 countEl.textContent = players.length
