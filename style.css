@@ -1,11 +1,19 @@
 :root {
-    --bg: #0c0906;
-    --bg-panel: #1a140e;
-    --bg-panel-2: #221a12;
-    --border: #3a2f22;
-    --border-bright: #55432c;
-    --gold: #d4af37;
-    --gold-bright: #f4d976;
+    /* Palette sampled directly from logo.png (canvas pixel analysis): peak glow #f60000,
+       peak metal highlight #fef8f7, mid-tone crack red #621d18. --gold/--gold-bright keep
+       their names (89 "var(--gold...)" references across every page) but now hold the logo's
+       red instead of the old bronze/gold - repointing values here reskins the whole site from
+       one edit instead of touching every file. --red/--red-glow (alert/offline convention)
+       stay as they were - already red, already distinct enough from the new brand red. */
+    --bg: #0a0706;
+    --bg-panel: #180d0c;
+    --bg-panel-2: #211110;
+    --border: #3d201c;
+    --border-bright: #5c2e27;
+    --gold: #d95545;
+    --gold-bright: #ff5233;
+    --gold-rgb: 217, 85, 69;
+    --gold-bright-rgb: 255, 82, 51;
     --red: #b33a3a;
     --red-glow: #ff5050;
     --text: #ece3d2;
@@ -69,14 +77,14 @@ nav .brand {
     color: var(--gold-bright);
     letter-spacing: 2px;
     text-decoration: none;
-    text-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+    text-shadow: 0 0 18px rgba(var(--gold-rgb), 0.35);
 }
 
 nav .brand-logo {
     height: 36px;
     width: 36px;
     margin-right: 12px;
-    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
+    filter: drop-shadow(0 0 8px rgba(var(--gold-rgb), 0.5));
     transition: transform 0.3s ease;
 }
 
@@ -103,7 +111,7 @@ nav .links a::after {
     width: 0;
     height: 2px;
     background: linear-gradient(90deg, var(--gold), var(--gold-bright));
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+    box-shadow: 0 0 8px rgba(var(--gold-rgb), 0.7);
     transition: width 0.25s ease;
 }
 
@@ -169,7 +177,7 @@ nav .links a:hover::after, nav .links a.active::after {
     height: 4px;
     border-radius: 50%;
     background: var(--gold-bright);
-    box-shadow: 0 0 6px 2px rgba(244, 217, 118, 0.8);
+    box-shadow: 0 0 6px 2px rgba(var(--gold-bright-rgb), 0.8);
     opacity: 0;
     animation: rise linear infinite;
 }
@@ -189,7 +197,7 @@ nav .links a:hover::after, nav .links a.active::after {
     margin: 0 0 16px;
     color: var(--gold-bright);
     letter-spacing: 3px;
-    text-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 4px 12px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 0 30px rgba(var(--gold-rgb), 0.5), 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .hero.hero-splash h1 {
@@ -239,7 +247,7 @@ nav .links a:hover::after, nav .links a.active::after {
     margin: 8px 8px;
     overflow: hidden;
     transition: transform 0.15s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 4px 18px rgba(var(--gold-rgb), 0.15);
 }
 
 .btn::before {
@@ -254,7 +262,7 @@ nav .links a:hover::after, nav .links a.active::after {
 }
 
 .btn:hover {
-    box-shadow: 0 6px 26px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 6px 26px rgba(var(--gold-rgb), 0.4);
     transform: translateY(-2px);
 }
 
@@ -269,7 +277,7 @@ nav .links a:hover::after, nav .links a.active::after {
 }
 
 .btn.secondary:hover {
-    background: rgba(212, 175, 55, 0.08);
+    background: rgba(var(--gold-rgb), 0.08);
 }
 
 /* ---------- Sections ---------- */
@@ -364,7 +372,7 @@ section .subtitle {
 .card:hover {
     transform: translateY(-6px);
     border-color: var(--border-bright);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(212, 175, 55, 0.08);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(var(--gold-rgb), 0.08);
 }
 
 .card:hover::before {
@@ -411,8 +419,8 @@ section .subtitle {
 }
 
 @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.3), 0 20px 50px rgba(212, 175, 55, 0.1); }
-    50% { box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.55), 0 20px 60px rgba(212, 175, 55, 0.25); }
+    0%, 100% { box-shadow: 0 0 0 1px rgba(var(--gold-rgb), 0.3), 0 20px 50px rgba(var(--gold-rgb), 0.1); }
+    50% { box-shadow: 0 0 0 1px rgba(var(--gold-rgb), 0.55), 0 20px 60px rgba(var(--gold-rgb), 0.25); }
 }
 
 .package .tag {
@@ -427,7 +435,7 @@ section .subtitle {
     padding: 5px 16px;
     border-radius: 12px;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 4px 14px rgba(var(--gold-rgb), 0.4);
 }
 
 .package h3 {
@@ -600,7 +608,7 @@ section .subtitle {
 }
 
 .hs-table tbody tr:hover {
-    background: rgba(212, 175, 55, 0.06);
+    background: rgba(var(--gold-rgb), 0.06);
 }
 
 .hs-table tr:last-child td {
@@ -664,7 +672,7 @@ footer::before {
     height: 3px;
     width: 0%;
     background: linear-gradient(90deg, var(--red-glow), var(--gold), var(--gold-bright));
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+    box-shadow: 0 0 10px rgba(var(--gold-rgb), 0.7);
     z-index: 200;
     transition: width 0.1s linear;
 }
@@ -751,8 +759,8 @@ footer::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(160deg, rgba(212, 175, 55, 0.16), rgba(212, 175, 55, 0.04));
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    background: linear-gradient(160deg, rgba(var(--gold-rgb), 0.16), rgba(var(--gold-rgb), 0.04));
+    border: 1px solid rgba(var(--gold-rgb), 0.35);
     margin-bottom: 18px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -763,12 +771,12 @@ footer::before {
     stroke: var(--gold-bright);
     fill: none;
     stroke-width: 1.6;
-    filter: drop-shadow(0 0 4px rgba(244, 217, 118, 0.5));
+    filter: drop-shadow(0 0 4px rgba(var(--gold-bright-rgb), 0.5));
 }
 
 .card:hover .icon-badge {
     transform: scale(1.08) rotate(-4deg);
-    box-shadow: 0 0 22px rgba(212, 175, 55, 0.25);
+    box-shadow: 0 0 22px rgba(var(--gold-rgb), 0.25);
 }
 
 /* ---------- Stats strip ---------- */
@@ -792,7 +800,7 @@ footer::before {
     font-size: 2.4rem;
     font-weight: 700;
     color: var(--gold-bright);
-    text-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+    text-shadow: 0 0 18px rgba(var(--gold-rgb), 0.35);
     line-height: 1.1;
 }
 
@@ -834,7 +842,7 @@ footer::before {
     font-weight: 700;
     color: #1a1206;
     background: linear-gradient(135deg, var(--gold-bright), var(--gold));
-    box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 16px rgba(var(--gold-rgb), 0.4);
 }
 
 .step h3 {
@@ -858,7 +866,7 @@ footer::before {
     text-align: center;
     border-radius: 16px;
     background:
-        radial-gradient(ellipse at top left, rgba(212, 175, 55, 0.1), transparent 60%),
+        radial-gradient(ellipse at top left, rgba(var(--gold-rgb), 0.1), transparent 60%),
         radial-gradient(ellipse at bottom right, rgba(179, 58, 58, 0.1), transparent 60%),
         linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel));
     border: 1px solid var(--border-bright);
@@ -1064,7 +1072,7 @@ footer::before {
     border-radius: 50%;
     pointer-events: none;
     z-index: 4;
-    background: radial-gradient(circle, rgba(244, 217, 118, 0.07) 0%, rgba(179, 58, 58, 0.035) 45%, transparent 72%);
+    background: radial-gradient(circle, rgba(var(--gold-bright-rgb), 0.07) 0%, rgba(179, 58, 58, 0.035) 45%, transparent 72%);
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -1099,7 +1107,7 @@ footer::before {
     bottom: 0;
     left: -60%;
     width: 40%;
-    background: linear-gradient(90deg, transparent, rgba(244, 217, 118, 0.5), transparent);
+    background: linear-gradient(90deg, transparent, rgba(var(--gold-bright-rgb), 0.5), transparent);
     opacity: 0;
 }
 
@@ -1144,7 +1152,7 @@ footer::before {
 .intro-veil img {
     width: 84px;
     height: 84px;
-    filter: drop-shadow(0 0 22px rgba(212, 175, 55, 0.55));
+    filter: drop-shadow(0 0 22px rgba(var(--gold-rgb), 0.55));
     animation: intro-pulse 1.15s ease-in-out infinite;
 }
 
@@ -1167,7 +1175,7 @@ footer::before {
     justify-content: space-between;
     gap: 16px;
     flex-wrap: wrap;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(179, 58, 58, 0.06));
+    background: linear-gradient(135deg, rgba(var(--gold-rgb), 0.1), rgba(179, 58, 58, 0.06));
     border: 1px solid var(--border-bright);
     border-radius: 10px;
     padding: 14px 22px;
@@ -1188,8 +1196,8 @@ footer::before {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    background: rgba(212, 175, 55, 0.14);
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    background: rgba(var(--gold-rgb), 0.14);
+    border: 1px solid rgba(var(--gold-rgb), 0.35);
     border-radius: 20px;
     padding: 4px 12px;
     flex-shrink: 0;
