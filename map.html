@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Map - Morphscape</title>
+<meta name="description" content="See where other Morphscape players are exploring right now.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="World Map - Morphscape">
+<meta property="og:description" content="See where other Morphscape players are exploring right now.">
+<meta property="og:image" content="/hero-splash.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+    /* This is an abstract, hand-built representation of the world - not a reproduction of any
+       copyrighted map art. Landmark names and their rough coordinates are public facts about how
+       the game world is laid out, not protected expression. */
+    .map-wrap {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+        aspect-ratio: 16 / 11;
+        border: 1px solid var(--border-bright);
+        border-radius: 12px;
+        overflow: hidden;
+        background:
+            linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel));
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .map-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(var(--gold-rgb), 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(var(--gold-rgb), 0.07) 1px, transparent 1px);
+        background-size: 8.333% 9.09%;
+    }
+
+    .map-wilderness {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 11%;
+        background: repeating-linear-gradient(
+            135deg,
+            rgba(179, 58, 58, 0.16),
+            rgba(179, 58, 58, 0.16) 10px,
+            rgba(179, 58, 58, 0.08) 10px,
+            rgba(179, 58, 58, 0.08) 20px
+        );
+        border-bottom: 1px dashed rgba(179, 58, 58, 0.6);
+    }
+
+    .map-wilderness-label {
+        position: absolute;
+        top: 6px;
+        left: 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #e8a5a5;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .map-landmark {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        pointer-events: none;
+    }
+
+    .map-landmark .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text-dim);
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .map-landmark .label {
+        font-size: 0.68rem;
+        color: var(--text-dim);
+        white-space: nowrap;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+
+    .map-player {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--gold-bright);
+        box-shadow: 0 0 8px 2px rgba(var(--gold-bright-rgb), 0.8);
+        animation: player-pulse 2s ease-in-out infinite;
+        cursor: pointer;
+    }
+
+    @keyframes player-pulse {
+        0%, 100% { box-shadow: 0 0 6px 1px rgba(var(--gold-bright-rgb), 0.6); }
+        50% { box-shadow: 0 0 12px 4px rgba(var(--gold-bright-rgb), 0.9); }
+    }
+
+    .map-player .tag {
+        position: absolute;
+        bottom: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(10, 7, 6, 0.95);
+        border: 1px solid var(--border-bright);
+        border-radius: 4px;
+        padding: 3px 8px;
+        font-size: 0.72rem;
+        color: var(--text);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+    }
+
+    .map-player:hover .tag { opacity: 1; }
+
+    .map-empty {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .map-empty span {
+        background: rgba(10, 7, 6, 0.9);
+        border: 1px solid var(--border-bright);
+        border-radius: 8px;
+        color: var(--text-dim);
+        font-size: 0.95rem;
+        text-align: center;
+        padding: 12px 20px;
+        max-width: 80%;
+    }
+
+    .map-legend {
+        display: flex;
+        justify-content: center;
+        gap: 28px;
+        flex-wrap: wrap;
+        margin-top: 22px;
+        color: var(--text-dim);
+        font-size: 0.85rem;
+    }
+
+    .map-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .map-legend .swatch {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    @media (max-width: 720px) {
+        .map-landmark .label { font-size: 0.6rem; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki">Wiki</a>
+        <a href="/support">Support</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/map" class="active">Map</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px;">
+    <div class="embers"></div>
+    <h1 style="font-size: 2.4rem;">World Map</h1>
+    <p>Live positions of everyone currently exploring Morphscape.</p>
+</div>
+
+<section>
+    <div class="notice reveal">
+        Players in the Wilderness are never shown here - it's a PVP area, and broadcasting exact
+        positions there would just hand out free targets. This is a hand-built, abstract map, not
+        a reproduction of the in-game one - use it for a rough sense of where people are, not
+        precise navigation.
+    </div>
+
+    <div class="map-wrap reveal">
+        <div class="map-grid"></div>
+        <div class="map-wilderness">
+            <div class="map-wilderness-label">Wilderness &mdash; positions hidden</div>
+        </div>
+        <div id="map-landmarks"></div>
+        <div id="map-players"></div>
+        <div id="map-empty" class="map-empty" style="display: none;"><span>No one else is exploring right now - be the first!</span></div>
+    </div>
+
+    <div class="map-legend">
+        <span><i class="swatch" style="background: var(--gold-bright); box-shadow: 0 0 6px rgba(var(--gold-bright-rgb), 0.7);"></i>Player</span>
+        <span><i class="swatch" style="background: var(--text-dim);"></i>Landmark</span>
+        <span id="map-count" style="color: var(--gold-bright); font-weight: 600;"></span>
+    </div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
+            and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/support">Support</a>
+            <a href="/highscores">Highscores</a>
+            <a href="/map">Map</a>
+            <a href="/updates">Updates</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+<script>
+(function () {
+    // Bounding box for the abstract map, in real in-game coordinates. Chosen to cover the main
+    // populated area (Lumbridge/Varrock/Falador/Edgeville/Ardougne) plus a thin strip of the
+    // Wilderness ditch at the north edge for orientation - no player dots ever render inside
+    // that band since the server already excludes Wilderness positions from the feed.
+    var BOUNDS = { minX: 2550, maxX: 3400, minY: 3050, maxY: 3560 };
+
+    var LANDMARKS = [
+        { name: 'Lumbridge', x: 3222, y: 3218 },
+        { name: 'Al Kharid', x: 3293, y: 3193 },
+        { name: 'Draynor Village', x: 3092, y: 3247 },
+        { name: 'Port Sarim', x: 3025, y: 3218 },
+        { name: 'Falador', x: 2965, y: 3379 },
+        { name: 'Barbarian Village', x: 3082, y: 3422 },
+        { name: 'Varrock', x: 3210, y: 3424 },
+        { name: 'G.E.', x: 3164, y: 3477 },
+        { name: 'Edgeville', x: 3087, y: 3496 },
+        { name: 'Catherby', x: 2803, y: 3438 },
+        { name: 'Camelot', x: 2725, y: 3487 },
+        { name: 'Ardougne', x: 2662, y: 3305 },
+    ];
+
+    function toPercent(x, y) {
+        var left = (x - BOUNDS.minX) / (BOUNDS.maxX - BOUNDS.minX) * 100;
+        var top = (BOUNDS.maxY - y) / (BOUNDS.maxY - BOUNDS.minY) * 100; // north (high y) = up
+        return { left: Math.max(0, Math.min(100, left)), top: Math.max(0, Math.min(100, top)) };
+    }
+
+    var landmarkHost = document.getElementById('map-landmarks');
+    LANDMARKS.forEach(function (lm) {
+        var pos = toPercent(lm.x, lm.y);
+        var el = document.createElement('div');
+        el.className = 'map-landmark';
+        el.style.left = pos.left + '%';
+        el.style.top = pos.top + '%';
+        el.innerHTML = '<span class="dot"></span><span class="label">' + lm.name + '</span>';
+        landmarkHost.appendChild(el);
+    });
+
+    var playerHost = document.getElementById('map-players');
+    var emptyEl = document.getElementById('map-empty');
+    var countEl = document.getElementById('map-count');
+
+    function refresh() {
+        fetch('/api/positions', { cache: 'no-store' })
+            .then(function (r) { return r.ok ? r.json() : []; })
+            .then(function (players) {
+                if (!Array.isArray(players)) players = [];
+                playerHost.innerHTML = '';
+                players.forEach(function (p) {
+                    if (typeof p.x !== 'number' || typeof p.y !== 'number') return;
+                    var pos = toPercent(p.x, p.y);
+                    var el = document.createElement('div');
+                    el.className = 'map-player';
+                    el.style.left = pos.left + '%';
+                    el.style.top = pos.top + '%';
+                    var tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.textContent = p.name || 'Player';
+                    el.appendChild(tag);
+                    playerHost.appendChild(el);
+                });
+                emptyEl.style.display = players.length ? 'none' : 'flex';
+                countEl.textContent = players.length
+                    ? players.length + (players.length === 1 ? ' player shown' : ' players shown')
+                    : '';
+            })
+            .catch(function () { /* leave last-known state on screen */ });
+    }
+
+    refresh();
+    setInterval(refresh, 12000);
+})();
+</script>
+</body>
+</html>
