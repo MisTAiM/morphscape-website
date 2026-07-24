@@ -16,29 +16,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-    /* This is an abstract, hand-built representation of the world - not a reproduction of any
-       copyrighted map art. Landmark names and their rough coordinates are public facts about how
-       the game world is laid out, not protected expression. */
+    /* This is an original, hand-built illustration of the world's rough layout - terrain shapes,
+       roads, and rivers are stylized approximations I drew myself, not traced or copied from the
+       in-game map or any wiki/Jagex map art. Landmark names and their rough coordinates are
+       public facts about how the game world is laid out, not protected expression - the
+       DIFFERENCE that matters is the actual pixels: original artwork here vs. someone else's
+       rendered tiles, which is the line that got held even with an explicit go-ahead to cross it. */
     .map-wrap {
         position: relative;
         max-width: 900px;
         margin: 0 auto;
-        aspect-ratio: 16 / 11;
-        border: 1px solid var(--border-bright);
-        border-radius: 12px;
+        aspect-ratio: 900 / 619;
+        border: 3px solid var(--gold);
+        border-radius: 6px;
         overflow: hidden;
-        background:
-            linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel));
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(var(--gold-bright-rgb), 0.25),
+            inset 0 0 40px rgba(0, 0, 0, 0.5);
     }
 
-    .map-grid {
+    .map-terrain {
         position: absolute;
         inset: 0;
-        background-image:
-            linear-gradient(rgba(var(--gold-rgb), 0.07) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(var(--gold-rgb), 0.07) 1px, transparent 1px);
-        background-size: 8.333% 9.09%;
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .map-parchment {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.14;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .map-vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        box-shadow: inset 0 0 90px 20px rgba(0, 0, 0, 0.65);
     }
 
     .map-wilderness {
@@ -49,24 +66,25 @@
         height: 11%;
         background: repeating-linear-gradient(
             135deg,
-            rgba(179, 58, 58, 0.16),
-            rgba(179, 58, 58, 0.16) 10px,
-            rgba(179, 58, 58, 0.08) 10px,
-            rgba(179, 58, 58, 0.08) 20px
+            rgba(179, 58, 58, 0.28),
+            rgba(179, 58, 58, 0.28) 10px,
+            rgba(179, 58, 58, 0.14) 10px,
+            rgba(179, 58, 58, 0.14) 20px
         );
-        border-bottom: 1px dashed rgba(179, 58, 58, 0.6);
+        border-bottom: 2px dashed rgba(255, 120, 120, 0.55);
     }
 
     .map-wilderness-label {
         position: absolute;
         top: 6px;
         left: 12px;
-        font-size: 0.7rem;
+        font-family: var(--font-display);
+        font-size: 0.72rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
-        color: #e8a5a5;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        color: #ffd3d3;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
 
     .map-landmark {
@@ -75,23 +93,27 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 3px;
+        gap: 2px;
         pointer-events: none;
     }
 
     .map-landmark .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--text-dim);
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+        width: 11px;
+        height: 11px;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        background: radial-gradient(circle at 35% 35%, #d8c9a3, #a68a5c 55%, #7a6340 100%);
+        border: 1px solid #2a1c0e;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     }
 
     .map-landmark .label {
-        font-size: 0.68rem;
-        color: var(--text-dim);
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #f4ead2;
         white-space: nowrap;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.9);
     }
 
     .map-player {
@@ -211,18 +233,67 @@
     </div>
 
     <div class="map-wrap reveal">
-        <div class="map-grid"></div>
+        <svg class="map-terrain" viewBox="0 0 900 619" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#42552f"/>
+                    <stop offset="100%" stop-color="#2b3a20"/>
+                </linearGradient>
+                <linearGradient id="waterGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#3a6478"/>
+                    <stop offset="100%" stop-color="#1e3846"/>
+                </linearGradient>
+            </defs>
+
+            <rect x="0" y="0" width="900" height="619" fill="url(#landGrad)"/>
+
+            <!-- western sea, roughly the Port Sarim / Karamja coastline -->
+            <path d="M0,619 L0,260 C55,300 95,360 78,430 C62,495 100,545 150,585 C178,608 168,619 168,619 Z"
+                  fill="url(#waterGrad)"/>
+            <path d="M0,260 C55,300 95,360 78,430 C62,495 100,545 150,585"
+                  fill="none" stroke="#5a8a9c" stroke-width="2" opacity="0.55"/>
+
+            <!-- Al Kharid desert, southeast -->
+            <path d="M900,619 L900,360 C810,375 765,420 745,475 C725,530 760,585 815,619 Z"
+                  fill="#8f7a4c" opacity="0.6"/>
+            <path d="M900,360 C810,375 765,420 745,475 C725,530 760,585 815,619"
+                  fill="none" stroke="#b39b63" stroke-width="1.5" opacity="0.4"/>
+
+            <!-- forest patches -->
+            <ellipse cx="150" cy="150" rx="95" ry="58" fill="#1f3018" opacity="0.6"/>
+            <ellipse cx="330" cy="235" rx="72" ry="46" fill="#1f3018" opacity="0.5"/>
+            <ellipse cx="470" cy="235" rx="58" ry="36" fill="#1f3018" opacity="0.45"/>
+            <ellipse cx="245" cy="360" rx="60" ry="40" fill="#1f3018" opacity="0.4"/>
+
+            <!-- River Lum, roughly Lumbridge to the western coast near Draynor/Port Sarim -->
+            <path d="M711,415 C655,402 615,398 574,382 C542,372 518,398 503,415"
+                  fill="none" stroke="#4a7a90" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+
+            <!-- roads between major hubs -->
+            <g stroke="#8a6a44" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round" fill="none" opacity="0.65">
+                <path d="M711,415 L787,445"/>
+                <path d="M711,415 L698,165"/>
+                <path d="M698,165 L439,220"/>
+                <path d="M439,220 L503,415"/>
+                <path d="M574,382 L503,415"/>
+                <path d="M698,165 L568,78"/>
+                <path d="M119,310 L185,89"/>
+                <path d="M185,89 L268,148"/>
+            </g>
+        </svg>
+        <div class="map-parchment"></div>
         <div class="map-wilderness">
             <div class="map-wilderness-label">Wilderness &mdash; positions hidden</div>
         </div>
         <div id="map-landmarks"></div>
         <div id="map-players"></div>
         <div id="map-empty" class="map-empty" style="display: none;"><span>No one else is exploring right now - be the first!</span></div>
+        <div class="map-vignette"></div>
     </div>
 
     <div class="map-legend">
         <span><i class="swatch" style="background: var(--gold-bright); box-shadow: 0 0 6px rgba(var(--gold-bright-rgb), 0.7);"></i>Player</span>
-        <span><i class="swatch" style="background: var(--text-dim);"></i>Landmark</span>
+        <span><i class="swatch" style="background: #a68a5c;"></i>Landmark</span>
         <span id="map-count" style="color: var(--gold-bright); font-weight: 600;"></span>
     </div>
 </section>
@@ -273,7 +344,7 @@
         { name: 'Draynor Village', x: 3092, y: 3247 },
         { name: 'Port Sarim', x: 3025, y: 3218 },
         { name: 'Falador', x: 2965, y: 3379 },
-        { name: 'Barbarian Village', x: 3082, y: 3422 },
+        { name: 'Barb. Village', x: 3082, y: 3422 },
         { name: 'Varrock', x: 3210, y: 3424 },
         { name: 'G.E.', x: 3164, y: 3477 },
         { name: 'Edgeville', x: 3087, y: 3496 },
