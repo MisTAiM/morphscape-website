@@ -152,10 +152,16 @@ var ACCOUNT_TYPE_LABELS = {
     hardcore_group_ironman: 'Hardcore Group Ironman'
 };
 
-// Small inline glyphs, not extracted game sprites - just enough to make an account type
-// recognizable at a glance in the table. Colored per type via the .type-* CSS classes.
-var ACCOUNT_BADGE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
-    '<path d="M12 2 3 5v6c0 5.1 3.6 9.4 9 11 5.4-1.6 9-5.9 9-11V5l-9-3z"/></svg>';
+// The real in-game chat badge icons (same ones OSRS shows next to a name in chat/friends
+// list) - no badge for Normal accounts, matching how the game itself only shows a badge for
+// ironman-mode variants.
+var ACCOUNT_BADGE_ICON = {
+    ironman: '/icons/acc-ironman.png',
+    hardcore_ironman: '/icons/acc-hardcore-ironman.png',
+    ultimate_ironman: '/icons/acc-ultimate-ironman.png',
+    group_ironman: '/icons/acc-group-ironman.png',
+    hardcore_group_ironman: '/icons/acc-hardcore-group-ironman.png'
+};
 
 function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function(c) {
@@ -166,8 +172,10 @@ function escapeHtml(str) {
 function playerCell(p) {
     var type = p.accountType || 'normal';
     var label = ACCOUNT_TYPE_LABELS[type] || 'Normal';
+    var icon = ACCOUNT_BADGE_ICON[type];
+    var badge = icon ? '<img class="acc-badge" src="' + icon + '" alt="" title="' + label + '">' : '';
     return '<div class="hs-player-cell">' +
-        '<span class="acc-badge type-' + type + '" title="' + label + '">' + ACCOUNT_BADGE_SVG + '</span>' +
+        badge +
         '<span>' + escapeHtml(p.username) + '</span>' +
         '</div>';
 }
