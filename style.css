@@ -203,11 +203,38 @@ nav .links a:hover::after, nav .links a.active::after {
 }
 
 .hero.hero-splash h1 {
-    /* Wordmark is already baked into the splash artwork above this text. */
-    position: absolute;
-    width: 1px; height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+    /* Wordmark rendered as the actual logo lockup image rather than styled text - looks far
+       better than trying to recreate that engraved-metal look with CSS text-shadow. The <h1>
+       text itself is kept for SEO/accessibility but visually hidden behind the image. */
+    position: relative;
+    margin: 0 auto 8px;
+    max-width: 520px;
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+}
+
+.hero.hero-splash h1::before {
+    content: "";
+    display: block;
+    width: 100%;
+    aspect-ratio: 1721 / 914;
+    background-image: url("/logo-full.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 40px rgba(var(--gold-rgb), 0.35));
+    animation: logo-entrance 1.4s cubic-bezier(0.16, 1, 0.3, 1) both, logo-float 6s ease-in-out 1.4s infinite;
+}
+
+@keyframes logo-entrance {
+    0% { opacity: 0; transform: translateY(-18px) scale(0.94); filter: drop-shadow(0 0 0 rgba(var(--gold-rgb), 0)); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 40px rgba(var(--gold-rgb), 0.35)); }
+}
+
+@keyframes logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
 
 .hero p {
@@ -298,6 +325,16 @@ section h2 {
     font-size: 2rem;
     letter-spacing: 1px;
     margin-bottom: 10px;
+    text-shadow: 0 0 24px rgba(var(--gold-rgb), 0.3);
+}
+
+.hero-actions .btn:first-child {
+    animation: glow-pulse-btn 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse-btn {
+    0%, 100% { box-shadow: 0 4px 18px rgba(var(--gold-rgb), 0.15); }
+    50% { box-shadow: 0 6px 34px rgba(var(--gold-rgb), 0.55); }
 }
 
 section .subtitle {
@@ -350,6 +387,77 @@ section .subtitle {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 26px;
+}
+
+/* ---------- Concept art showcase ("What Lurks Below" style grids) ---------- */
+
+.threat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.threat-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+    isolation: isolate;
+}
+
+.threat-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    filter: saturate(0.9) brightness(0.92);
+}
+
+.threat-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(3, 5, 4, 0.85) 100%);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.threat-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), 0);
+    transition: box-shadow 0.4s ease;
+    pointer-events: none;
+}
+
+.threat-card:hover img {
+    transform: scale(1.08);
+    filter: saturate(1.05) brightness(1);
+}
+
+.threat-card:hover::before {
+    box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), 0.5), 0 0 30px rgba(var(--gold-rgb), 0.25);
+}
+
+.threat-card-label {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    padding: 18px 20px;
+}
+
+.threat-card-label h3 {
+    font-family: var(--font-display);
+    color: var(--gold-bright);
+    margin: 0;
+    font-size: 1.15rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .card {
