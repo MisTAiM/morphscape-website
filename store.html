@@ -2,12 +2,119 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=/support">
-<link rel="canonical" href="/support">
-<title>Support Morphscape</title>
-<script>location.replace('/support');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store - Morphscape</title>
+<meta name="description" content="The Morphscape Store - original items designed for Morphscape, not copied from Jagex.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Store - Morphscape">
+<meta property="og:description" content="The Morphscape Store - original items designed for Morphscape, not copied from Jagex.">
+<meta property="og:image" content="/store-banner.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<p>The store has moved. Redirecting to <a href="/support">Support Morphscape</a>&hellip;</p>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki">Wiki</a>
+        <a href="/store" class="active">Store</a>
+        <a href="/support">Support</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/map">Map</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 60px; position: relative;">
+    <div style="position:absolute; inset:0; z-index:-2; background-image:url('/store-banner.png'); background-size:cover; background-position:center 45%; opacity:0.8;"></div>
+    <div style="position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(5,8,7,0.35) 0%, rgba(5,8,7,0.6) 45%, var(--bg) 96%);"></div>
+    <h1 style="font-size: 2.4rem;">Store</h1>
+    <p>Original items designed for Morphscape - not reskinned Jagex content.</p>
+</div>
+
+<section>
+    <div class="notice reveal">
+        Checkout isn't live yet - we're finishing up payment processing. Browse what's planned
+        below, and check the <a href="/updates" style="color: var(--gold-bright);">Updates</a>
+        page for when purchasing goes live. Want to support the project in the meantime?
+        Visit <a href="/support" style="color: var(--gold-bright);">Support Morphscape</a>.
+    </div>
+
+    <div class="features">
+        <div class="card reveal">
+            <img src="/icon-weapons.png" alt="" style="width:72px; height:72px; margin-bottom:14px; border-radius:8px;">
+            <h3>Weapons</h3>
+            <p>Original custom weapons built for Morphscape, from early-game options to
+            end-game showpieces.</p>
+        </div>
+        <div class="card reveal">
+            <img src="/icon-armor.png" alt="" style="width:72px; height:72px; margin-bottom:14px; border-radius:8px;">
+            <h3>Armor</h3>
+            <p>Full custom armor sets with their own look, designed and owned by us.</p>
+        </div>
+        <div class="card reveal">
+            <img src="/icon-boosts.png" alt="" style="width:72px; height:72px; margin-bottom:14px; border-radius:8px;">
+            <h3>Boosts</h3>
+            <p>XP and drop-rate boosts to speed up your progress.</p>
+        </div>
+        <div class="card reveal">
+            <img src="/icon-pets.png" alt="" style="width:72px; height:72px; margin-bottom:14px; border-radius:8px;">
+            <h3>Pets</h3>
+            <p>Original companion pets, cosmetic only, that follow you around the world.</p>
+        </div>
+        <div class="card reveal">
+            <img src="/icon-cosmetics.png" alt="" style="width:72px; height:72px; margin-bottom:14px; border-radius:8px;">
+            <h3>Cosmetics</h3>
+            <p>Overrides and appearance items with zero effect on stats or gameplay.</p>
+        </div>
+        <div class="card reveal">
+            <img src="/icon-misc.png" alt="" style="width:72px; height:72px; margin-bottom:14px; border-radius:8px;">
+            <h3>Bundles</h3>
+            <p>Grouped item packages, once individual pricing is finalized.</p>
+        </div>
+    </div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>An old-school OSRS-based server with original custom content, end-game bosses
+            and raids, and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/store">Store</a>
+            <a href="/highscores">Highscores</a>
+            <a href="/map">Map</a>
+            <a href="/updates">Updates</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
 </body>
 </html>

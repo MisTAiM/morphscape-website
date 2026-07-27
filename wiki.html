@@ -36,7 +36,9 @@
     </div>
 </nav>
 
-<div class="hero" style="padding: 100px 20px 60px;">
+<div class="hero" style="padding: 100px 20px 60px; position: relative;">
+    <div style="position:absolute; inset:0; z-index:-2; background-image:url('/wiki-banner.png'); background-size:cover; background-position:center 40%; opacity:0.55;"></div>
+    <div style="position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(5,8,7,0.35) 0%, rgba(5,8,7,0.65) 55%, var(--bg) 96%);"></div>
     <div class="embers"></div>
     <h1 style="font-size: 2.4rem;">Wiki</h1>
     <p>Everything Morphscape - the item database, bosses, raids, quests, and the systems that tie it all together.</p>
@@ -44,30 +46,15 @@
 
 <section>
     <div class="wiki-hub-grid">
-        <a class="wiki-hub-card reveal" href="/wiki-items">
-            <h3>Item Wiki</h3>
-            <p>All 300 custom items across 5 power tiers - Wayfarer to Weavebound. Icons, stats, and search/filter by slot.</p>
-        </a>
-        <a class="wiki-hub-card reveal" href="/wiki-bosses">
-            <h3>Bosses &amp; DT2</h3>
-            <p>Desert Treasure II's four bosses - Vardorvis, Duke Sucellus, the Leviathan, the Whisperer - plus the Sundered Colossus.</p>
-        </a>
         <a class="wiki-hub-card reveal" href="/wiki-tob">
             <h3>Theatre of Blood</h3>
             <p>A room-by-room walkthrough of the full raid, from the Maiden of Sugadinti to Verzik Vitur.</p>
         </a>
-        <a class="wiki-hub-card reveal" href="/wiki-quests">
-            <h3>Quests</h3>
-            <p>Morphscape's original questline - Cracks in the Weave and Echoes of a Perfect Champion.</p>
-        </a>
-        <a class="wiki-hub-card reveal" href="/wiki-leagues">
-            <h3>Leagues</h3>
-            <p>7 relic tiers, a 74-task points system, and 6 Divine Pact gods to align to.</p>
-        </a>
-        <a class="wiki-hub-card reveal" href="/wiki-upgrade-machine">
-            <h3>Upgrade Machine</h3>
-            <p>Gamble scrap into 43 random passive effects across 3 rarity tiers. Roll a Perfect item and earn the title.</p>
-        </a>
+        <div class="wiki-hub-card reveal" style="opacity:0.6; cursor:default;">
+            <h3>More coming soon</h3>
+            <p>Item and boss wiki pages are being rebuilt to match Morphscape's actual content -
+            check back soon.</p>
+        </div>
     </div>
 </section>
 
@@ -77,8 +64,8 @@
             <a class="brand" href="/" style="font-size: 1.3rem;">
                 <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
             </a>
-            <p>A custom OSRS-based server with a full Leagues game mode, real-time HD graphics,
-            and a growing world to explore.</p>
+            <p>An old-school OSRS-based server with original custom content, end-game bosses
+            and raids, and a growing world to explore.</p>
         </div>
         <div class="footer-col">
             <h4>Navigate</h4>
@@ -90,7 +77,8 @@
         <div class="footer-col">
             <h4>Info</h4>
             <a href="/rules">Rules</a>
-            <a href="/support">Support</a>
+            <a href="/store">Store</a>
+        <a href="/support">Support</a>
             <a href="/voting">Vote</a>
         </div>
     </div>

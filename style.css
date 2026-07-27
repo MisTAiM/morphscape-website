@@ -1,23 +1,25 @@
 :root {
-    /* Palette sampled directly from logo.png (canvas pixel analysis): peak glow #f60000,
-       peak metal highlight #fef8f7, mid-tone crack red #621d18. --gold/--gold-bright keep
-       their names (89 "var(--gold...)" references across every page) but now hold the logo's
-       red instead of the old bronze/gold - repointing values here reskins the whole site from
-       one edit instead of touching every file. --red/--red-glow (alert/offline convention)
-       stay as they were - already red, already distinct enough from the new brand red. */
-    --bg: #0a0706;
-    --bg-panel: #180d0c;
-    --bg-panel-2: #211110;
-    --border: #3d201c;
-    --border-bright: #5c2e27;
-    --gold: #d95545;
-    --gold-bright: #ff5233;
-    --gold-rgb: 217, 85, 69;
-    --gold-bright-rgb: 255, 82, 51;
+    /* Palette sampled from the real in-game art (login screen / logo): dark stone-grey
+       dungeon base with a single glowing emerald-green accent (crystals, magic, torchlight).
+       --gold/--gold-bright keep their names (89 "var(--gold...)" references across every page)
+       but now hold the game's green instead of the old Kronos-era red - repointing values here
+       reskins the whole site from one edit instead of touching every file. --red/--red-glow
+       (alert/offline convention) stay red on purpose, for contrast against the new green brand
+       color. --green is a separate, slightly more muted tone reserved for status indicators
+       (e.g. the "online" dot) so it doesn't compete visually with the brand accent. */
+    --bg: #07090a;
+    --bg-panel: #0d1310;
+    --bg-panel-2: #131a17;
+    --border: #1c2b24;
+    --border-bright: #2d4a3c;
+    --gold: #2ecc71;
+    --gold-bright: #6dffa0;
+    --gold-rgb: 46, 204, 113;
+    --gold-bright-rgb: 109, 255, 160;
     --red: #b33a3a;
     --red-glow: #ff5050;
-    --text: #ece3d2;
-    --text-dim: #a89c85;
+    --text: #e3ece6;
+    --text-dim: #8ea89c;
     --green: #4caf50;
     --font-display: "Cinzel", "Times New Roman", serif;
     --font-body: "Inter", "Segoe UI", Tahoma, Verdana, sans-serif;
@@ -158,8 +160,8 @@ nav .links a:hover::after, nav .links a.active::after {
     inset: 0;
     z-index: -1;
     background:
-        linear-gradient(180deg, rgba(8, 6, 4, 0.35) 0%, rgba(8, 6, 4, 0.55) 40%, var(--bg) 96%),
-        radial-gradient(ellipse at center 30%, transparent 0%, rgba(8, 6, 4, 0.4) 100%);
+        linear-gradient(180deg, rgba(5, 8, 7, 0.35) 0%, rgba(5, 8, 7, 0.55) 40%, var(--bg) 96%),
+        radial-gradient(ellipse at center 30%, transparent 0%, rgba(5, 8, 7, 0.4) 100%);
 }
 
 .embers {
