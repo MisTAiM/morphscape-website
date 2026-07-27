@@ -34,7 +34,9 @@
     </div>
 </nav>
 
-<div class="hero" style="padding: 100px 20px 60px;">
+<div class="hero" style="padding: 100px 20px 60px; position: relative;">
+    <div style="position:absolute; inset:0; z-index:-2; background-image:url('/play-banner.jpg'); background-size:cover; background-position:center 45%; opacity:0.7;"></div>
+    <div style="position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(5,8,7,0.35) 0%, rgba(5,8,7,0.65) 55%, var(--bg) 96%);"></div>
     <div class="embers"></div>
     <h1 style="font-size: 2.4rem;">Play</h1>
     <div id="server-status" class="server-status"><span class="dot"></span>Checking server status...</div>
