@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Highscores - Morphscape</title>
-<meta name="description" content="Morphscape highscores - ranked by total level and experience across every skill.">
+<meta name="description" content="Live Morphscape highscores - skills, boss kill counts, account types, and XP rates, ranked in real time.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Highscores - Morphscape">
-<meta property="og:description" content="Ranked by total level, then total experience.">
+<meta property="og:description" content="Live rankings by skill, boss kills, account type, and XP rate.">
 <meta property="og:image" content="/hero-splash.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -39,36 +39,49 @@
     <div style="position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(5,8,7,0.35) 0%, rgba(5,8,7,0.65) 55%, var(--bg) 96%);"></div>
     <div class="embers"></div>
     <h1 style="font-size: 2.4rem;">Highscores</h1>
-    <p>Ranked by total level, then total experience.</p>
+    <p>Live rankings pulled straight from the game server, every hour - skills, boss kills,
+    account type, and XP rate.</p>
 </div>
 
 <section>
-    <div style="text-align: center; margin-bottom: 28px;">
+    <div class="hs-filters">
         <select id="hs-skill-select" class="hs-select">
             <option value="__overall">Overall</option>
-            <option value="Attack">Attack</option>
-            <option value="Defence">Defence</option>
-            <option value="Strength">Strength</option>
-            <option value="Hitpoints">Hitpoints</option>
-            <option value="Ranged">Ranged</option>
-            <option value="Prayer">Prayer</option>
-            <option value="Magic">Magic</option>
-            <option value="Cooking">Cooking</option>
-            <option value="Woodcutting">Woodcutting</option>
-            <option value="Fletching">Fletching</option>
-            <option value="Fishing">Fishing</option>
-            <option value="Firemaking">Firemaking</option>
-            <option value="Crafting">Crafting</option>
-            <option value="Smithing">Smithing</option>
-            <option value="Mining">Mining</option>
-            <option value="Herblore">Herblore</option>
-            <option value="Agility">Agility</option>
-            <option value="Thieving">Thieving</option>
-            <option value="Slayer">Slayer</option>
-            <option value="Farming">Farming</option>
-            <option value="Runecrafting">Runecrafting</option>
-            <option value="Hunter">Hunter</option>
-            <option value="Construction">Construction</option>
+            <optgroup label="Skills">
+                <option value="Attack">Attack</option>
+                <option value="Defence">Defence</option>
+                <option value="Strength">Strength</option>
+                <option value="Hitpoints">Hitpoints</option>
+                <option value="Ranged">Ranged</option>
+                <option value="Prayer">Prayer</option>
+                <option value="Magic">Magic</option>
+                <option value="Cooking">Cooking</option>
+                <option value="Woodcutting">Woodcutting</option>
+                <option value="Fletching">Fletching</option>
+                <option value="Fishing">Fishing</option>
+                <option value="Firemaking">Firemaking</option>
+                <option value="Crafting">Crafting</option>
+                <option value="Smithing">Smithing</option>
+                <option value="Mining">Mining</option>
+                <option value="Herblore">Herblore</option>
+                <option value="Agility">Agility</option>
+                <option value="Thieving">Thieving</option>
+                <option value="Slayer">Slayer</option>
+                <option value="Farming">Farming</option>
+                <option value="Runecrafting">Runecrafting</option>
+                <option value="Hunter">Hunter</option>
+                <option value="Construction">Construction</option>
+            </optgroup>
+            <optgroup label="Boss Kills" id="hs-boss-optgroup"></optgroup>
+        </select>
+        <select id="hs-type-select" class="hs-select">
+            <option value="__all">All Account Types</option>
+            <option value="normal">Normal</option>
+            <option value="ironman">Ironman</option>
+            <option value="hardcore_ironman">Hardcore Ironman</option>
+            <option value="ultimate_ironman">Ultimate Ironman</option>
+            <option value="group_ironman">Group Ironman</option>
+            <option value="hardcore_group_ironman">Hardcore Group Ironman</option>
         </select>
     </div>
 
@@ -123,35 +136,98 @@
 var players = null;
 
 var select = document.getElementById('hs-skill-select');
+var typeSelect = document.getElementById('hs-type-select');
+var bossOptgroup = document.getElementById('hs-boss-optgroup');
 var headRow = document.getElementById('hs-head-row');
 var body = document.getElementById('hs-body');
 var table = document.getElementById('hs-table');
 var empty = document.getElementById('hs-empty');
 
+var ACCOUNT_TYPE_LABELS = {
+    normal: 'Normal',
+    ironman: 'Ironman',
+    hardcore_ironman: 'Hardcore Ironman',
+    ultimate_ironman: 'Ultimate Ironman',
+    group_ironman: 'Group Ironman',
+    hardcore_group_ironman: 'Hardcore Group Ironman'
+};
+
+// Small inline glyphs, not extracted game sprites - just enough to make an account type
+// recognizable at a glance in the table. Colored per type via the .type-* CSS classes.
+var ACCOUNT_BADGE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
+    '<path d="M12 2 3 5v6c0 5.1 3.6 9.4 9 11 5.4-1.6 9-5.9 9-11V5l-9-3z"/></svg>';
+
+function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+}
+
+function playerCell(p) {
+    var type = p.accountType || 'normal';
+    var label = ACCOUNT_TYPE_LABELS[type] || 'Normal';
+    return '<div class="hs-player-cell">' +
+        '<span class="acc-badge type-' + type + '" title="' + label + '">' + ACCOUNT_BADGE_SVG + '</span>' +
+        '<span>' + escapeHtml(p.username) + '</span>' +
+        '</div>';
+}
+
+function xpRateCell(p) {
+    var combat = p.combatXpRate || 1;
+    var skilling = p.skillingXpRate || 1;
+    return '<span class="xp-rate-pill" title="Combat / Skilling XP rate">' +
+        combat + 'x combat &middot; ' + skilling + 'x skilling</span>';
+}
+
+function populateBossOptions() {
+    if (!players) return;
+    var bosses = {};
+    players.forEach(function(p) {
+        if (!p.bossKills) return;
+        Object.keys(p.bossKills).forEach(function(name) { bosses[name] = true; });
+    });
+    var names = Object.keys(bosses).sort();
+    bossOptgroup.innerHTML = names.map(function(name) {
+        return '<option value="__boss:' + name + '">' + name + '</option>';
+    }).join('');
+}
+
 function render() {
     if (!players || players.length === 0) {
-        empty.textContent = 'No players yet.';
+        empty.textContent = 'No players yet - be the first on the board.';
         table.style.display = 'none';
         empty.style.display = '';
         return;
     }
 
-    var skill = select.value;
+    var typeFilter = typeSelect.value;
+    var pool = typeFilter === '__all' ? players : players.filter(function(p) {
+        return (p.accountType || 'normal') === typeFilter;
+    });
+
+    var category = select.value;
     var rows;
 
-    if (skill === '__overall') {
-        headRow.innerHTML = '<th>#</th><th>Player</th><th>Total Level</th><th>Total XP</th>';
-        rows = players.slice().sort(function(a, b) {
+    if (category === '__overall') {
+        headRow.innerHTML = '<th>#</th><th>Player</th><th>Total Level</th><th>Total XP</th><th>XP Rate</th>';
+        rows = pool.slice().sort(function(a, b) {
             return b.totalLevel - a.totalLevel || b.totalXp - a.totalXp;
         }).map(function(p) {
-            return { username: p.username, level: p.totalLevel, xp: p.totalXp };
+            return { player: p, level: p.totalLevel, xp: p.totalXp };
         });
+    } else if (category.indexOf('__boss:') === 0) {
+        var bossName = category.slice('__boss:'.length);
+        headRow.innerHTML = '<th>#</th><th>Player</th><th>Kills</th><th>XP Rate</th>';
+        rows = pool
+            .filter(function(p) { return p.bossKills && p.bossKills[bossName] > 0; })
+            .map(function(p) { return { player: p, kills: p.bossKills[bossName] }; })
+            .sort(function(a, b) { return b.kills - a.kills; });
     } else {
-        headRow.innerHTML = '<th>#</th><th>Player</th><th>Level</th><th>XP</th>';
-        rows = players
-            .filter(function(p) { return p.skills && p.skills[skill]; })
+        headRow.innerHTML = '<th>#</th><th>Player</th><th>Level</th><th>XP</th><th>XP Rate</th>';
+        rows = pool
+            .filter(function(p) { return p.skills && p.skills[category]; })
             .map(function(p) {
-                return { username: p.username, level: p.skills[skill].level, xp: p.skills[skill].xp };
+                return { player: p, level: p.skills[category].level, xp: p.skills[category].xp };
             })
             .sort(function(a, b) {
                 return b.level - a.level || b.xp - a.xp;
@@ -161,11 +237,14 @@ function render() {
     body.innerHTML = '';
     rows.forEach(function(row, i) {
         var tr = document.createElement('tr');
-        tr.innerHTML =
-            '<td class="rank">' + (i + 1) + '</td>' +
-            '<td>' + row.username + '</td>' +
-            '<td>' + row.level + '</td>' +
-            '<td>' + row.xp.toLocaleString() + '</td>';
+        var cells = '<td class="rank">' + (i + 1) + '</td>' + '<td>' + playerCell(row.player) + '</td>';
+        if (typeof row.kills === 'number') {
+            cells += '<td class="kc-cell">' + row.kills.toLocaleString() + '</td>';
+        } else {
+            cells += '<td>' + row.level + '</td><td>' + row.xp.toLocaleString() + '</td>';
+        }
+        cells += '<td>' + xpRateCell(row.player) + '</td>';
+        tr.innerHTML = cells;
         body.appendChild(tr);
     });
 
@@ -174,19 +253,22 @@ function render() {
 }
 
 select.addEventListener('change', render);
+typeSelect.addEventListener('change', render);
 
-fetch('/highscores.json')
+fetch('/api/highscores')
     .then(function(res) {
         if (!res.ok) throw new Error('no data');
         return res.json();
     })
     .then(function(data) {
-        players = data;
+        players = Array.isArray(data) ? data : [];
+        populateBossOptions();
         render();
     })
     .catch(function() {
+        players = [];
         document.getElementById('hs-empty').textContent =
-            "Highscores haven't been published yet - check back soon.";
+            "Highscores couldn't be loaded right now - check back soon.";
     });
 </script>
 <script src="/site.js"></script>

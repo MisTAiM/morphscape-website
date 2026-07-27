@@ -741,6 +741,55 @@ section .subtitle {
     padding: 50px 20px;
 }
 
+.hs-filters {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.hs-player-cell {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+/* Account-type badges: small inline SVG glyphs, not extracted game sprites - colored per the
+   same convention OSRS-style highscores use (grey iron, red hardcore, tan ultimate, blue group)
+   so a type is recognizable at a glance without hand-maintaining sprite assets. */
+.acc-badge {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.acc-badge.type-normal { display: none; }
+.acc-badge.type-ironman { color: #9aa0a6; filter: drop-shadow(0 0 3px rgba(154, 160, 166, 0.5)); }
+.acc-badge.type-hardcore_ironman { color: #e0454a; filter: drop-shadow(0 0 4px rgba(224, 69, 74, 0.6)); }
+.acc-badge.type-ultimate_ironman { color: #d8b26a; filter: drop-shadow(0 0 4px rgba(216, 178, 106, 0.55)); }
+.acc-badge.type-group_ironman,
+.acc-badge.type-hardcore_group_ironman { color: #6fa8dc; filter: drop-shadow(0 0 4px rgba(111, 168, 220, 0.55)); }
+
+.xp-rate-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    background: rgba(var(--gold-rgb), 0.08);
+    border: 1px solid var(--border-bright);
+    border-radius: 20px;
+    padding: 2px 9px;
+    white-space: nowrap;
+}
+
+.hs-table td.kc-cell {
+    color: var(--gold-bright);
+    font-weight: 600;
+}
+
 /* ---------- Footer ---------- */
 
 footer {
