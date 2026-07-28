@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Benefits - Morphscape</title>
+<meta name="description" content="Morphscape Premium Benefits - every donator rank and what it unlocks, side by side.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Premium Benefits - Morphscape">
+<meta property="og:description" content="Morphscape Premium Benefits - every donator rank and what it unlocks, side by side.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .benefits-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-panel);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  }
+  .benefits-table { border-collapse: separate; border-spacing: 0; font-size: .86rem; white-space: nowrap; }
+  .benefits-table th, .benefits-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); text-align: center; }
+  .benefits-table tbody tr:last-child th, .benefits-table tbody tr:last-child td { border-bottom: none; }
+  .benefits-table thead th {
+    background: var(--bg-panel-2);
+    position: sticky; top: 0; z-index: 3;
+    border-bottom: 1px solid var(--border-bright);
+  }
+  .row-label {
+    text-align: left; font-weight: 500; color: var(--text);
+    position: sticky; left: 0; z-index: 2;
+    background: var(--bg-panel); white-space: normal; max-width: 260px; min-width: 220px;
+  }
+  thead .row-label { z-index: 4; background: var(--bg-panel-2); }
+  .row-label.corner { background: var(--bg-panel-2); }
+  .free-col { background: rgba(255,255,255,0.02); color: var(--text-dim); font-weight: 600; }
+  thead .free-col { position: sticky; left: 220px; }
+  @media (min-width: 640px) { thead .free-col { left: 260px; } }
+  .tier-head { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .tier-name { font-family: var(--font-display); color: var(--gold-bright); font-size: .95rem; letter-spacing: .3px; }
+  .tier-price { color: var(--text-dim); font-size: .75rem; font-weight: 500; }
+  .gem-icon { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+  .benefits-table td { color: var(--text-dim); }
+  .dash { opacity: .35; }
+  .benefits-legend {
+    display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: center;
+    color: var(--text-dim); font-size: .85rem; margin: 18px 0 36px;
+  }
+  .benefits-legend strong { color: var(--gold-bright); }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="brand" href="/"><img src="/logo.png" alt="" class="brand-logo">MORPHSCAPE</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/play">Play</a>
+        <a href="/earn">Earn</a>
+        <a href="/wiki">Wiki</a>
+        <a href="/store">Store</a>
+        <a href="/support">Support</a>
+        <a href="/highscores">Highscores</a>
+        <a href="/map">Map</a>
+        <a href="/updates">Updates</a>
+        <a href="/rules">Rules</a>
+    </div>
+</nav>
+
+<div class="hero" style="padding: 100px 20px 50px; position: relative;">
+    <div style="position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse at top, rgba(var(--gold-rgb),0.08) 0%, var(--bg) 70%);"></div>
+    <h1 style="font-size: 2.4rem;">Premium Benefits</h1>
+    <p>Every Morphscape donator rank, side by side. Scroll to compare - your current rank is
+    whatever tier matches your total lifetime support.</p>
+</div>
+
+<section style="padding-top: 0;">
+    <div class="benefits-wrap reveal">
+<table class="benefits-table">
+<thead><tr><th class="row-label corner">Benefit</th><th class="free-col"><div class="tier-head"><span class="tier-name">Free</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#ff6fa5" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#ffb3d1" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#ff6fa5" opacity="0.85"/>
+</svg><span class="tier-name">Topaz</span><span class="tier-price">$10</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#4d94ff" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#a8cbff" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#4d94ff" opacity="0.85"/>
+</svg><span class="tier-name">Sapphire</span><span class="tier-price">$25</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#16a34a" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#6ee7a0" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#16a34a" opacity="0.85"/>
+</svg><span class="tier-name">Emerald</span><span class="tier-price">$50</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#e63946" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#ff8f96" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#e63946" opacity="0.85"/>
+</svg><span class="tier-name">Ruby</span><span class="tier-price">$100</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#cfe8ff" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#ffffff" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#cfe8ff" opacity="0.85"/>
+</svg><span class="tier-name">Diamond</span><span class="tier-price">$250</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#9b59d0" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#d3a8f5" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#9b59d0" opacity="0.85"/>
+</svg><span class="tier-name">Dragonstone</span><span class="tier-price">$500</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#3a3a42" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#8a8a96" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#3a3a42" opacity="0.85"/>
+</svg><span class="tier-name">Onyx</span><span class="tier-price">$1,000</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#f5a623" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#ffd580" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#f5a623" opacity="0.85"/>
+</svg><span class="tier-name">Zenyte</span><span class="tier-price">$2,500</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#2dd4bf" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#9cf5ea" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#2dd4bf" opacity="0.85"/>
+</svg><span class="tier-name">Enchanted</span><span class="tier-price">$5,000</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#e8b923" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#fce396" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#e8b923" opacity="0.85"/>
+</svg><span class="tier-name">Gold</span><span class="tier-price">$7,500</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="#3b6fe0" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#9fbcf7" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="#3b6fe0" opacity="0.85"/>
+</svg><span class="tier-name">Eternal</span><span class="tier-price">$10,000</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs><linearGradient id="gradNebula" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6fa5"/><stop offset="50%" stop-color="#9b59d0"/><stop offset="100%" stop-color="#4d94ff"/></linearGradient></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="url(#gradNebula)" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#ffffff" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="url(#gradNebula)" opacity="0.85"/>
+</svg><span class="tier-name">Nebula</span><span class="tier-price">$15,000</span></div></th><th><div class="tier-head"><svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="gem-icon">
+<defs><linearGradient id="gradCatalytic" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f5f5f5"/><stop offset="50%" stop-color="#9ca3af"/><stop offset="100%" stop-color="#f5f5f5"/></linearGradient></defs>
+<polygon points="12,1 21,8 12,23 3,8" fill="url(#gradCatalytic)" stroke="rgba(0,0,0,0.35)" stroke-width="0.5"/>
+<polygon points="12,1 21,8 15,8 9,8 3,8" fill="#ffffff" opacity="0.55"/>
+<polygon points="9,8 15,8 12,23" fill="url(#gradCatalytic)" opacity="0.85"/>
+</svg><span class="tier-name">Catalytic</span><span class="tier-price">$25,000</span></div></th></tr></thead>
+<tbody>
+<tr><th class="row-label">Blood Money Boost on Kills</th><td class="free-col">-</td><td>5%</td><td>8%</td><td>12%</td><td>17%</td><td>21%</td><td>25%</td><td>30%</td><td>50%</td><td>70%</td><td>100%</td><td>125%</td><td>150%</td><td>200%</td></tr>
+<tr><th class="row-label">Drop Rate Boost on Uniques / Pets</th><td class="free-col">-</td><td>-</td><td><span class="dash">-</span></td><td>2%</td><td>4%</td><td>6%</td><td>8%</td><td>10%</td><td>15%</td><td>20%</td><td>25%</td><td>30%</td><td>35%</td><td>45%</td></tr>
+<tr><th class="row-label">Preset Capacity</th><td class="free-col">5</td><td>8</td><td>8</td><td>10</td><td>12</td><td>12</td><td>14</td><td>16</td><td>18</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td></tr>
+<tr><th class="row-label">Prayer Drain Reduction (outside the Wilderness)</th><td class="free-col">-</td><td>-</td><td><span class="dash">-</span></td><td>-</td><td>-</td><td>-</td><td>1.5x slower</td><td>2x slower</td><td>2.5x slower</td><td>3x slower</td><td>3.5x slower</td><td>4x slower</td><td>4.5x slower</td><td>5x slower</td></tr>
+<tr><th class="row-label">Special Attack Restore</th><td class="free-col">60 Seconds</td><td>45</td><td>40</td><td>30</td><td>25</td><td>20</td><td>10</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td></tr>
+<tr><th class="row-label">Special Recharge on PK Kill (Edgeville)</th><td class="free-col">50%</td><td>60%</td><td><span class="dash">-</span></td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
+<tr><th class="row-label">Coal Bag Capacity</th><td class="free-col">28</td><td>56</td><td><span class="dash">-</span></td><td>100</td><td>250</td><td><span class="dash">-</span></td><td>350</td><td>500</td><td>600</td><td>750</td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td></tr>
+<tr><th class="row-label">Bank Capacity (Total)</th><td class="free-col">800</td><td>900</td><td>1,000</td><td>1,100</td><td>1,220</td><td>1,220</td><td>1,220</td><td>1,220</td><td>1,220</td><td>1,220</td><td>1,220</td><td>1,220</td><td>1,220</td><td>1,220</td></tr>
+<tr><th class="row-label">Yell Cooldown</th><td class="free-col">-</td><td>60</td><td>50</td><td>40</td><td>30</td><td>20</td><td>10</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td><td>No Cooldown</td></tr>
+<tr><th class="row-label">GWD Chamber Killcount Requirement</th><td class="free-col">10</td><td>10</td><td>8</td><td>6</td><td>4</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><th class="row-label">Barrows Repair Discount</th><td class="free-col">-</td><td>10%</td><td><span class="dash">-</span></td><td>20%</td><td>30%</td><td><span class="dash">-</span></td><td>35%</td><td>40%</td><td>45%</td><td>50%</td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td></tr>
+<tr><th class="row-label">Extra Chance: Superior Slayer Monster Spawn</th><td class="free-col">-</td><td>5%</td><td>8%</td><td>10%</td><td>12%</td><td>15%</td><td>18%</td><td>20%</td><td>25%</td><td>30%</td><td>40%</td><td>60%</td><td>75%</td><td>100%</td></tr>
+<tr><th class="row-label">Extra Chance: Clue Bottle / Nest / Geode</th><td class="free-col">-</td><td>5%</td><td>8%</td><td>10%</td><td>12%</td><td>15%</td><td>18%</td><td>20%</td><td>25%</td><td>30%</td><td>40%</td><td>60%</td><td>75%</td><td>100%</td></tr>
+<tr><th class="row-label">Extra Chance: Additional Mark of Grace</th><td class="free-col">-</td><td>5%</td><td>8%</td><td>10%</td><td>12%</td><td>15%</td><td>18%</td><td>20%</td><td>25%</td><td>30%</td><td>40%</td><td>60%</td><td>75%</td><td>100%</td></tr>
+<tr><th class="row-label">Additional Crystal Key Loot Rolls</th><td class="free-col">-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>3</td></tr>
+<tr><th class="row-label">Additional Enhanced Crystal Key Loot Rolls</th><td class="free-col">-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>3</td></tr>
+<tr><th class="row-label">Discount on Zahur Services</th><td class="free-col">-</td><td>3%</td><td><span class="dash">-</span></td><td>5%</td><td>10%</td><td><span class="dash">-</span></td><td>13%</td><td>15%</td><td>20%</td><td>25%</td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td></tr>
+<tr><th class="row-label">Extra Chance: Save Steel Bar (Cannonballs)</th><td class="free-col">-</td><td>5%</td><td>8%</td><td>10%</td><td>12%</td><td>15%</td><td>20%</td><td>25%</td><td>30%</td><td>35%</td><td>40%</td><td>50%</td><td>60%</td><td>70%</td></tr>
+<tr><th class="row-label">Extra Yield When Harvesting Plants</th><td class="free-col">-</td><td>10%</td><td>15%</td><td>20%</td><td>25%</td><td>30%</td><td>35%</td><td>40%</td><td>50%</td><td>60%</td><td>70%</td><td>80%</td><td>90%</td><td>100%</td></tr>
+<tr><th class="row-label">Extra Bonus PKP</th><td class="free-col">-</td><td>10%</td><td><span class="dash">-</span></td><td>20%</td><td>30%</td><td><span class="dash">-</span></td><td>35%</td><td>40%</td><td>45%</td><td>50%</td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td></tr>
+<tr><th class="row-label">Extra Chance: Additional Voting Point</th><td class="free-col">-</td><td>10%</td><td>10%</td><td>15%</td><td>15%</td><td>20%</td><td>20%</td><td>30%</td><td>40%</td><td>50%</td><td>60%</td><td>70%</td><td>80%</td><td>100%</td></tr>
+<tr><th class="row-label">Extra Pest Control Points Per Game</th><td class="free-col">-</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+<tr><th class="row-label">Extra Time in Tears of Guthix (seconds)</th><td class="free-col">-</td><td>-</td><td>-</td><td>-</td><td>10</td><td>10</td><td>20</td><td>20</td><td>30</td><td>40</td><td>50</td><td>60</td><td>60</td><td>60</td></tr>
+<tr><th class="row-label">Discount on Points Lost in Raid on Death</th><td class="free-col">-</td><td>5%</td><td>5%</td><td>10%</td><td>15%</td><td>20%</td><td>20%</td><td>25%</td><td>35%</td><td>40%</td><td>40%</td><td>40%</td><td>50%</td><td>60%</td></tr>
+<tr><th class="row-label">Birdhouse Timer (minutes)</th><td class="free-col">40</td><td>35</td><td>35</td><td>30</td><td>30</td><td>25</td><td>20</td><td>20</td><td>20</td><td>20</td><td>15</td><td>15</td><td>15</td><td>10</td></tr>
+<tr><th class="row-label">Slayer Point Cost When Cancelling Task</th><td class="free-col">30</td><td>25</td><td>25</td><td>20</td><td>20</td><td>20</td><td>20</td><td>18</td><td>14</td><td>10</td><td>5</td><td>5</td><td>0</td><td>0</td></tr>
+<tr><th class="row-label">Additional Battlestaves from Zaff (per day)</th><td class="free-col">-</td><td>0</td><td><span class="dash">-</span></td><td>30</td><td>60</td><td><span class="dash">-</span></td><td>75</td><td>90</td><td>100</td><td>120</td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td><td><span class="dash">-</span></td></tr>
+</tbody>
+</table>
+    </div>
+    <div class="benefits-legend reveal">
+        <span><strong>-</strong> not included at this rank</span>
+        <span>Ranks stack - each tier includes everything below it</span>
+        <span>Questions? Ask in <a href="https://discord.gg/morphscape" style="color: var(--gold-bright);" target="_blank" rel="noopener">Discord</a></span>
+    </div>
+</section>
+
+<footer class="footer-v2">
+    <div class="footer-grid">
+        <div>
+            <a class="brand" href="/" style="font-size: 1.3rem;">
+                <img src="/logo.png" alt="" class="brand-logo" style="height: 30px; width: 30px;">MORPHSCAPE
+            </a>
+            <p>An old-school OSRS-based server with original custom content, end-game bosses
+            and raids, and a growing world to explore.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="/play">Play</a>
+            <a href="/earn">Earn</a>
+            <a href="/wiki">Wiki</a>
+            <a href="/store">Store</a>
+            <a href="/highscores">Highscores</a>
+            <a href="/map">Map</a>
+            <a href="/updates">Updates</a>
+        </div>
+        <div class="footer-col">
+            <h4>Info</h4>
+            <a href="/rules">Rules</a>
+            <a href="/support">Support</a>
+            <a href="/voting">Vote</a>
+            <a href="https://discord.gg/morphscape" target="_blank" rel="noopener">Discord</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Morphscape. Not affiliated with Jagex Ltd.</span>
+    </div>
+</footer>
+
+<script src="/site.js"></script>
+</body>
+</html>
