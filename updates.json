@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-07-28",
+    "tag": "Update",
+    "title": "Credit Store is live, Donator Pins now claim properly, and we're on Discord",
+    "body": "The in-game Credit Store is fully stocked - every category (Weapons, Armory, Boosts, Pets, Cosmetic, Supplies & Misc) has real items with real prices, and checkout works. Donator Pins now correctly grant Credits when claimed, and a Sanguine Torva equip bug (helm/body/legs couldn't be worn) is fixed. Also: Morphscape now has an official Discord at discord.gg/morphscape - come say hi."
+  },
+  {
     "date": "2026-07-27",
     "tag": "Update",
     "title": "Morphscape has moved to a new server build",
