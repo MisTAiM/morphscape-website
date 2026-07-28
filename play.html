@@ -55,8 +55,9 @@
         <a class="btn" href="https://github.com/MisTAiM/morphscape-releases/releases/download/v14/Morphscape-Client.jar">
             Download Client (.jar)</a>
         <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 16px;">
-            Requires Java 11+ (<a href="https://adoptium.net" style="color: var(--gold-bright);">get it free here</a>
-            if you don't have it). Once downloaded, double-click the jar to launch it, or run
+            Requires Java 11+ (<a id="jdk-download-link" href="https://adoptium.net/temurin/releases/" style="color: var(--gold-bright);">get it free here</a>
+            if you don't have it - starts the installer download immediately). Once downloaded,
+            double-click the jar to launch it, or run
             <code>java -jar Morphscape-Client.jar</code> from a terminal if double-clicking
             doesn't work on your system.</p>
     </div>
@@ -109,5 +110,23 @@
 
 <script src="/status-widget.js"></script>
 <script src="/site.js"></script>
+<script>
+// Points "get it here free" straight at a real installer download instead of Adoptium's
+// homepage - picks the right OS/package via their official redirect API (no landing page,
+// no picking a version yourself). Falls back to the releases page if we can't tell the OS.
+(function() {
+    var link = document.getElementById('jdk-download-link');
+    if (!link) return;
+    var ua = navigator.userAgent;
+    var base = 'https://api.adoptium.net/v3';
+    if (ua.indexOf('Windows') !== -1) {
+        link.href = base + '/installer/latest/21/ga/windows/x64/jdk/hotspot/normal/eclipse';
+    } else if (ua.indexOf('Mac OS X') !== -1 || ua.indexOf('Macintosh') !== -1) {
+        link.href = base + '/installer/latest/21/ga/mac/x64/jdk/hotspot/normal/eclipse';
+    } else if (ua.indexOf('Linux') !== -1) {
+        link.href = base + '/binary/latest/21/ga/linux/x64/jdk/hotspot/normal/eclipse';
+    }
+})();
+</script>
 </body>
 </html>
