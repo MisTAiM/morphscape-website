@@ -92,9 +92,22 @@
         }
     }
 
-    // Floating embers inside any .embers container (hero backgrounds).
+    // Ambient background layer applied site-wide, independent of any hero - keeps the dungeon
+    // feeling "alive" (drifting dust/sparks + slow magic-light drift) well past the hero banner,
+    // on every page. Inserted as the first element in the body so it stacks behind normal content.
+    var ambientEmbers = document.createElement('div');
+    ambientEmbers.className = 'embers ambient-embers';
+    document.body.insertBefore(ambientEmbers, document.body.firstChild);
+
+    var ambientBlobs = document.createElement('div');
+    ambientBlobs.className = 'ambient-blobs';
+    ambientBlobs.innerHTML = '<span class="blob blob-1"></span><span class="blob blob-2"></span><span class="blob blob-3"></span>';
+    document.body.insertBefore(ambientBlobs, document.body.firstChild);
+
+    // Floating embers inside any .embers container (hero backgrounds, plus the ambient layer
+    // above - which gets a lighter count since it's dimmed as a whole group via CSS opacity).
     document.querySelectorAll('.embers').forEach(function(container) {
-        var count = 22;
+        var count = container.classList.contains('ambient-embers') ? 9 : 22;
         for (var i = 0; i < count; i++) {
             var ember = document.createElement('span');
             ember.className = 'ember';

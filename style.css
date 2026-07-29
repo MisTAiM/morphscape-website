@@ -191,6 +191,14 @@ nav .links a:hover::after, nav .links a.active::after {
     100% { transform: translateY(-110vh) translateX(var(--drift, 30px)); opacity: 0; }
 }
 
+/* Same .ember/rise system, but pinned to the viewport (not a hero) and dimmed as a group so the
+   whole site keeps a faint drift of dungeon dust/sparks going, not just the hero banner. */
+.ambient-embers {
+    position: fixed;
+    z-index: -1;
+    opacity: 0.55;
+}
+
 .hero h1 {
     position: relative;
     font-family: var(--font-display);
@@ -1290,6 +1298,73 @@ footer::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ---------- Ambient aura (slow drifting glow blobs, whole site) ---------- */
+
+.ambient-blobs {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ambient-blobs .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+}
+
+.ambient-blobs .blob-1 {
+    width: 50vw;
+    height: 50vw;
+    top: -15%;
+    left: -12%;
+    opacity: 0.1;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    animation: blob-drift-1 46s ease-in-out infinite alternate;
+}
+
+.ambient-blobs .blob-2 {
+    width: 42vw;
+    height: 42vw;
+    bottom: -18%;
+    right: -10%;
+    opacity: 0.07;
+    background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+    animation: blob-drift-2 58s ease-in-out infinite alternate;
+}
+
+.ambient-blobs .blob-3 {
+    width: 36vw;
+    height: 36vw;
+    top: 42%;
+    left: 58%;
+    opacity: 0.08;
+    background: radial-gradient(circle, var(--gold-bright) 0%, transparent 70%);
+    animation: blob-drift-3 52s ease-in-out infinite alternate;
+}
+
+@keyframes blob-drift-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(8vw, 10vh) scale(1.15); }
+}
+
+@keyframes blob-drift-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-9vw, -8vh) scale(1.1); }
+}
+
+@keyframes blob-drift-3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-6vw, 9vh) scale(0.9); }
+}
+
+@media (max-width: 720px) {
+    /* Heavy blur over large elements is costly on low-power/mobile GPUs - skip it there. */
+    .ambient-blobs { display: none; }
+}
+
 /* ---------- Cursor torch-glow (desktop pointer only) ---------- */
 
 .cursor-glow {
@@ -1450,7 +1525,7 @@ footer::before {
     html { scroll-behavior: auto; }
     .ember, .reveal, .btn::before, .package.featured, .server-status.online .dot,
     .hero.hero-splash::before, .intro-veil img, .ornate-divider::after, .divider::after,
-    .icon-badge, .package .tag, section h2, .hero h1 {
+    .icon-badge, .package .tag, section h2, .hero h1, .ambient-blobs .blob {
         animation: none !important;
         transition: none !important;
     }
