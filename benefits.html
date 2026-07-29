@@ -34,13 +34,12 @@
   .row-label {
     text-align: left; font-weight: 500; color: var(--text);
     position: sticky; left: 0; z-index: 2;
-    background: var(--bg-panel); white-space: normal; max-width: 260px; min-width: 220px;
+    background: var(--bg-panel); white-space: normal; width: 220px;
   }
   .benefits-table thead th.row-label { z-index: 4; background: var(--bg-panel-2); }
   .row-label.corner { background: var(--bg-panel-2); }
-  .free-col { background: rgba(255,255,255,0.02); color: var(--text-dim); font-weight: 600; min-width: 76px; }
-  thead .free-col { position: sticky; left: 220px; }
-  @media (min-width: 640px) { thead .free-col { left: 260px; } }
+  .free-col { background: rgba(255,255,255,0.02); color: var(--text-dim); font-weight: 600; width: 76px; }
+  thead .free-col { position: sticky; left: 220px; z-index: 4; }
   .tier-head { display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .tier-name { font-family: var(--font-display); color: var(--gold-bright); font-size: .95rem; letter-spacing: .3px; }
   .tier-price { color: var(--text-dim); font-size: .75rem; font-weight: 500; }
