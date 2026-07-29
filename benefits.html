@@ -17,6 +17,7 @@
 <style>
   .benefits-wrap {
     overflow-x: auto;
+    overflow-y: visible;
     border: 1px solid var(--border);
     border-radius: 12px;
     background: var(--bg-panel);
@@ -35,9 +36,9 @@
     position: sticky; left: 0; z-index: 2;
     background: var(--bg-panel); white-space: normal; max-width: 260px; min-width: 220px;
   }
-  thead .row-label { z-index: 4; background: var(--bg-panel-2); }
+  .benefits-table thead th.row-label { z-index: 4; background: var(--bg-panel-2); }
   .row-label.corner { background: var(--bg-panel-2); }
-  .free-col { background: rgba(255,255,255,0.02); color: var(--text-dim); font-weight: 600; }
+  .free-col { background: rgba(255,255,255,0.02); color: var(--text-dim); font-weight: 600; min-width: 76px; }
   thead .free-col { position: sticky; left: 220px; }
   @media (min-width: 640px) { thead .free-col { left: 260px; } }
   .tier-head { display: flex; flex-direction: column; align-items: center; gap: 4px; }
