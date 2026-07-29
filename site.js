@@ -60,9 +60,23 @@
         });
     }
 
-    // Fade + rise-in animation for cards/sections as they enter the viewport.
+    // Fade + rise-in animation for cards/sections as they enter the viewport. Siblings sharing a
+    // parent get a small incremental delay so grids of cards/steps cascade in rather than all
+    // popping at once (capped so long lists don't end up feeling sluggish).
     var revealTargets = document.querySelectorAll('.reveal');
     if (revealTargets.length) {
+        revealTargets.forEach(function(el) {
+            var parent = el.parentElement;
+            if (!parent) return;
+            var siblings = Array.prototype.filter.call(parent.children, function(c) {
+                return c.classList && c.classList.contains('reveal');
+            });
+            if (siblings.length < 2) return;
+            var idx = siblings.indexOf(el);
+            if (idx > 0) {
+                el.style.transitionDelay = Math.min(idx * 90, 450) + 'ms';
+            }
+        });
         if ('IntersectionObserver' in window) {
             var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
@@ -190,5 +204,31 @@
             });
         }, { threshold: 0.4 });
         statNums.forEach(function(el) { statObserver.observe(el); });
+    }
+
+    // Small gold spark burst on button click - a bit of tactile "impact" feedback. Spawned on
+    // document.body (not inside the button) since .btn has overflow:hidden for its shine sweep.
+    if (!reducedMotion) {
+        document.querySelectorAll('.btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                var originX = e.clientX;
+                var originY = e.clientY;
+                var count = 7;
+                for (var i = 0; i < count; i++) {
+                    var spark = document.createElement('span');
+                    spark.className = 'btn-spark';
+                    var angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+                    var dist = 26 + Math.random() * 22;
+                    spark.style.left = originX + 'px';
+                    spark.style.top = originY + 'px';
+                    spark.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+                    spark.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+                    document.body.appendChild(spark);
+                    (function(s) {
+                        s.addEventListener('animationend', function() { s.remove(); });
+                    })(spark);
+                }
+            });
+        });
     }
 })();

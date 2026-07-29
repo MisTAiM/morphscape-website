@@ -23,7 +23,9 @@
   .store-table .price { text-align:right; white-space:nowrap; color: var(--gold-bright); font-weight:600; padding-left: 14px; }
   .item-icon { width: 32px; height: 28px; object-fit: contain; vertical-align: middle; margin-right: 8px; }
   .store-tag { display:inline-block; margin-left:8px; font-size:.68rem; padding:2px 7px; border-radius:20px; background: rgba(46,204,113,0.15); color:#7be89a; vertical-align:middle; }
-  .store-tag-limited { background: rgba(230,57,70,0.15); color:#f0a3a9; }
+  .store-tag-limited { background: rgba(230,57,70,0.15); color:#f0a3a9; animation: tag-pulse-red 2.2s ease-in-out infinite; }
+  @keyframes tag-pulse-red { 0%, 100% { box-shadow: 0 0 0 rgba(230,57,70,0); } 50% { box-shadow: 0 0 10px rgba(230,57,70,0.55); } }
+  @media (prefers-reduced-motion: reduce) { .store-tag-limited { animation: none; } }
 </style>
 </head>
 <body>
